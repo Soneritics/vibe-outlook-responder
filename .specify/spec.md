@@ -250,9 +250,9 @@ As a user, I want to see helpful error messages when something goes wrong so tha
 - **SC-003**: Add-in loads and is interactive within 1 second of Outlook compose window opening.
 - **SC-004**: 95% of API errors result in user-friendly error messages (not technical errors).
 - **SC-005**: Saved prompts persist across 100% of Outlook restarts.
-- **SC-006**: Add-in works correctly on Outlook Desktop (Windows/Mac), Outlook Web, and Outlook Mobile.
+- **SC-006**: Add-in core features (generation, settings, prompts) are functional on Outlook Desktop (Windows/Mac), Outlook Web, and Outlook Mobile.
 - **SC-007**: Prompts sync across devices within 30 seconds of save.
-- **SC-008**: UI displays correctly in all supported Outlook locales.
+- **SC-008**: UI elements render without layout breaks in all supported Outlook locales (en, de, fr, es).
 
 ## UI Components Summary
 

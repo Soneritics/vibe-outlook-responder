@@ -117,7 +117,7 @@
 
 ### Implementation for User Story 2
 
-- [ ] T047 [US2] Implement `RoamingSync` in `src/services/storage/RoamingSync.ts` (Office.RoamingSettings wrapper)
+- [ ] T047 [US2] Implement `RoamingSync` in `src/services/storage/RoamingSync.ts` (Office.RoamingSettings wrapper, last-write-wins for sync conflicts per FR-032b)
 - [ ] T048 [US2] Implement `PromptStorage` in `src/services/storage/PromptStorage.ts` (CRUD with roaming sync)
 - [ ] T049 [US2] Implement `usePrompts` hook in `src/taskpane/hooks/usePrompts.ts`
 - [ ] T050 [US2] Create `PromptEditor` component in `src/taskpane/components/prompts/PromptEditor.tsx` (title 100 chars, content 10k chars)
@@ -172,7 +172,7 @@
 
 ### Implementation for User Story 4
 
-- [ ] T070 [US4] Implement `OpenAIClient` in `src/services/openai/OpenAIClient.ts` (direct API calls, no system prompt wrapping)
+- [ ] T070 [US4] Implement `OpenAIClient` in `src/services/openai/OpenAIClient.ts` (direct API calls, no system prompt wrapping, no timeout per FR-029c)
 - [ ] T071 [US4] Implement `TokenCounter` in `src/services/openai/TokenCounter.ts` (using tiktoken)
 - [ ] T072 [US4] Implement `ContentSummarizer` in `src/services/openai/ContentSummarizer.ts` (auto-summarize long threads)
 - [ ] T073 [US4] Implement `EmailParser` in `src/services/email/EmailParser.ts` (extract thread content, preserve HTML)
