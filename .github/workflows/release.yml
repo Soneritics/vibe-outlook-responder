@@ -2,14 +2,7 @@ name: Release
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
-  workflow_dispatch:
-    inputs:
-      version:
-        description: '1.0.0'
-        required: true
-        type: string
+    branches: [gh-pages]
 
 permissions:
   contents: write
