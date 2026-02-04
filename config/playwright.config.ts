@@ -32,11 +32,9 @@ export default defineConfig({
 
   webServer: {
     command: 'npm run dev',
-    url: 'https://localhost:3000',
-    reuseExistingServer: !(process.env.CI ?? false),
+    url: 'https://localhost:3000/taskpane.html',
+    reuseExistingServer: !process.env.CI,
     ignoreHTTPSErrors: true,
-    timeout: 120000, // 2 minutes for CI builds
-    stdout: 'pipe',
-    stderr: 'pipe',
+    timeout: 180000, // 3 minutes for CI builds
   },
 });
