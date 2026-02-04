@@ -2,8 +2,9 @@ import en from './en.json';
 import de from './de.json';
 import fr from './fr.json';
 import es from './es.json';
+import nl from './nl.json';
 
-export type Locale = 'en' | 'de' | 'fr' | 'es';
+export type Locale = 'en' | 'de' | 'fr' | 'es' | 'nl';
 
 export interface TranslationStrings {
   common: {
@@ -123,6 +124,7 @@ export const translations: Record<Locale, TranslationStrings> = {
   de,
   fr,
   es,
+  nl,
 };
 
 /**
@@ -133,7 +135,7 @@ export const DEFAULT_LOCALE: Locale = 'en';
 /**
  * Supported locales
  */
-export const SUPPORTED_LOCALES: Locale[] = ['en', 'de', 'fr', 'es'];
+export const SUPPORTED_LOCALES: Locale[] = ['en', 'de', 'fr', 'es', 'nl'];
 
 /**
  * Locale names for display in UI
@@ -143,4 +145,5 @@ export const LOCALE_NAMES: Record<Locale, string> = {
   de: 'Deutsch',
   fr: 'Français',
   es: 'Español',
+  nl: 'Nederlands',
 };

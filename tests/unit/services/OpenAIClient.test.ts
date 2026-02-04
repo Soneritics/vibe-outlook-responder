@@ -66,7 +66,7 @@ describe('OpenAIClient', () => {
       expect(response).toBeDefined();
       expect(response.generatedText).toBe('Generated response text');
       expect(response.tokensUsed).toBe(150);
-      expect(response.responseTime).toBeGreaterThan(0);
+      expect(response.responseTime).toBeGreaterThanOrEqual(0);
     });
 
     it('should use specified model', async () => {

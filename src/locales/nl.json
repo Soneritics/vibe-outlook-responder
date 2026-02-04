@@ -1,0 +1,114 @@
+{
+  "common": {
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen",
+    "confirm": "Bevestigen",
+    "retry": "Opnieuw proberen",
+    "close": "Sluiten",
+    "back": "Terug",
+    "loading": "Laden..."
+  },
+  "errors": {
+    "apiKey": {
+      "required": "API-sleutel is vereist",
+      "invalidFormat": "API-sleutel moet beginnen met \"sk-\" en minimaal 20 tekens bevatten",
+      "connectionFailed": "Verbinding met OpenAI mislukt. Controleer uw API-sleutel."
+    },
+    "prompt": {
+      "titleRequired": "Prompttitel is vereist",
+      "titleTooLong": "Prompttitel mag maximaal 100 tekens bevatten",
+      "titleDuplicate": "Er bestaat al een prompt met deze titel",
+      "contentRequired": "Promptinhoud is vereist",
+      "contentTooLong": "Promptinhoud mag maximaal 10.000 tekens bevatten"
+    },
+    "generation": {
+      "noApiKey": "Configureer uw API-sleutel in Instellingen voordat u reacties genereert",
+      "noEmailContent": "Geen e-mailinhoud gevonden om een reactie te genereren",
+      "invalidApiKey": "Ongeldige of verlopen API-sleutel. Controleer uw instellingen.",
+      "apiUnavailable": "ChatGPT-service is tijdelijk niet beschikbaar. Probeer het later opnieuw.",
+      "rateLimit": "Limiet overschreden. Wacht even en probeer het opnieuw.",
+      "contentPolicy": "Inhoud is in strijd met het inhoudsbeleid van OpenAI",
+      "networkError": "Netwerkfout. Controleer uw verbinding en probeer het opnieuw.",
+      "unknownError": "Er is een onverwachte fout opgetreden. Probeer het opnieuw.",
+      "cancelled": "Genereren geannuleerd door gebruiker"
+    },
+    "storage": {
+      "saveFailed": "Opslaan mislukt. Probeer het opnieuw.",
+      "loadFailed": "Laden mislukt. Vernieuw de pagina en probeer het opnieuw.",
+      "quotaExceeded": "Opslaglimiet bereikt. Verwijder enkele prompts."
+    },
+    "importExport": {
+      "exportFailed": "Exporteren van prompts mislukt. Probeer het opnieuw.",
+      "importFailed": "Importeren van prompts mislukt. Controleer de klembordinhoud.",
+      "invalidJson": "Klembordinhoud is geen geldige JSON"
+    }
+  },
+  "success": {
+    "saved": "Succesvol opgeslagen",
+    "deleted": "Succesvol verwijderd",
+    "exported": "Prompts geëxporteerd naar klembord",
+    "imported": "Prompts succesvol geïmporteerd",
+    "connectionSuccess": "API-sleutel succesvol geverifieerd",
+    "resetComplete": "Alle gegevens zijn gereset"
+  },
+  "confirmation": {
+    "deletePrompt": "Weet u zeker dat u deze prompt wilt verwijderen?",
+    "resetAllData": "Hiermee worden alle prompts en instellingen verwijderd. Doorgaan?"
+  },
+  "settings": {
+    "title": "Instellingen",
+    "apiKey": {
+      "label": "OpenAI API-sleutel",
+      "placeholder": "sk-...",
+      "testConnection": "Verbinding testen"
+    },
+    "model": {
+      "label": "ChatGPT-model",
+      "gpt5": "GPT-5 (Aanbevolen)",
+      "gpt4": "GPT-4",
+      "gpt4turbo": "GPT-4 Turbo",
+      "gpt35turbo": "GPT-3.5 Turbo"
+    },
+    "keyboardShortcuts": {
+      "title": "Sneltoetsen",
+      "openPromptDropdown": "Promptmenu openen"
+    },
+    "exportImport": {
+      "title": "Prompts exporteren/importeren",
+      "export": "Exporteren naar klembord",
+      "import": "Importeren van klembord"
+    },
+    "resetAllData": "Alle gegevens resetten"
+  },
+  "prompts": {
+    "title": "Prompts",
+    "managePrompts": "Prompts beheren",
+    "addNew": "Aangepaste prompt toevoegen",
+    "addNewPrompt": "Nieuwe prompt toevoegen",
+    "editor": {
+      "title": "Prompt bewerken",
+      "titleLabel": "Prompttitel",
+      "titlePlaceholder": "Voer een beschrijvende titel in...",
+      "contentLabel": "Promptinhoud",
+      "contentPlaceholder": "Voer hier uw prompt in..."
+    },
+    "emptyState": "Nog geen prompts. Maak uw eerste prompt om te beginnen!"
+  },
+  "generation": {
+    "progress": {
+      "preparing": "Voorbereiden",
+      "sending": "Verzenden",
+      "generating": "Genereren",
+      "done": "Voltooid",
+      "cancel": "Annuleren"
+    },
+    "summarizationNotice": "Let op: E-mailthread is samengevat om binnen tokenlimiet te blijven"
+  },
+  "ribbon": {
+    "aiResponder": "AI Responder",
+    "aiAssistant": "AI Assistent",
+    "aiReply": "AI Antwoord",
+    "settings": "Instellingen"
+  }
+}
