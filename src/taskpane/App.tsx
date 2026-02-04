@@ -6,11 +6,14 @@ import { Prompt } from '../models/Prompt';
 // Lazy load all major panels for better performance
 const SettingsPanel = lazy(() => import('./components/settings/SettingsPanel').then(m => ({ default: m.SettingsPanel })));
 const PromptEditor = lazy(() => import('./components/prompts/PromptEditor').then(m => ({ default: m.PromptEditor })));
+const ManagePromptsScreen = lazy(() => import('./components/prompts/ManagePromptsScreen').then(m => ({ default: m.ManagePromptsScreen })));
 const MainScreen = lazy(() => import('./components/main/MainScreen').then(m => ({ default: m.MainScreen })));
 const GenerationPanel = lazy(() => import('./components/generation/GenerationPanel').then(m => ({ default: m.GenerationPanel })));
+const GenerateScreen = lazy(() => import('./components/generation/GenerateScreen').then(m => ({ default: m.GenerateScreen })));
 
 const App: React.FC = () => {
-  const [currentPanel, setCurrentPanel] = useState<string>('home');
+  const [currentPanel, setCurrentPanel] = useState<string>('manage-prompts');
+  const [previousPanel, setPreviousPanel] = useState<string>('manage-prompts');
   const [editPromptId, setEditPromptId] = useState<string | null>(null);
   const [editPrompt, setEditPrompt] = useState<Prompt | undefined>(undefined);
   const [generationPromptId, setGenerationPromptId] = useState<string | null>(null);
@@ -25,6 +28,9 @@ const App: React.FC = () => {
     
     if (panel) {
       setCurrentPanel(panel);
+    } else {
+      // Default to manage-prompts if no panel specified
+      setCurrentPanel('manage-prompts');
     }
     if (promptId) {
       if (panel === 'generation') {
@@ -56,10 +62,10 @@ const App: React.FC = () => {
       // Create new prompt
       await createPrompt(data);
     }
-    // Force MainScreen to refresh by incrementing key
+    // Force refresh by incrementing key
     setRefreshKey((k) => k + 1);
-    // Return to main screen
-    setCurrentPanel('main');
+    // Stay in panel - navigate to manage-prompts (FR-052)
+    setCurrentPanel('manage-prompts');
     setEditPromptId(null);
     setEditPrompt(undefined);
   };
@@ -67,28 +73,37 @@ const App: React.FC = () => {
   const handleDeletePrompt = async () => {
     if (editPromptId) {
       await deletePrompt(editPromptId);
-      // Force MainScreen to refresh by incrementing key
+      // Force refresh by incrementing key
       setRefreshKey((k) => k + 1);
-      // Return to main screen
-      setCurrentPanel('main');
+      // Navigate to manage-prompts
+      setCurrentPanel('manage-prompts');
       setEditPromptId(null);
       setEditPrompt(undefined);
     }
   };
 
+  const handleBack = () => {
+    // Navigate back to previous panel
+    setCurrentPanel(previousPanel);
+    setEditPromptId(null);
+    setEditPrompt(undefined);
+  };
+
   const handleCancelPrompt = () => {
-    // Return to main screen instead of closing
-    setCurrentPanel('main');
+    // Return to manage-prompts instead of closing
+    setCurrentPanel('manage-prompts');
     setEditPromptId(null);
     setEditPrompt(undefined);
   };
 
   const handleEditPrompt = (promptId: string) => {
+    setPreviousPanel(currentPanel);
     setEditPromptId(promptId);
     setCurrentPanel('prompt-editor');
   };
 
   const handleAddPrompt = () => {
+    setPreviousPanel(currentPanel);
     setEditPromptId(null);
     setEditPrompt(undefined);
     setCurrentPanel('prompt-editor');
@@ -102,6 +117,14 @@ const App: React.FC = () => {
     switch (currentPanel) {
       case 'settings':
         return <SettingsPanel />;
+      case 'manage-prompts':
+        return (
+          <ManagePromptsScreen
+            key={refreshKey}
+            onEditPrompt={handleEditPrompt}
+            onAddPrompt={handleAddPrompt}
+          />
+        );
       case 'prompt-editor': {
         return (
           <PromptEditor
@@ -109,9 +132,17 @@ const App: React.FC = () => {
             onSave={handleSavePrompt}
             onCancel={handleCancelPrompt}
             onDelete={editPromptId ? handleDeletePrompt : undefined}
+            onBack={handleBack}
           />
         );
       }
+      case 'generate':
+        return (
+          <GenerateScreen
+            onOpenSettings={handleOpenSettings}
+            onAddPrompt={handleAddPrompt}
+          />
+        );
       case 'generation': {
         if (!generationPromptId) {
           return <div>Error: No prompt ID provided for generation</div>;

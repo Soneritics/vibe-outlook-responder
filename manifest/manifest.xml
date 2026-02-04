@@ -11,7 +11,7 @@
   <Version>1.0.0.0</Version>
   <ProviderName>Vibe Outlook Responder</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="AI Responder"/>
+  <DisplayName DefaultValue="AI Assistant"/>
   <Description DefaultValue="ChatGPT-powered email response generator for Outlook"/>
   <IconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
   <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-128.png"/>
@@ -90,19 +90,19 @@
                       <bt:Image size="80" resid="Icon.80x80"/>
                     </Icon>
                     <Items>
-                      <Item id="msgReadAddPrompt">
-                        <Label resid="AddPromptLabel"/>
+                      <Item id="msgReadManagePrompts">
+                        <Label resid="ManagePromptsLabel"/>
                         <Supertip>
-                          <Title resid="AddPromptLabel"/>
-                          <Description resid="AddPromptTooltip"/>
+                          <Title resid="ManagePromptsLabel"/>
+                          <Description resid="ManagePromptsTooltip"/>
                         </Supertip>
                         <Icon>
                           <bt:Image size="16" resid="Icon.16x16"/>
                           <bt:Image size="32" resid="Icon.32x32"/>
                           <bt:Image size="80" resid="Icon.80x80"/>
                         </Icon>
-                        <Action xsi:type="ExecuteFunction">
-                          <FunctionName>openAddPrompt</FunctionName>
+                        <Action xsi:type="ShowTaskpane">
+                          <SourceLocation resid="Taskpane.ManagePromptsUrl"/>
                         </Action>
                       </Item>
                       <Item id="msgReadOpenSettings">
@@ -116,8 +116,8 @@
                           <bt:Image size="32" resid="Icon.32x32"/>
                           <bt:Image size="80" resid="Icon.80x80"/>
                         </Icon>
-                        <Action xsi:type="ExecuteFunction">
-                          <FunctionName>openSettings</FunctionName>
+                        <Action xsi:type="ShowTaskpane">
+                          <SourceLocation resid="Taskpane.SettingsUrl"/>
                         </Action>
                       </Item>
                     </Items>
@@ -131,49 +131,20 @@
               <OfficeTab id="TabDefault">
                 <Group id="msgComposeGroup">
                   <Label resid="GroupLabel"/>
-                  <Control xsi:type="Menu" id="msgComposeMenuButton">
-                    <Label resid="MenuButtonLabel"/>
+                  <Control xsi:type="Button" id="msgComposeButton">
+                    <Label resid="ComposeMenuButtonLabel"/>
                     <Supertip>
-                      <Title resid="MenuButtonLabel"/>
-                      <Description resid="MenuButtonTooltip"/>
+                      <Title resid="ComposeMenuButtonLabel"/>
+                      <Description resid="ComposeButtonTooltip"/>
                     </Supertip>
                     <Icon>
                       <bt:Image size="16" resid="Icon.16x16"/>
                       <bt:Image size="32" resid="Icon.32x32"/>
                       <bt:Image size="80" resid="Icon.80x80"/>
                     </Icon>
-                    <Items>
-                      <Item id="msgComposeAddPrompt">
-                        <Label resid="AddPromptLabel"/>
-                        <Supertip>
-                          <Title resid="AddPromptLabel"/>
-                          <Description resid="AddPromptTooltip"/>
-                        </Supertip>
-                        <Icon>
-                          <bt:Image size="16" resid="Icon.16x16"/>
-                          <bt:Image size="32" resid="Icon.32x32"/>
-                          <bt:Image size="80" resid="Icon.80x80"/>
-                        </Icon>
-                        <Action xsi:type="ExecuteFunction">
-                          <FunctionName>openAddPrompt</FunctionName>
-                        </Action>
-                      </Item>
-                      <Item id="msgComposeSettings">
-                        <Label resid="SettingsLabel"/>
-                        <Supertip>
-                          <Title resid="SettingsLabel"/>
-                          <Description resid="SettingsTooltip"/>
-                        </Supertip>
-                        <Icon>
-                          <bt:Image size="16" resid="Icon.16x16"/>
-                          <bt:Image size="32" resid="Icon.32x32"/>
-                          <bt:Image size="80" resid="Icon.80x80"/>
-                        </Icon>
-                        <Action xsi:type="ExecuteFunction">
-                          <FunctionName>openSettings</FunctionName>
-                        </Action>
-                      </Item>
-                    </Items>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="Taskpane.GenerateUrl"/>
+                    </Action>
                   </Control>
                 </Group>
               </OfficeTab>
@@ -191,16 +162,23 @@
         </bt:Images>
         <bt:Urls>
           <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html"/>
+          <bt:Url id="Taskpane.ManagePromptsUrl" DefaultValue="https://localhost:3000/taskpane.html?panel=manage-prompts"/>
+          <bt:Url id="Taskpane.SettingsUrl" DefaultValue="https://localhost:3000/taskpane.html?panel=settings"/>
+          <bt:Url id="Taskpane.GenerateUrl" DefaultValue="https://localhost:3000/taskpane.html?panel=generate"/>
           <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html"/>
         </bt:Urls>
         <bt:ShortStrings>
-          <bt:String id="GroupLabel" DefaultValue="AI Responder"/>
-          <bt:String id="MenuButtonLabel" DefaultValue="AI Responder"/>
+          <bt:String id="GroupLabel" DefaultValue="AI Assistant"/>
+          <bt:String id="MenuButtonLabel" DefaultValue="AI Assistant"/>
+          <bt:String id="ComposeMenuButtonLabel" DefaultValue="AI Reply"/>
+          <bt:String id="ManagePromptsLabel" DefaultValue="Manage Prompts"/>
           <bt:String id="SettingsLabel" DefaultValue="Settings"/>
           <bt:String id="AddPromptLabel" DefaultValue="Add Custom Prompt"/>
         </bt:ShortStrings>
         <bt:LongStrings>
           <bt:String id="MenuButtonTooltip" DefaultValue="Generate AI-powered email responses"/>
+          <bt:String id="ComposeButtonTooltip" DefaultValue="Select a prompt to generate an AI-powered reply"/>
+          <bt:String id="ManagePromptsTooltip" DefaultValue="View, create, and edit custom prompts"/>
           <bt:String id="SettingsTooltip" DefaultValue="Configure ChatGPT API key and settings"/>
           <bt:String id="AddPromptTooltip" DefaultValue="Create a new custom prompt"/>
         </bt:LongStrings>

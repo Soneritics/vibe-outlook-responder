@@ -22,7 +22,12 @@
 | Delete Confirmation  | Simple confirmation dialog                                          |
 | First-Time Use       | Allow creating prompts before API key is set; block generation only |
 | Prompt Field Limits  | Title: 100 chars, Content: 10,000 chars                             |
-| Compose Dropdown     | Shows prompts + "Add Custom Prompt" (no Settings)                   |
+| Manage Prompts Screen| Side panel opens from    | List of prompts with click-to-edit + Add New button (Recommended) |
+| Prompt Editor (Compose) | Side panel (consistent with main screen) |
+| Navigation          | Back button to return to Manage Prompts list after editing           |
+| Button Configuration | Two separate buttons: "AI Assistant" (main) and "AI Reply" (compose) |
+| First-time Guidance  | No special messaging; just show empty list                           |
+| Panel Behavior       | Stay open after save (user manually closes)                          |
 | Multiple Generations | Allowed; each inserts above previous                                |
 | Keyboard Shortcuts   | Configurable in settings                                            |
 | Response Preview     | No preview; insert directly inline                                  |
@@ -39,7 +44,7 @@
 | Demo Mode            | None; API key required for generation                               |
 | Usage Logging        | No logging; privacy first                                           |
 | Button Appearance    | Ribbon button with icon and text label                              |
-| Button Label         | "AI Responder"                                                      |
+| Button Label         | "AI Assistant"                                                      |
 | Screen Display       | Dialog/Taskpane (standard Outlook add-in panel)                     |
 | Sync Conflict        | Last write wins (most recent save overwrites)                       |
 | Email Attachments    | No special handling; generate normally                              |
@@ -152,13 +157,16 @@ As a user, I want to see helpful error messages when something goes wrong so tha
 
 **Main Outlook Screen Button/Dropdown**:
 
-- **FR-001**: Add-in MUST display a button labeled "AI Responder" with icon in the main Outlook ribbon/toolbar.
+- **FR-001**: Add-in MUST display a button labeled "AI Assistant" with icon in the main Outlook ribbon/toolbar.
+- **FR-001a**: Button MUST always be active/enabled, regardless of whether an email is selected.
 - **FR-002**: Button MUST show a dropdown menu when clicked.
-- **FR-003**: Dropdown MUST display user-configured prompt titles at the top (alphabetically).
-- **FR-004**: Dropdown MUST show a separator line after prompt titles.
-- **FR-005**: Dropdown MUST show "Add Custom Prompt" option after first separator.
-- **FR-006**: Dropdown MUST show a separator line after "Add Custom Prompt".
-- **FR-007**: Dropdown MUST show "Settings" as the last item.
+- **FR-003**: Dropdown MUST display exactly 2 items: "Manage Prompts" and "Settings".
+- **FR-004**: [REMOVED - no longer applicable]
+- **FR-005**: [REMOVED - no longer applicable]
+- **FR-006**: [REMOVED - no longer applicable]
+- **FR-007**: [REMOVED - merged into FR-003]
+- **FR-007a**: "Manage Prompts" MUST open in the side panel (taskpane), NOT a modal dialog.
+- **FR-007b**: "Settings" MUST open in the side panel (taskpane), NOT a modal dialog.
 
 **Settings Screen**:
 
@@ -184,9 +192,19 @@ As a user, I want to see helpful error messages when something goes wrong so tha
 - **FR-021a**: Delete action MUST show a simple confirmation dialog before proceeding.
 - **FR-021b**: Prompt titles MUST be unique; saving duplicate title MUST be blocked with error message.
 
+**Manage Prompts Screen**:
+
+- **FR-047**: Manage Prompts screen MUST display a list of all prompts with click-to-edit functionality.
+- **FR-048**: Manage Prompts screen MUST include an "Add New Prompt" button.
+- **FR-049**: Clicking a prompt in the list MUST navigate to the Prompt Editor with that prompt pre-filled.
+- **FR-050**: Prompt Editor MUST include a back button to return to Manage Prompts list.
+- **FR-051**: "Add Custom Prompt" from compose dropdown MUST open in side panel (consistent with main screen).
+- **FR-052**: Side panel MUST stay open after saving (user manually closes).
+- **FR-053**: Empty prompt list MUST show without special first-time messaging.
+
 **Email Compose Screen Integration**:
 
-- **FR-022**: Add-in MUST display a dropdown labeled "AI Responder" in the compose toolbar for new, reply, and forward email actions.
+- **FR-022**: Add-in MUST display a dropdown button labeled "AI Reply" in the compose toolbar for new, reply, and forward email actions.
 - **FR-023**: Compose dropdown MUST list all user-configured prompts alphabetically by title.
 - **FR-023a**: Compose dropdown MUST include "Add Custom Prompt" option (after separator), but NOT Settings.
 - **FR-024**: When prompt is selected, add-in MUST send email content + prompt to ChatGPT API without additional system prompt wrapping.
@@ -269,9 +287,10 @@ As a user, I want to see helpful error messages when something goes wrong so tha
 
 | Location             | Component                                  | Contents                                                                                                                                                                             |
 | -------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Main Outlook Screen  | Ribbon Button "AI Responder" (icon + text) | Dropdown: Prompt titles (alphabetical) → Separator → "Add Custom Prompt" → Separator → "Settings"                                                                                    |
-| Settings Screen      | Taskpane/Dialog                            | API Key input (masked) + Test Connection button, Model selector (GPT-5 default), Keyboard shortcut config, Export/Import Prompts buttons, Reset All Data button, Save/Cancel buttons |
-| Prompt Editor Screen | Taskpane/Dialog                            | Title field (100 char max, unique), Prompt textarea (10,000 char max), Save/Delete/Cancel buttons                                                                                    |
-| Email Compose Screen | Ribbon Button "AI Responder" (icon + text) | Dropdown: Prompt titles (alphabetical) → Separator → "Add Custom Prompt"                                                                                                             |
+| Main Outlook Screen  | Ribbon Button "AI Assistant" (icon + text, always active) | Dropdown: "Manage Prompts" → "Settings" (both open in side panel)                                                                                    |
+| Settings Screen      | Side Panel (Taskpane)                      | API Key input (masked) + Test Connection button, Model selector (GPT-5 default), Keyboard shortcut config, Export/Import Prompts buttons, Reset All Data button, Save/Cancel buttons |
+| Prompt Editor Screen | Side Panel (Taskpane)                      | Title field (100 char max, unique), Prompt textarea (10,000 char max), Save/Delete/Cancel buttons                                                                                    |
+| Manage Prompts Screen| Side Panel (Taskpane)                      | List of prompts with edit/delete options, Add New Prompt button                                                                                                                       |
+| Email Compose Screen | Ribbon Button "AI Reply" (icon + text) | Dropdown: Prompt titles (alphabetical) → Separator → "Add Custom Prompt"                                                                                                             |
 | Generation Progress  | Overlay/Banner in compose                  | Progress bar (Preparing → Sending → Generating → Done) + Cancel button                                                                                                               |
 | Error State          | Banner in compose                          | Error message (including OpenAI policy messages) + Retry button                                                                                                                      |

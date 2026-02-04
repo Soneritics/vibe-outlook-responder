@@ -386,3 +386,123 @@ T073, T074, T075 (Email services) ─── Run together
 - Commit after each task or logical group
 - Constitution requires: 80% coverage, <50 line functions, <300 line files
 - All external API calls must be mocked in tests
+
+---
+
+## Phase 11: UI Updates (AI Assistant Rename & Navigation)
+
+**Purpose**: Update UI to match revised specification (Feb 2026)
+
+**Changes Summary**:
+- Rename "AI Responder" → "AI Assistant" (main) / "AI Reply" (compose)
+- Simplify main dropdown to 2 items: "Manage Prompts" + "Settings"
+- Open all screens in side panel (taskpane)
+- Create new ManagePromptsScreen with list view
+- Add back navigation from PromptEditor
+- Button always active regardless of email selection
+
+### Manifest Updates
+
+- [X] T126 [INFRA] Update manifest DisplayName from "AI Responder" to "AI Assistant"
+- [X] T127 [INFRA] Update manifest GroupLabel and MenuButtonLabel to "AI Assistant"
+- [X] T128 [INFRA] Add new ShortString "ComposeMenuButtonLabel" with value "AI Reply"
+- [X] T129 [INFRA] Update compose menu button to use ComposeMenuButtonLabel
+- [X] T130 [INFRA] Simplify MessageReadCommandSurface dropdown to 2 items: "Manage Prompts" and "Settings"
+- [X] T131 [INFRA] Add ManagePromptsLabel ShortString with value "Manage Prompts"
+- [X] T132 [INFRA] Change main menu actions from ExecuteFunction to ShowTaskpane
+- [X] T133 [INFRA] Add Taskpane URL resources with panel parameters (?panel=manage-prompts, ?panel=settings)
+- [X] T134 [INFRA] Update activation rules to ensure button is always enabled (FR-001a)
+  - Remove `FormType` restriction from MessageReadCommandSurface Rule element
+  - Change `<Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>` to `<Rule xsi:type="ItemIs" ItemType="Message"/>`
+  - This allows button to be active regardless of email selection state
+- [ ] T134a [INFRA] Test button enabled state in all contexts (FR-001a validation)
+  - Test: Button enabled when no email is selected
+  - Test: Button enabled when email is selected
+  - Test: Button enabled in compose mode
+
+### Create Manage Prompts Screen
+
+- [X] T135 [US2] Create ManagePromptsScreen component in `src/taskpane/components/prompts/ManagePromptsScreen.tsx`
+  - List view of all prompts (alphabetical) (FR-047)
+  - Click-to-edit navigation (FR-049)
+  - "Add New Prompt" button (FR-048)
+  - No special empty state messaging (FR-053)
+  - Use Fluent UI List component
+- [ ] T135a [P] [US2] Write unit tests for ManagePromptsScreen in `tests/unit/components/prompts/ManagePromptsScreen.test.tsx`
+  - Test: Renders empty list with "Add New Prompt" button visible
+  - Test: Renders prompts alphabetically sorted by title
+  - Test: Clicking prompt calls onEditPrompt with correct ID
+  - Test: Clicking "Add New Prompt" calls onAddPrompt
+
+- [X] T136 [P] [US2] Export ManagePromptsScreen from prompts component index
+
+### Update App Navigation
+
+- [X] T137 [INFRA] Add 'manage-prompts' panel to App.tsx renderPanel switch
+- [X] T138 [INFRA] Lazy load ManagePromptsScreen in App.tsx
+- [X] T139 [INFRA] Handle URL parameter `?panel=manage-prompts` in App.tsx useEffect
+- [X] T140 [INFRA] Add previousPanel state for back navigation tracking
+- [X] T141 [INFRA] Create handleBack function that returns to previousPanel
+- [X] T142 [INFRA] Update handleSavePrompt to navigate to 'manage-prompts' (stay in panel per FR-052)
+- [X] T143 [INFRA] Update handleDeletePrompt to navigate to 'manage-prompts'
+- [X] T144 [INFRA] Change default panel from 'main'/'home' to 'manage-prompts'
+
+### Update PromptEditor
+
+- [X] T145 [US2] Add onBack prop to PromptEditor component
+- [X] T146 [US2] Add back button (ArrowLeft24Regular icon) at top of PromptEditor form
+- [X] T147 [US2] Only show back button when onBack prop is provided
+- [X] T148 [US2] Update Cancel button to trigger onBack instead of onCancel when available
+
+### Cleanup
+
+- [ ] T149 [INFRA] Remove or repurpose MainScreen component (no longer primary entry point)
+- [ ] T150 [INFRA] Update command handlers if needed (may be unused with ShowTaskpane actions)
+- [X] T151 [P] [INFRA] Clean up unused imports and dead code
+
+### Localization Updates
+
+- [X] T152 [L10N] Add strings to en.json: "managePrompts", "aiAssistant", "aiReply", "back"
+- [X] T153 [P] [L10N] Add strings to de.json: German translations
+- [X] T154 [P] [L10N] Add strings to fr.json: French translations
+- [X] T155 [P] [L10N] Add strings to es.json: Spanish translations
+
+### Testing & Verification
+
+- [ ] T156 [POLISH] Test main screen dropdown flow (FR-001a, FR-003)
+  - Verify "AI Assistant" button is enabled when no email is selected
+  - Verify "AI Assistant" button is enabled when email is selected
+  - Verify dropdown shows exactly 2 items: "Manage Prompts" and "Settings"
+  - Verify clicking "Manage Prompts" opens side panel with prompt list
+  - Verify clicking "Settings" opens side panel with settings form
+- [ ] T157 [POLISH] Test Manage Prompts flow (FR-047, FR-048, FR-049, FR-050)
+  - Verify list displays prompts alphabetically
+  - Verify clicking prompt navigates to editor with pre-filled data
+  - Verify "Add New Prompt" button navigates to blank editor
+  - Verify back button returns to Manage Prompts list
+- [ ] T158 [POLISH] Test compose screen flow (FR-022)
+  - **Verify button label displays "AI Reply"** (not "AI Assistant")
+  - Verify dropdown shows prompts alphabetically + "Add Custom Prompt"
+  - Verify clicking prompt triggers AI generation
+  - Verify clicking "Add Custom Prompt" opens side panel
+- [ ] T159 [POLISH] Verify panel stays open after save (FR-052)
+- [X] T160 [POLISH] Run npm run build - verify no errors
+- [X] T161 [POLISH] Run npm run lint - verify no errors
+- [ ] T162 [POLISH] Clear Outlook cache and test fresh install
+
+**Checkpoint**: All UI updates complete, matching revised specification
+
+---
+
+## Phase 11 Summary
+
+| Category | Tasks | Count |
+|----------|-------|-------|
+| Manifest Updates | T126-T134, T134a | 10 |
+| ManagePromptsScreen | T135, T135a, T136 | 3 |
+| App Navigation | T137-T144 | 8 |
+| PromptEditor | T145-T148 | 4 |
+| Cleanup | T149-T151 | 3 |
+| Localization | T152-T155 | 4 |
+| Testing | T156-T162 | 7 |
+| **Total** | | **39** |

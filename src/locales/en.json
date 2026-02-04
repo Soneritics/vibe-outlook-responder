@@ -6,6 +6,7 @@
     "confirm": "Confirm",
     "retry": "Retry",
     "close": "Close",
+    "back": "Back",
     "loading": "Loading..."
   },
   "errors": {
@@ -82,7 +83,9 @@
   },
   "prompts": {
     "title": "Prompts",
+    "managePrompts": "Manage Prompts",
     "addNew": "Add Custom Prompt",
+    "addNewPrompt": "Add New Prompt",
     "editor": {
       "title": "Prompt Editor",
       "titleLabel": "Prompt Title",
@@ -104,6 +107,8 @@
   },
   "ribbon": {
     "aiResponder": "AI Responder",
+    "aiAssistant": "AI Assistant",
+    "aiReply": "AI Reply",
     "settings": "Settings"
   }
 }

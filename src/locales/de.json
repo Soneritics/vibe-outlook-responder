@@ -6,6 +6,7 @@
     "confirm": "Bestätigen",
     "retry": "Wiederholen",
     "close": "Schließen",
+    "back": "Zurück",
     "loading": "Wird geladen..."
   },
   "errors": {
@@ -82,7 +83,9 @@
   },
   "prompts": {
     "title": "Prompts",
+    "managePrompts": "Prompts verwalten",
     "addNew": "Benutzerdefinierten Prompt hinzufügen",
+    "addNewPrompt": "Neuen Prompt hinzufügen",
     "editor": {
       "title": "Prompt-Editor",
       "titleLabel": "Prompt-Titel",
@@ -104,6 +107,8 @@
   },
   "ribbon": {
     "aiResponder": "KI-Antwortassistent",
+    "aiAssistant": "KI-Assistent",
+    "aiReply": "KI-Antwort",
     "settings": "Einstellungen"
   }
 }

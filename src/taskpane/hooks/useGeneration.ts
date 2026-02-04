@@ -18,6 +18,7 @@ interface UseGenerationResult {
   generate: (promptContent: string, apiKey: string, model: string) => Promise<void>;
   cancel: () => void;
   retry: () => void;
+  clearError: () => void;
 }
 
 /**
@@ -153,6 +154,13 @@ export const useGeneration = (): UseGenerationResult => {
     }
   }, [generate]);
 
+  /**
+   * Clear error state
+   */
+  const clearError = useCallback(() => {
+    setError(null);
+  }, []);
+
   return {
     isGenerating,
     currentStep,
@@ -163,6 +171,7 @@ export const useGeneration = (): UseGenerationResult => {
     generate,
     cancel,
     retry,
+    clearError,
   };
 };
 

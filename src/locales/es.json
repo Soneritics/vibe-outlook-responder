@@ -6,6 +6,7 @@
     "confirm": "Confirmar",
     "retry": "Reintentar",
     "close": "Cerrar",
+    "back": "Atrás",
     "loading": "Cargando..."
   },
   "errors": {
@@ -82,7 +83,9 @@
   },
   "prompts": {
     "title": "Prompts",
+    "managePrompts": "Administrar prompts",
     "addNew": "Agregar prompt personalizado",
+    "addNewPrompt": "Agregar nuevo prompt",
     "editor": {
       "title": "Editor de prompts",
       "titleLabel": "Título del prompt",
@@ -104,6 +107,8 @@
   },
   "ribbon": {
     "aiResponder": "Asistente de respuesta IA",
+    "aiAssistant": "Asistente IA",
+    "aiReply": "Respuesta IA",
     "settings": "Configuración"
   }
 }
