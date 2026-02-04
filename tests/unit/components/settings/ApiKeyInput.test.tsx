@@ -196,8 +196,10 @@ describe('ApiKeyInput', () => {
         />
       );
 
-      const testButton = screen.getByRole('button', { name: /Testing/i });
+      const testButton = screen.getByRole('button', { name: /Test Connection/i });
       expect(testButton).toBeDisabled();
+      // Spinner indicates loading state
+      expect(screen.getByRole('progressbar')).toBeInTheDocument();
     });
 
     it('should show success message after successful test', () => {

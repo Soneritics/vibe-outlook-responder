@@ -2,12 +2,14 @@ import { OpenAIClient } from '../../../src/services/openai/OpenAIClient';
 import { GenerationRequest } from '../../../src/models/GenerationRequest';
 
 // Mock the OpenAI SDK
+const mockCreate = jest.fn();
 jest.mock('openai', () => {
   return {
-    OpenAI: jest.fn().mockImplementation(() => ({
+    __esModule: true,
+    default: jest.fn().mockImplementation(() => ({
       chat: {
         completions: {
-          create: jest.fn(),
+          create: mockCreate,
         },
       },
     })),
@@ -57,8 +59,6 @@ describe('OpenAIClient', () => {
         },
       };
 
-      const openai = require('openai');
-      const mockCreate = openai.OpenAI.mock.results[0].value.chat.completions.create;
       mockCreate.mockResolvedValue(mockResponse);
 
       const response = await client.generateResponse(request, 'gpt-4');
@@ -81,8 +81,6 @@ describe('OpenAIClient', () => {
         usage: { total_tokens: 50 },
       };
 
-      const openai = require('openai');
-      const mockCreate = openai.OpenAI.mock.results[0].value.chat.completions.create;
       mockCreate.mockResolvedValue(mockResponse);
 
       await client.generateResponse(request, 'gpt-4o');
@@ -90,7 +88,8 @@ describe('OpenAIClient', () => {
       expect(mockCreate).toHaveBeenCalledWith(
         expect.objectContaining({
           model: 'gpt-4o',
-        })
+        }),
+        expect.anything() // Signal options
       );
     });
 
@@ -106,8 +105,6 @@ describe('OpenAIClient', () => {
         usage: { total_tokens: 50 },
       };
 
-      const openai = require('openai');
-      const mockCreate = openai.OpenAI.mock.results[0].value.chat.completions.create;
       mockCreate.mockResolvedValue(mockResponse);
 
       await client.generateResponse(request, 'gpt-4');
@@ -124,8 +121,6 @@ describe('OpenAIClient', () => {
         timestamp: Date.now(),
       };
 
-      const openai = require('openai');
-      const mockCreate = openai.OpenAI.mock.results[0].value.chat.completions.create;
       mockCreate.mockRejectedValue(new Error('API Error'));
 
       await expect(client.generateResponse(request, 'gpt-4')).rejects.toThrow('API Error');
@@ -141,8 +136,6 @@ describe('OpenAIClient', () => {
       const authError = new Error('Invalid API key');
       (authError as any).status = 401;
 
-      const openai = require('openai');
-      const mockCreate = openai.OpenAI.mock.results[0].value.chat.completions.create;
       mockCreate.mockRejectedValue(authError);
 
       await expect(client.generateResponse(request, 'gpt-4')).rejects.toThrow('Invalid API key');
@@ -158,8 +151,6 @@ describe('OpenAIClient', () => {
       const rateLimitError = new Error('Rate limit exceeded');
       (rateLimitError as any).status = 429;
 
-      const openai = require('openai');
-      const mockCreate = openai.OpenAI.mock.results[0].value.chat.completions.create;
       mockCreate.mockRejectedValue(rateLimitError);
 
       await expect(client.generateResponse(request, 'gpt-4')).rejects.toThrow(
@@ -177,8 +168,6 @@ describe('OpenAIClient', () => {
       const policyError = new Error('Content policy violation');
       (policyError as any).status = 400;
 
-      const openai = require('openai');
-      const mockCreate = openai.OpenAI.mock.results[0].value.chat.completions.create;
       mockCreate.mockRejectedValue(policyError);
 
       await expect(client.generateResponse(request, 'gpt-4')).rejects.toThrow(
@@ -197,9 +186,6 @@ describe('OpenAIClient', () => {
         choices: [{ message: { content: 'Response' } }],
         usage: { total_tokens: 50 },
       };
-
-      const openai = require('openai');
-      const mockCreate = openai.OpenAI.mock.results[0].value.chat.completions.create;
 
       // Simulate long response time
       mockCreate.mockImplementation(
@@ -226,8 +212,6 @@ describe('OpenAIClient', () => {
         usage: { total_tokens: 10 },
       };
 
-      const openai = require('openai');
-      const mockCreate = openai.OpenAI.mock.results[0].value.chat.completions.create;
       mockCreate.mockResolvedValue(mockResponse);
 
       await expect(client.testConnection()).resolves.toBe(true);
@@ -237,8 +221,6 @@ describe('OpenAIClient', () => {
       const authError = new Error('Invalid API key');
       (authError as any).status = 401;
 
-      const openai = require('openai');
-      const mockCreate = openai.OpenAI.mock.results[0].value.chat.completions.create;
       mockCreate.mockRejectedValue(authError);
 
       await expect(client.testConnection()).rejects.toThrow('Invalid API key');
@@ -257,14 +239,20 @@ describe('OpenAIClient', () => {
         timestamp: Date.now(),
       };
 
-      const openai = require('openai');
-      const mockCreate = openai.OpenAI.mock.results[0].value.chat.completions.create;
-      mockCreate.mockImplementation(
-        () =>
-          new Promise((resolve) => {
-            setTimeout(() => resolve({ choices: [], usage: { total_tokens: 0 } }), 5000);
-          })
-      );
+      // Mock implementation that respects AbortSignal
+      mockCreate.mockImplementation((_params, options) => {
+        return new Promise((resolve, reject) => {
+          const signal = options?.signal;
+          if (signal) {
+            signal.addEventListener('abort', () => {
+              const abortError = new Error('The operation was aborted');
+              abortError.name = 'AbortError';
+              reject(abortError);
+            });
+          }
+          // Don't resolve - let abort happen
+        });
+      });
 
       const responsePromise = client.generateResponse(request, 'gpt-4');
       client.cancel();

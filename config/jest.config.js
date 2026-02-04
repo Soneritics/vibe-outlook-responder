@@ -7,6 +7,7 @@ export default {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/../src/$1',
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '^uuid$': '<rootDir>/uuid-mock.js',
   },
   setupFilesAfterEnv: ['<rootDir>/../config/jest.setup.ts'],
   collectCoverageFrom: [

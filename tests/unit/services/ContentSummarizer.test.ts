@@ -27,7 +27,14 @@ describe('ContentSummarizer', () => {
 
     it('should summarize content over limit', () => {
       const longContent = 'a'.repeat(5000);
-      mockTokenCounter.countTokens.mockReturnValueOnce(2000).mockReturnValueOnce(800);
+      // Mock sequence: original, inside performSummarization, final
+      mockTokenCounter.countTokens
+        .mockReturnValueOnce(2000) // original
+        .mockReturnValueOnce(2000) // inside performSummarization
+        .mockReturnValueOnce(800); // final
+      mockTokenCounter.truncateToLimit = jest
+        .fn()
+        .mockImplementation((content) => content.slice(0, 1000));
 
       const result = summarizer.summarize(longContent, 1000);
 
@@ -43,7 +50,12 @@ describe('ContentSummarizer', () => {
       const email3 = 'Most recent email';
       const content = `${email1}\n\n${email2}\n\n${email3}`;
 
-      mockTokenCounter.countTokens.mockReturnValueOnce(500).mockReturnValueOnce(200);
+      // Mock sequence: original, inside performSummarization, final
+      mockTokenCounter.countTokens
+        .mockReturnValueOnce(500) // original
+        .mockReturnValueOnce(500) // inside performSummarization
+        .mockReturnValueOnce(200); // final
+      mockTokenCounter.truncateToLimit = jest.fn().mockImplementation((text) => text.slice(-50));
 
       const result = summarizer.summarize(content, 300);
 
@@ -63,7 +75,14 @@ describe('ContentSummarizer', () => {
 
     it('should add summary indicator', () => {
       const longContent = 'a'.repeat(5000);
-      mockTokenCounter.countTokens.mockReturnValueOnce(2000).mockReturnValueOnce(800);
+      // Mock sequence: original, inside performSummarization, final
+      mockTokenCounter.countTokens
+        .mockReturnValueOnce(2000) // original
+        .mockReturnValueOnce(2000) // inside performSummarization
+        .mockReturnValueOnce(800); // final
+      mockTokenCounter.truncateToLimit = jest
+        .fn()
+        .mockImplementation((content) => `[Earlier messages summarized]\n\n${content.slice(-100)}`);
 
       const result = summarizer.summarize(longContent, 1000);
 
@@ -94,7 +113,11 @@ describe('ContentSummarizer', () => {
         content: `Message ${i}`,
       }));
 
-      mockTokenCounter.countTokens.mockReturnValueOnce(2000).mockReturnValueOnce(500);
+      // Mock: original over limit, then truncateToLimit returns something with last message, then final
+      mockTokenCounter.countTokens
+        .mockReturnValueOnce(2000) // original
+        .mockReturnValueOnce(500); // final
+      mockTokenCounter.truncateToLimit = jest.fn().mockImplementation((content) => content);
 
       const result = summarizer.summarizeThread(messages, 1000);
 
@@ -126,8 +149,12 @@ describe('ContentSummarizer', () => {
 
   describe('extractKeyPoints', () => {
     it('should extract key points from long content', () => {
-      const content =
-        'Important: The meeting is scheduled for Monday. Also, please review the attached document. Finally, confirm your attendance.';
+      // Multi-line content with one important line
+      const content = `Here is some general background about the project.
+We have been working on this for a while.
+IMPORTANT: The meeting is scheduled for Monday.
+Also, there are some other details to consider.
+Finally, confirm your attendance.`;
 
       const keyPoints = summarizer.extractKeyPoints(content);
 
@@ -187,7 +214,14 @@ describe('ContentSummarizer', () => {
   describe('getSummaryStats', () => {
     it('should return stats after summarization', () => {
       const longContent = 'a'.repeat(5000);
-      mockTokenCounter.countTokens.mockReturnValueOnce(2000).mockReturnValueOnce(800);
+      // Mock sequence: original, inside performSummarization, final
+      mockTokenCounter.countTokens
+        .mockReturnValueOnce(2000) // original
+        .mockReturnValueOnce(2000) // inside performSummarization
+        .mockReturnValueOnce(800); // final
+      mockTokenCounter.truncateToLimit = jest
+        .fn()
+        .mockImplementation((content) => content.slice(0, 1000));
 
       summarizer.summarize(longContent, 1000);
       const stats = summarizer.getSummaryStats();
@@ -197,11 +231,18 @@ describe('ContentSummarizer', () => {
     });
 
     it('should accumulate stats across multiple calls', () => {
+      // First call: original, inside performSummarization, final
+      // Second call: original, inside performSummarization, final
       mockTokenCounter.countTokens
-        .mockReturnValueOnce(2000)
-        .mockReturnValueOnce(800)
-        .mockReturnValueOnce(1500)
-        .mockReturnValueOnce(700);
+        .mockReturnValueOnce(2000) // first original
+        .mockReturnValueOnce(2000) // first inside
+        .mockReturnValueOnce(800) // first final
+        .mockReturnValueOnce(1500) // second original
+        .mockReturnValueOnce(1500) // second inside
+        .mockReturnValueOnce(700); // second final
+      mockTokenCounter.truncateToLimit = jest
+        .fn()
+        .mockImplementation((content) => content.slice(0, 1000));
 
       summarizer.summarize('a'.repeat(5000), 1000);
       summarizer.summarize('b'.repeat(4000), 1000);

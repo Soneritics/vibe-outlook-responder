@@ -1,6 +1,6 @@
-import { OpenAIClient } from '../../../src/services/openai/OpenAIClient';
-import { TokenCounter } from '../../../src/services/openai/TokenCounter';
-import { GenerationRequest } from '../../../src/models/GenerationRequest';
+import { OpenAIClient } from '../../src/services/openai/OpenAIClient';
+import { TokenCounter } from '../../src/services/openai/TokenCounter';
+import { GenerationRequest } from '../../src/models/GenerationRequest';
 
 /**
  * Integration tests for OpenAI API

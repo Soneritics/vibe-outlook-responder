@@ -1,6 +1,11 @@
 import { ContentInserter } from '../../../src/services/email/ContentInserter';
 
 // Mock Office namespace
+const AsyncResultStatus = {
+  Succeeded: 'succeeded' as const,
+  Failed: 'failed' as const,
+};
+
 global.Office = {
   context: {
     mailbox: {
@@ -11,6 +16,11 @@ global.Office = {
         },
       },
     },
+  },
+  AsyncResultStatus,
+  CoercionType: {
+    Html: 'html' as const,
+    Text: 'text' as const,
   },
 } as any;
 

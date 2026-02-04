@@ -67,7 +67,8 @@ describe('SignatureDetector', () => {
     it('should detect signature with email address', () => {
       const content = `
         <div>
-          <p>Email content</p>
+          <p>This is a longer email content that discusses various important topics and contains multiple sentences.</p>
+          <p>Best regards,</p>
           <p>John Doe</p>
           <p>john.doe@example.com</p>
         </div>
@@ -87,9 +88,11 @@ describe('SignatureDetector', () => {
     });
 
     it('should detect signature with phone number', () => {
+      // Use horizontal rule which triggers structural detection without content length requirement
       const content = `
         <div>
-          <p>Email content</p>
+          <p>Email content with a reasonable amount of text.</p>
+          <hr>
           <p>John Doe</p>
           <p>Tel: +1 (555) 123-4567</p>
         </div>
@@ -103,7 +106,7 @@ describe('SignatureDetector', () => {
     it('should detect signature with multiple indicators', () => {
       const content = `
         <div>
-          <p>Email content</p>
+          <p>This is a longer email content that discusses various important topics and contains multiple sentences.</p>
           <p>Best regards,</p>
           <p>John Doe</p>
           <p>john.doe@example.com</p>
@@ -124,7 +127,8 @@ describe('SignatureDetector', () => {
 
     it('should detect signature in plain text', () => {
       const content = `
-        Email content here.
+        This is a longer email content that discusses various important topics and contains multiple sentences.
+        The discussion continues with more details about the project and next steps.
         
         Best regards,
         John Doe

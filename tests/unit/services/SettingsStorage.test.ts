@@ -25,8 +25,8 @@ global.Office = {
         delete mockRoamingSettings[key];
       }),
       saveAsync: jest.fn((callback: (result: any) => void) => {
-        // Use setTimeout to simulate async behavior properly
-        setImmediate(() => {
+        // Use Promise.resolve().then for microtask timing
+        Promise.resolve().then(() => {
           callback({ status: AsyncResultStatus.Succeeded });
         });
       }),
@@ -60,10 +60,18 @@ describe('SettingsStorage', () => {
   let storage: SettingsStorage;
 
   beforeEach(() => {
-    // Clear all mocks
-    jest.clearAllMocks();
+    // Clear storage data (but don't clear mock implementations)
     Object.keys(mockLocalStorage).forEach((key) => delete mockLocalStorage[key]);
     Object.keys(mockRoamingSettings).forEach((key) => delete mockRoamingSettings[key]);
+
+    // Reset mock call counts while keeping implementations
+    (Office.context.roamingSettings.get as jest.Mock).mockClear();
+    (Office.context.roamingSettings.set as jest.Mock).mockClear();
+    (Office.context.roamingSettings.remove as jest.Mock).mockClear();
+    (Office.context.roamingSettings.saveAsync as jest.Mock).mockClear();
+    (mockLocalStorageImpl.getItem as jest.Mock).mockClear();
+    (mockLocalStorageImpl.setItem as jest.Mock).mockClear();
+    (mockLocalStorageImpl.removeItem as jest.Mock).mockClear();
 
     storage = new SettingsStorage();
   });

@@ -87,7 +87,7 @@ describe('ExportImport', () => {
     });
 
     it('should show error message if export fails', async () => {
-      mockCopyToClipboard.mockResolvedValue(false);
+      mockCopyToClipboard.mockRejectedValue(new Error('Failed to copy to clipboard'));
 
       render(<ExportImport prompts={mockPrompts} onImport={mockOnImport} />, {
         wrapper,
@@ -97,7 +97,7 @@ describe('ExportImport', () => {
       fireEvent.click(exportButton);
 
       await waitFor(() => {
-        expect(screen.getByText(/Failed to copy to clipboard/)).toBeInTheDocument();
+        expect(screen.getByText(/Export failed: Failed to copy to clipboard/)).toBeInTheDocument();
       });
     });
 

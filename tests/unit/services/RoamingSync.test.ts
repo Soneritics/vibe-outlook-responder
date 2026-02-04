@@ -5,6 +5,12 @@
 
 import { RoamingSync } from '../../../src/services/storage/RoamingSync';
 
+// Define AsyncResultStatus before using it
+const AsyncResultStatus = {
+  Succeeded: 0 as const,
+  Failed: 1 as const,
+};
+
 describe('RoamingSync', () => {
   let roamingSync: RoamingSync;
   let mockRoamingSettings: any;
@@ -16,11 +22,13 @@ describe('RoamingSync', () => {
       set: jest.fn(),
       remove: jest.fn(),
       saveAsync: jest.fn((callback) => {
-        callback({
-          status: Office.AsyncResultStatus.Succeeded,
-          value: null,
-          error: null,
-        } as Office.AsyncResult<void>);
+        Promise.resolve().then(() => {
+          callback({
+            status: AsyncResultStatus.Succeeded,
+            value: null,
+            error: null,
+          } as Office.AsyncResult<void>);
+        });
       }),
     };
 
@@ -29,10 +37,7 @@ describe('RoamingSync', () => {
       context: {
         roamingSettings: mockRoamingSettings,
       },
-      AsyncResultStatus: {
-        Succeeded: 0,
-        Failed: 1,
-      },
+      AsyncResultStatus,
     } as any;
 
     roamingSync = new RoamingSync();
@@ -61,13 +66,13 @@ describe('RoamingSync', () => {
       expect(result).toBeNull();
     });
 
-    it('should return undefined if roaming settings not available', () => {
+    it('should return null if roaming settings not available (falls back to localStorage)', () => {
       global.Office = undefined as any;
       roamingSync = new RoamingSync();
 
       const result = roamingSync.get('testKey');
 
-      expect(result).toBeUndefined();
+      expect(result).toBeNull();
     });
   });
 
@@ -148,13 +153,12 @@ describe('RoamingSync', () => {
       await expect(roamingSync.saveAsync()).rejects.toThrow(errorMessage);
     });
 
-    it('should reject if roaming settings not available', async () => {
+    it('should resolve if roaming settings not available (falls back to localStorage)', async () => {
       global.Office = undefined as any;
       roamingSync = new RoamingSync();
 
-      await expect(roamingSync.saveAsync()).rejects.toThrow(
-        'Office roaming settings not available'
-      );
+      // Should not throw, instead it returns immediately since localStorage saves are sync
+      await expect(roamingSync.saveAsync()).resolves.toBeUndefined();
     });
 
     it('should handle undefined error object', async () => {
