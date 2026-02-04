@@ -1,10 +1,22 @@
 import { Settings } from '../../models/Settings';
 
+const ROAMING_PREFIX = 'outlook_addin_roaming_';
+
+/**
+ * Check if Office.js roaming settings are available
+ */
+function isOfficeAvailable(): boolean {
+  return typeof Office !== 'undefined' && 
+         Office.context !== undefined && 
+         Office.context.roamingSettings !== undefined;
+}
+
 /**
  * Service for persisting user settings across sessions
  * - API key: Stored in localStorage (local only, not synced)
  * - Model preference: Stored in roaming settings (synced across devices)
  * - Keyboard shortcuts: Stored in roaming settings (synced across devices)
+ * Falls back to localStorage when Office is not available.
  */
 export class SettingsStorage {
   private readonly STORAGE_KEYS = {
@@ -126,32 +138,64 @@ export class SettingsStorage {
   }
 
   private getFromRoamingSettings(key: string): any {
+    if (isOfficeAvailable()) {
+      try {
+        return Office.context.roamingSettings.get(key);
+      } catch (error) {
+        console.error(`Error reading from roaming settings (${key}):`, error);
+        return null;
+      }
+    }
+    // Fallback to localStorage
     try {
-      return Office.context.roamingSettings.get(key);
-    } catch (error) {
-      console.error(`Error reading from roaming settings (${key}):`, error);
+      const value = localStorage.getItem(ROAMING_PREFIX + key);
+      return value ? JSON.parse(value) : null;
+    } catch {
       return null;
     }
   }
 
   private saveToRoamingSettings(key: string, value: any): void {
+    if (isOfficeAvailable()) {
+      try {
+        Office.context.roamingSettings.set(key, value);
+      } catch (error) {
+        console.error(`Error writing to roaming settings (${key}):`, error);
+        throw error;
+      }
+      return;
+    }
+    // Fallback to localStorage
     try {
-      Office.context.roamingSettings.set(key, value);
+      localStorage.setItem(ROAMING_PREFIX + key, JSON.stringify(value));
     } catch (error) {
-      console.error(`Error writing to roaming settings (${key}):`, error);
-      throw error;
+      console.error(`Error writing to localStorage fallback (${key}):`, error);
     }
   }
 
   private removeFromRoamingSettings(key: string): void {
+    if (isOfficeAvailable()) {
+      try {
+        Office.context.roamingSettings.remove(key);
+      } catch (error) {
+        console.error(`Error removing from roaming settings (${key}):`, error);
+      }
+      return;
+    }
+    // Fallback to localStorage
     try {
-      Office.context.roamingSettings.remove(key);
-    } catch (error) {
-      console.error(`Error removing from roaming settings (${key}):`, error);
+      localStorage.removeItem(ROAMING_PREFIX + key);
+    } catch {
+      // Ignore
     }
   }
 
   private saveRoamingSettingsAsync(): Promise<void> {
+    if (!isOfficeAvailable()) {
+      // localStorage saves immediately
+      return Promise.resolve();
+    }
+    
     return new Promise((resolve, reject) => {
       try {
         Office.context.roamingSettings.saveAsync((result: Office.AsyncResult<void>) => {

@@ -43,8 +43,8 @@ export const GenerationPanel: React.FC<GenerationPanelProps> = ({ promptId }) =>
   const [isLoading, setIsLoading] = useState(true);
 
   const { settings, isLoading: settingsLoading } = useSettings();
-  const { prompts, isLoading: promptsLoading } = usePrompts();
-  const { isGenerating, currentStep, error, generate, cancel, retry } = useGeneration();
+  const { prompts, loading: promptsLoading } = usePrompts();
+  const { isGenerating, currentStep, error, generate, cancel } = useGeneration();
 
   useEffect(() => {
     // Find the prompt by ID

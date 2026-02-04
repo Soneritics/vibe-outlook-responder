@@ -12,6 +12,9 @@ interface UseGenerationResult {
   isGenerating: boolean;
   currentStep: GenerationStep;
   error: string | null;
+  wasSummarized: boolean;
+  originalTokenCount: number | null;
+  finalTokenCount: number | null;
   generate: (promptContent: string, apiKey: string, model: string) => Promise<void>;
   cancel: () => void;
   retry: () => void;
@@ -26,6 +29,9 @@ export const useGeneration = (): UseGenerationResult => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [currentStep, setCurrentStep] = useState<GenerationStep>('preparing');
   const [error, setError] = useState<string | null>(null);
+  const [wasSummarized, setWasSummarized] = useState(false);
+  const [originalTokenCount, setOriginalTokenCount] = useState<number | null>(null);
+  const [finalTokenCount, setFinalTokenCount] = useState<number | null>(null);
 
   const openAIClientRef = useRef<OpenAIClient | null>(null);
   const lastRequestRef = useRef<{
@@ -45,6 +51,9 @@ export const useGeneration = (): UseGenerationResult => {
       setIsGenerating(true);
       setError(null);
       setCurrentStep('preparing');
+      setWasSummarized(false);
+      setOriginalTokenCount(null);
+      setFinalTokenCount(null);
 
       try {
         // Step 1: Prepare request
@@ -79,13 +88,17 @@ export const useGeneration = (): UseGenerationResult => {
           console.log(
             `Content summarized: ${summarized.originalTokenCount} → ${summarized.finalTokenCount} tokens`
           );
+          setWasSummarized(true);
+          setOriginalTokenCount(summarized.originalTokenCount || 0);
+          setFinalTokenCount(summarized.finalTokenCount || 0);
         }
 
         // Create generation request
         const request: GenerationRequest = {
           emailContent: summarized.content,
           promptContent,
-          timestamp: Date.now(),
+          timestamp: new Date().toISOString(),
+          model: 'gpt-4' as any, // Using GPT-4 as default
         };
 
         // Step 2: Send to OpenAI
@@ -144,6 +157,9 @@ export const useGeneration = (): UseGenerationResult => {
     isGenerating,
     currentStep,
     error,
+    wasSummarized,
+    originalTokenCount,
+    finalTokenCount,
     generate,
     cancel,
     retry,

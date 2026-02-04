@@ -1,0 +1,116 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., 1.0.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linting
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test -- --passWithNoTests
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Validate manifest
+        run: npm run validate
+
+      - name: Get version
+        id: get_version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create release archive
+        run: |
+          mkdir -p release
+          cp -r dist release/
+          cp -r manifest release/
+          cp README.md release/
+          cp CHANGELOG.md release/
+          cp LICENSE release/
+          cd release
+          zip -r ../vibe-outlook-responder-v${{ steps.get_version.outputs.VERSION }}.zip .
+
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          VERSION=${{ steps.get_version.outputs.VERSION }}
+          
+          # Extract changelog for this version
+          sed -n "/## \[$VERSION\]/,/## \[/p" CHANGELOG.md | sed '$ d' > release_notes.md
+          
+          # If no specific version notes found, use latest
+          if [ ! -s release_notes.md ]; then
+            sed -n "/## \[/,/## \[/p" CHANGELOG.md | sed '$ d' > release_notes.md
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.get_version.outputs.VERSION }}
+          name: Release v${{ steps.get_version.outputs.VERSION }}
+          body_path: release_notes.md
+          draft: false
+          prerelease: false
+          files: |
+            vibe-outlook-responder-v${{ steps.get_version.outputs.VERSION }}.zip
+            manifest/manifest.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artifacts
+          path: |
+            dist/
+            manifest/
+            README.md
+            CHANGELOG.md
+          retention-days: 90
+
+  notify:
+    needs: build-and-release
+    runs-on: ubuntu-latest
+    if: success()
+    
+    steps:
+      - name: Release notification
+        run: |
+          echo "✅ Release v${{ needs.build-and-release.outputs.VERSION }} successfully published!"
+          echo "📦 Download: https://github.com/${{ github.repository }}/releases/latest"

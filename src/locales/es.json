@@ -1,0 +1,109 @@
+{
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "confirm": "Confirmar",
+    "retry": "Reintentar",
+    "close": "Cerrar",
+    "loading": "Cargando..."
+  },
+  "errors": {
+    "apiKey": {
+      "required": "Se requiere la clave API",
+      "invalidFormat": "La clave API debe comenzar con \"sk-\" y tener al menos 20 caracteres",
+      "connectionFailed": "Error al conectar con OpenAI. Por favor, verifique su clave API."
+    },
+    "prompt": {
+      "titleRequired": "Se requiere el título del prompt",
+      "titleTooLong": "El título del prompt debe tener 100 caracteres o menos",
+      "titleDuplicate": "Ya existe un prompt con este título",
+      "contentRequired": "Se requiere el contenido del prompt",
+      "contentTooLong": "El contenido del prompt debe tener 10.000 caracteres o menos"
+    },
+    "generation": {
+      "noApiKey": "Por favor, configure su clave API en Configuración antes de generar respuestas",
+      "noEmailContent": "No se encontró contenido de correo para generar una respuesta",
+      "invalidApiKey": "Clave API inválida o expirada. Por favor, verifique su configuración.",
+      "apiUnavailable": "El servicio ChatGPT no está disponible temporalmente. Por favor, inténtelo más tarde.",
+      "rateLimit": "Límite de tasa excedido. Por favor, espere un momento e inténtelo nuevamente.",
+      "contentPolicy": "El contenido viola la política de contenido de OpenAI",
+      "networkError": "Error de red. Por favor, verifique su conexión e inténtelo nuevamente.",
+      "unknownError": "Ocurrió un error inesperado. Por favor, inténtelo nuevamente.",
+      "cancelled": "Generación cancelada por el usuario"
+    },
+    "storage": {
+      "saveFailed": "Error al guardar. Por favor, inténtelo nuevamente.",
+      "loadFailed": "Error al cargar. Por favor, actualice e inténtelo nuevamente.",
+      "quotaExceeded": "Cuota de almacenamiento excedida. Por favor, elimine algunos prompts."
+    },
+    "importExport": {
+      "exportFailed": "Error al exportar prompts. Por favor, inténtelo nuevamente.",
+      "importFailed": "Error al importar prompts. Por favor, verifique el contenido del portapapeles.",
+      "invalidJson": "El contenido del portapapeles no es JSON válido"
+    }
+  },
+  "success": {
+    "saved": "Guardado exitosamente",
+    "deleted": "Eliminado exitosamente",
+    "exported": "Prompts exportados al portapapeles",
+    "imported": "Prompts importados exitosamente",
+    "connectionSuccess": "Clave API verificada exitosamente",
+    "resetComplete": "Todos los datos han sido restablecidos"
+  },
+  "confirmation": {
+    "deletePrompt": "¿Está seguro de que desea eliminar este prompt?",
+    "resetAllData": "Esto eliminará todos los prompts y configuraciones. ¿Continuar?"
+  },
+  "settings": {
+    "title": "Configuración",
+    "apiKey": {
+      "label": "Clave API de OpenAI",
+      "placeholder": "sk-...",
+      "testConnection": "Probar conexión"
+    },
+    "model": {
+      "label": "Modelo ChatGPT",
+      "gpt5": "GPT-5 (Recomendado)",
+      "gpt4": "GPT-4",
+      "gpt4turbo": "GPT-4 Turbo",
+      "gpt35turbo": "GPT-3.5 Turbo"
+    },
+    "keyboardShortcuts": {
+      "title": "Atajos de teclado",
+      "openPromptDropdown": "Abrir menú de prompts"
+    },
+    "exportImport": {
+      "title": "Exportar/Importar prompts",
+      "export": "Exportar al portapapeles",
+      "import": "Importar desde portapapeles"
+    },
+    "resetAllData": "Restablecer todos los datos"
+  },
+  "prompts": {
+    "title": "Prompts",
+    "addNew": "Agregar prompt personalizado",
+    "editor": {
+      "title": "Editor de prompts",
+      "titleLabel": "Título del prompt",
+      "titlePlaceholder": "Ingrese un título descriptivo...",
+      "contentLabel": "Contenido del prompt",
+      "contentPlaceholder": "Ingrese su prompt aquí..."
+    },
+    "emptyState": "Aún no hay prompts. ¡Cree su primer prompt para comenzar!"
+  },
+  "generation": {
+    "progress": {
+      "preparing": "Preparando",
+      "sending": "Enviando",
+      "generating": "Generando",
+      "done": "Completado",
+      "cancel": "Cancelar"
+    },
+    "summarizationNotice": "Nota: El hilo de correo fue resumido para ajustarse a los límites de tokens"
+  },
+  "ribbon": {
+    "aiResponder": "Asistente de respuesta IA",
+    "settings": "Configuración"
+  }
+}

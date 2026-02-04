@@ -11,9 +11,13 @@ import {
 import { Save20Regular, Delete20Regular } from '@fluentui/react-icons';
 import { ApiKeyInput } from './ApiKeyInput';
 import { ModelSelector } from './ModelSelector';
+import { KeyboardShortcuts } from './KeyboardShortcuts';
+import { ExportImport } from './ExportImport';
 import { useSettings } from '../../hooks/useSettings';
+import { usePrompts } from '../../hooks/usePrompts';
 import { validateApiKeyFormat } from '../../../services/validation/ApiKeyValidator';
 import { ConfirmDialog } from '../common/ConfirmDialog';
+import { Prompt } from '../../../models/Prompt';
 
 const useStyles = makeStyles({
   container: {
@@ -65,6 +69,7 @@ const useStyles = makeStyles({
 export const SettingsPanel: React.FC = () => {
   const styles = useStyles();
   const { settings, isLoading, updateSettings, resetSettings } = useSettings();
+  const { prompts, createPrompt, deletePrompt } = usePrompts();
   
   const [localApiKey, setLocalApiKey] = useState('');
   const [localModel, setLocalModel] = useState('');
@@ -182,14 +187,29 @@ export const SettingsPanel: React.FC = () => {
   const handleReset = async () => {
     try {
       await resetSettings();
+      // Also delete all prompts
+      for (const prompt of prompts) {
+        await deletePrompt(prompt.id);
+      }
       setLocalApiKey('');
       setLocalModel('gpt-4o');
       setApiKeyError('');
       setTestResult(undefined);
-      setSaveMessage('All settings have been reset to defaults.');
+      setSaveMessage('All settings and prompts have been reset.');
       setShowResetDialog(false);
     } catch (error) {
       setSaveMessage('Failed to reset settings. Please try again.');
+    }
+  };
+
+  const handleImportPrompts = async (importedPrompts: Prompt[]) => {
+    try {
+      // Create each imported prompt
+      for (const prompt of importedPrompts) {
+        await createPrompt({ title: prompt.title, content: prompt.content });
+      }
+    } catch (error) {
+      throw new Error('Failed to import prompts');
     }
   };
 
@@ -227,6 +247,18 @@ export const SettingsPanel: React.FC = () => {
         />
       </div>
 
+      <Divider />
+
+      <div className={styles.section}>
+        <KeyboardShortcuts shortcuts={settings.keyboardShortcuts} />
+      </div>
+
+      <Divider />
+
+      <div className={styles.section}>
+        <ExportImport prompts={prompts} onImport={handleImportPrompts} />
+      </div>
+
       <div className={styles.buttonGroup}>
         <Button
           appearance="primary"
@@ -254,7 +286,7 @@ export const SettingsPanel: React.FC = () => {
       <div className={styles.dangerZone}>
         <Divider />
         <Title3>Danger Zone</Title3>
-        <Text>Reset all settings to their default values</Text>
+        <Text>Reset all settings and delete all prompts. This action cannot be undone.</Text>
         <Button
           appearance="subtle"
           icon={<Delete20Regular />}
@@ -267,8 +299,8 @@ export const SettingsPanel: React.FC = () => {
 
       <ConfirmDialog
         open={showResetDialog}
-        title="Reset All Settings?"
-        message="This will clear your API key, model preference, and all other settings. This action cannot be undone."
+        title="Reset All Data?"
+        message="This will clear your API key, model preference, all prompts, and all other settings. This action cannot be undone."
         confirmLabel="Reset"
         cancelLabel="Cancel"
         onConfirm={handleReset}

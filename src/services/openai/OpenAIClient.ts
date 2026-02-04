@@ -71,6 +71,8 @@ export class OpenAIClient {
         generatedText,
         tokensUsed: completion.usage?.total_tokens || 0,
         responseTime,
+        timestamp: new Date().toISOString(),
+        wasSummarized: false,
       };
     } catch (error: any) {
       // Handle cancellation

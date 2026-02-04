@@ -1,0 +1,109 @@
+{
+  "common": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "confirm": "Bestätigen",
+    "retry": "Wiederholen",
+    "close": "Schließen",
+    "loading": "Wird geladen..."
+  },
+  "errors": {
+    "apiKey": {
+      "required": "API-Schlüssel ist erforderlich",
+      "invalidFormat": "API-Schlüssel muss mit \"sk-\" beginnen und mindestens 20 Zeichen lang sein",
+      "connectionFailed": "Verbindung zu OpenAI fehlgeschlagen. Bitte überprüfen Sie Ihren API-Schlüssel."
+    },
+    "prompt": {
+      "titleRequired": "Prompt-Titel ist erforderlich",
+      "titleTooLong": "Prompt-Titel darf maximal 100 Zeichen lang sein",
+      "titleDuplicate": "Ein Prompt mit diesem Titel existiert bereits",
+      "contentRequired": "Prompt-Inhalt ist erforderlich",
+      "contentTooLong": "Prompt-Inhalt darf maximal 10.000 Zeichen lang sein"
+    },
+    "generation": {
+      "noApiKey": "Bitte konfigurieren Sie Ihren API-Schlüssel in den Einstellungen, bevor Sie Antworten generieren",
+      "noEmailContent": "Kein E-Mail-Inhalt gefunden, um eine Antwort zu generieren",
+      "invalidApiKey": "Ungültiger oder abgelaufener API-Schlüssel. Bitte überprüfen Sie Ihre Einstellungen.",
+      "apiUnavailable": "ChatGPT-Dienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut.",
+      "rateLimit": "Ratenlimit überschritten. Bitte warten Sie einen Moment und versuchen Sie es erneut.",
+      "contentPolicy": "Inhalt verstößt gegen die OpenAI-Inhaltsrichtlinie",
+      "networkError": "Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+      "unknownError": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+      "cancelled": "Generierung vom Benutzer abgebrochen"
+    },
+    "storage": {
+      "saveFailed": "Speichern fehlgeschlagen. Bitte versuchen Sie es erneut.",
+      "loadFailed": "Laden fehlgeschlagen. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut.",
+      "quotaExceeded": "Speicherplatz überschritten. Bitte löschen Sie einige Prompts."
+    },
+    "importExport": {
+      "exportFailed": "Export der Prompts fehlgeschlagen. Bitte versuchen Sie es erneut.",
+      "importFailed": "Import der Prompts fehlgeschlagen. Bitte überprüfen Sie den Inhalt der Zwischenablage.",
+      "invalidJson": "Inhalt der Zwischenablage ist kein gültiges JSON"
+    }
+  },
+  "success": {
+    "saved": "Erfolgreich gespeichert",
+    "deleted": "Erfolgreich gelöscht",
+    "exported": "Prompts in Zwischenablage exportiert",
+    "imported": "Prompts erfolgreich importiert",
+    "connectionSuccess": "API-Schlüssel erfolgreich verifiziert",
+    "resetComplete": "Alle Daten wurden zurückgesetzt"
+  },
+  "confirmation": {
+    "deletePrompt": "Sind Sie sicher, dass Sie diesen Prompt löschen möchten?",
+    "resetAllData": "Dies wird alle Prompts und Einstellungen löschen. Fortfahren?"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "apiKey": {
+      "label": "OpenAI API-Schlüssel",
+      "placeholder": "sk-...",
+      "testConnection": "Verbindung testen"
+    },
+    "model": {
+      "label": "ChatGPT-Modell",
+      "gpt5": "GPT-5 (Empfohlen)",
+      "gpt4": "GPT-4",
+      "gpt4turbo": "GPT-4 Turbo",
+      "gpt35turbo": "GPT-3.5 Turbo"
+    },
+    "keyboardShortcuts": {
+      "title": "Tastenkombinationen",
+      "openPromptDropdown": "Prompt-Dropdown öffnen"
+    },
+    "exportImport": {
+      "title": "Prompts exportieren/importieren",
+      "export": "In Zwischenablage exportieren",
+      "import": "Aus Zwischenablage importieren"
+    },
+    "resetAllData": "Alle Daten zurücksetzen"
+  },
+  "prompts": {
+    "title": "Prompts",
+    "addNew": "Benutzerdefinierten Prompt hinzufügen",
+    "editor": {
+      "title": "Prompt-Editor",
+      "titleLabel": "Prompt-Titel",
+      "titlePlaceholder": "Geben Sie einen beschreibenden Titel ein...",
+      "contentLabel": "Prompt-Inhalt",
+      "contentPlaceholder": "Geben Sie Ihren Prompt hier ein..."
+    },
+    "emptyState": "Noch keine Prompts vorhanden. Erstellen Sie Ihren ersten Prompt, um zu beginnen!"
+  },
+  "generation": {
+    "progress": {
+      "preparing": "Wird vorbereitet",
+      "sending": "Wird gesendet",
+      "generating": "Wird generiert",
+      "done": "Fertig",
+      "cancel": "Abbrechen"
+    },
+    "summarizationNotice": "Hinweis: E-Mail-Thread wurde zusammengefasst, um in die Token-Limits zu passen"
+  },
+  "ribbon": {
+    "aiResponder": "KI-Antwortassistent",
+    "settings": "Einstellungen"
+  }
+}

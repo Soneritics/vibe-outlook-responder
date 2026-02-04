@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { FluentProvider, webLightTheme } from '@fluentui/react-components';
-import { SettingsPanel } from './components/settings/SettingsPanel';
-import { PromptEditor } from './components/prompts/PromptEditor';
-import { MainScreen } from './components/main/MainScreen';
-import { GenerationPanel } from './components/generation/GenerationPanel';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
+import { FluentProvider, webLightTheme, Spinner } from '@fluentui/react-components';
 import { usePrompts } from './hooks/usePrompts';
 import { Prompt } from '../models/Prompt';
+
+// Lazy load all major panels for better performance
+const SettingsPanel = lazy(() => import('./components/settings/SettingsPanel').then(m => ({ default: m.SettingsPanel })));
+const PromptEditor = lazy(() => import('./components/prompts/PromptEditor').then(m => ({ default: m.PromptEditor })));
+const MainScreen = lazy(() => import('./components/main/MainScreen').then(m => ({ default: m.MainScreen })));
+const GenerationPanel = lazy(() => import('./components/generation/GenerationPanel').then(m => ({ default: m.GenerationPanel })));
 
 const App: React.FC = () => {
   const [currentPanel, setCurrentPanel] = useState<string>('home');
   const [editPromptId, setEditPromptId] = useState<string | null>(null);
   const [editPrompt, setEditPrompt] = useState<Prompt | undefined>(undefined);
   const [generationPromptId, setGenerationPromptId] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState<number>(0);
   const { createPrompt, updatePrompt, deletePrompt, getPrompt } = usePrompts();
 
   useEffect(() => {
@@ -53,6 +56,8 @@ const App: React.FC = () => {
       // Create new prompt
       await createPrompt(data);
     }
+    // Force MainScreen to refresh by incrementing key
+    setRefreshKey((k) => k + 1);
     // Return to main screen
     setCurrentPanel('main');
     setEditPromptId(null);
@@ -62,6 +67,8 @@ const App: React.FC = () => {
   const handleDeletePrompt = async () => {
     if (editPromptId) {
       await deletePrompt(editPromptId);
+      // Force MainScreen to refresh by incrementing key
+      setRefreshKey((k) => k + 1);
       // Return to main screen
       setCurrentPanel('main');
       setEditPromptId(null);
@@ -115,6 +122,7 @@ const App: React.FC = () => {
       default:
         return (
           <MainScreen
+            key={refreshKey}
             onEditPrompt={handleEditPrompt}
             onAddPrompt={handleAddPrompt}
             onSettings={handleOpenSettings}
@@ -125,7 +133,18 @@ const App: React.FC = () => {
 
   return (
     <FluentProvider theme={webLightTheme}>
-      {renderPanel()}
+      <Suspense fallback={
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          height: '100vh' 
+        }}>
+          <Spinner label="Loading..." />
+        </div>
+      }>
+        {renderPanel()}
+      </Suspense>
     </FluentProvider>
   );
 };

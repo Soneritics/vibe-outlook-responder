@@ -23,7 +23,7 @@ export class EmailParser {
     const messages = this.extractMessages(htmlBody, client);
 
     // Get current (most recent) message
-    const currentMessage = messages.length > 0 ? messages[0].content : '';
+    const currentMessage = messages.length > 0 && messages[0] ? messages[0].content : '';
 
     return {
       messages,
@@ -132,8 +132,6 @@ export class EmailParser {
     html: string,
     client: 'outlook' | 'gmail' | 'unknown'
   ): Array<{ from?: string; date?: string; content: string }> {
-    const messages: Array<{ from?: string; date?: string; content: string }> = [];
-
     // Sanitize HTML first
     const sanitized = this.sanitizeHtml(html);
 
@@ -223,13 +221,13 @@ export class EmailParser {
 
     // Try to extract From
     const fromMatch = html.match(/From:\s*([^\n<]+)/i);
-    if (fromMatch) {
+    if (fromMatch && fromMatch[1]) {
       msg.from = fromMatch[1].trim();
     }
 
     // Try to extract Date
     const dateMatch = html.match(/Date:\s*([^\n<]+)/i);
-    if (dateMatch) {
+    if (dateMatch && dateMatch[1]) {
       msg.date = dateMatch[1].trim();
     }
 

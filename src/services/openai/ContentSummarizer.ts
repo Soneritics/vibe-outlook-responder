@@ -103,15 +103,15 @@ export class ContentSummarizer {
 
     // Keep most recent messages in full, summarize older ones
     let result = '';
-    let tokenCount = 0;
     const recentMessagesCount = Math.min(3, messages.length); // Keep last 3 messages
 
     // Add recent messages
     for (let i = messages.length - recentMessagesCount; i < messages.length; i++) {
       const msg = messages[i];
-      const msgText = `From: ${msg.from}\nDate: ${msg.date}\n\n${msg.content}\n\n---\n\n`;
-      result = msgText + result;
-      tokenCount = this.tokenCounter.countTokens(result, model);
+      if (msg) {
+        const msgText = `From: ${msg.from || 'Unknown'}\nDate: ${msg.date || 'Unknown'}\n\n${msg.content}\n\n---\n\n`;
+        result = msgText + result;
+      }
     }
 
     // Summarize older messages

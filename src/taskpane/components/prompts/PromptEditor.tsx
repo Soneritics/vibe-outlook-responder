@@ -86,6 +86,17 @@ export const PromptEditor: React.FC<PromptEditorProps> = ({ prompt, onSave, onCa
 
   const isEditMode = !!prompt;
 
+  // Update form fields when prompt prop changes (for edit mode)
+  useEffect(() => {
+    if (prompt) {
+      setTitle(prompt.title);
+      setContent(prompt.content);
+    } else {
+      setTitle('');
+      setContent('');
+    }
+  }, [prompt]);
+
   // Clear error when title changes
   useEffect(() => {
     if (error) {

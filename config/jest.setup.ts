@@ -13,6 +13,13 @@ global.Office = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } as any;
 
+// Mock ResizeObserver for Fluent UI components
+global.ResizeObserver = class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};
+
 // Suppress console warnings in tests
 global.console = {
   ...console,

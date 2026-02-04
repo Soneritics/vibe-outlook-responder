@@ -206,7 +206,7 @@ export class SignatureDetector {
     let position = 0;
 
     for (let i = 0; i < lines.length; i++) {
-      const line = lines[i].trim();
+      const line = lines[i]?.trim() || '';
 
       if (line === '') {
         emptyLines++;
@@ -220,7 +220,7 @@ export class SignatureDetector {
         emptyLines = 0;
       }
 
-      position += lines[i].length + 1; // +1 for newline
+      position += (lines[i]?.length || 0) + 1; // +1 for newline
     }
 
     return -1;

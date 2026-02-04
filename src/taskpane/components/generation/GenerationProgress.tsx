@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   ProgressBar,
   Button,
@@ -7,7 +7,7 @@ import {
   Text,
   Spinner,
 } from '@fluentui/react-components';
-import { Dismiss24Regular } from '@fluentui/react-icons';
+import { Dismiss24Regular, Warning20Regular } from '@fluentui/react-icons';
 
 const useStyles = makeStyles({
   container: {
@@ -53,6 +53,16 @@ const useStyles = makeStyles({
     color: tokens.colorNeutralForeground3,
     fontSize: tokens.fontSizeBase200,
   },
+  warningNotice: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: tokens.spacingHorizontalS,
+    padding: tokens.spacingVerticalS,
+    borderRadius: tokens.borderRadiusMedium,
+    backgroundColor: tokens.colorPaletteYellowBackground1,
+    color: tokens.colorPaletteYellowForeground1,
+    marginTop: tokens.spacingVerticalS,
+  },
 });
 
 export type GenerationStep = 'preparing' | 'sending' | 'generating' | 'done';
@@ -62,6 +72,9 @@ interface GenerationProgressProps {
   onCancel: () => void;
   error?: string;
   estimatedTime?: number;
+  wasSummarized?: boolean;
+  originalTokenCount?: number;
+  finalTokenCount?: number;
 }
 
 /**
@@ -73,6 +86,9 @@ export const GenerationProgress: React.FC<GenerationProgressProps> = ({
   onCancel,
   error,
   estimatedTime,
+  wasSummarized = false,
+  originalTokenCount,
+  finalTokenCount,
 }) => {
   const styles = useStyles();
   const [cancelDisabled, setCancelDisabled] = useState(false);
@@ -139,6 +155,23 @@ export const GenerationProgress: React.FC<GenerationProgressProps> = ({
 
       {/* Progress percentage */}
       <Text weight="semibold">{Math.round(progressValue)}% complete</Text>
+
+      {/* Summarization notice (FR-044) */}
+      {wasSummarized && (
+        <div className={styles.warningNotice} role="alert">
+          <Warning20Regular />
+          <div>
+            <Text weight="semibold">Email thread was summarized</Text>
+            <br />
+            <Text size={200}>
+              The email content exceeded token limits and was automatically summarized
+              {originalTokenCount && finalTokenCount && 
+                ` (${originalTokenCount} → ${finalTokenCount} tokens)`
+              }.
+            </Text>
+          </div>
+        </div>
+      )}
 
       {/* Error message */}
       {error && (

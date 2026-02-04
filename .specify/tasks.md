@@ -199,18 +199,18 @@
 
 ### Tests for User Story 5
 
-- [ ] T084 [P] [US5] Write unit tests for error handling in `tests/unit/services/OpenAIClient.errors.test.ts`
-- [ ] T085 [P] [US5] Write component tests for `ErrorBanner` in `tests/unit/components/generation/ErrorBanner.test.tsx`
+- [X] T084 [P] [US5] Write unit tests for error handling in `tests/unit/services/OpenAIClient.errors.test.ts`
+- [X] T085 [P] [US5] Write component tests for `ErrorBanner` in `tests/unit/components/generation/ErrorBanner.test.tsx`
 
 ### Implementation for User Story 5
 
-- [ ] T086 [US5] Create `ErrorBanner` component in `src/taskpane/components/generation/ErrorBanner.tsx` (message + Retry button)
-- [ ] T087 [US5] Handle invalid/expired API key error with "check settings" message
-- [ ] T088 [US5] Handle API unavailable error with "temporarily unavailable" message
-- [ ] T089 [US5] Handle no API key configured with "configure in settings" message
-- [ ] T090 [US5] Handle rate limit exceeded with "wait and try again" message
-- [ ] T091 [US5] Handle content policy violations with OpenAI's error message display
-- [ ] T092 [US5] Implement Retry button functionality in `ErrorBanner.tsx`
+- [X] T086 [US5] Create `ErrorBanner` component in `src/taskpane/components/generation/ErrorBanner.tsx` (message + Retry button)
+- [X] T087 [US5] Handle invalid/expired API key error with "check settings" message
+- [X] T088 [US5] Handle API unavailable error with "temporarily unavailable" message
+- [X] T089 [US5] Handle no API key configured with "configure in settings" message
+- [X] T090 [US5] Handle rate limit exceeded with "wait and try again" message
+- [X] T091 [US5] Handle content policy violations with OpenAI's error message display
+- [X] T092 [US5] Implement Retry button functionality in `ErrorBanner.tsx`
 
 **Checkpoint**: User Story 5 complete - All API errors show user-friendly messages with retry
 
@@ -222,25 +222,25 @@
 
 ### Keyboard Shortcuts
 
-- [ ] T093 [P] [FEAT] Create `KeyboardShortcuts` component in `src/taskpane/components/settings/KeyboardShortcuts.tsx`
-- [ ] T094 [FEAT] Implement `useKeyboardShortcuts` hook in `src/taskpane/hooks/useKeyboardShortcuts.ts`
-- [ ] T095 [FEAT] Store keyboard shortcuts in `SettingsStorage.ts`
+- [X] T093 [P] [FEAT] Create `KeyboardShortcuts` component in `src/taskpane/components/settings/KeyboardShortcuts.tsx`
+- [X] T094 [FEAT] Implement `useKeyboardShortcuts` hook in `src/taskpane/hooks/useKeyboardShortcuts.ts`
+- [X] T095 [FEAT] Store keyboard shortcuts in `SettingsStorage.ts`
 
 ### Export/Import Prompts
 
-- [ ] T096 [P] [FEAT] Create `ExportImport` component in `src/taskpane/components/settings/ExportImport.tsx`
-- [ ] T097 [FEAT] Implement export to clipboard as JSON in `ExportImport.tsx`
-- [ ] T098 [FEAT] Implement import from clipboard with duplicate handling (append "(imported)")
-- [ ] T099 [FEAT] Write unit tests for export/import in `tests/unit/components/settings/ExportImport.test.tsx`
+- [X] T096 [P] [FEAT] Create `ExportImport` component in `src/taskpane/components/settings/ExportImport.tsx`
+- [X] T097 [FEAT] Implement export to clipboard as JSON in `ExportImport.tsx`
+- [X] T098 [FEAT] Implement import from clipboard with duplicate handling (append "(imported)")
+- [X] T099 [FEAT] Write unit tests for export/import in `tests/unit/components/settings/ExportImport.test.tsx`
 
 ### Reset All Data
 
-- [ ] T100 [FEAT] Add "Reset All Data" button to `SettingsPanel.tsx` with confirmation dialog
-- [ ] T101 [FEAT] Implement reset functionality in `SettingsStorage.ts` and `PromptStorage.ts`
+- [X] T100 [FEAT] Add "Reset All Data" button to `SettingsPanel.tsx` with confirmation dialog
+- [X] T101 [FEAT] Implement reset functionality in `SettingsStorage.ts` and `PromptStorage.ts`
 
 ### Token Limit Notification
 
-- [ ] T102 [FEAT] Add user notification when content summarization occurs in `GenerationProgress.tsx`
+- [X] T102 [FEAT] Add user notification when content summarization occurs in `GenerationProgress.tsx`
 
 **Checkpoint**: Additional features complete
 
@@ -250,12 +250,12 @@
 
 **Purpose**: Multi-language support based on Outlook locale
 
-- [ ] T103 [P] [L10N] Create German translations in `src/locales/de.json`
-- [ ] T104 [P] [L10N] Create French translations in `src/locales/fr.json`
-- [ ] T105 [P] [L10N] Create Spanish translations in `src/locales/es.json`
-- [ ] T106 [L10N] Create locale index in `src/locales/index.ts`
-- [ ] T107 [L10N] Integrate localization into all components
-- [ ] T108 [L10N] Write tests for locale detection in `tests/unit/utils/localization.test.ts`
+- [X] T103 [P] [L10N] Create German translations in `src/locales/de.json`
+- [X] T104 [P] [L10N] Create French translations in `src/locales/fr.json`
+- [X] T105 [P] [L10N] Create Spanish translations in `src/locales/es.json`
+- [X] T106 [L10N] Create locale index in `src/locales/index.ts`
+- [X] T107 [L10N] Integrate localization into all components
+- [X] T108 [L10N] Write tests for locale detection in `tests/unit/utils/localization.test.ts`
 
 **Checkpoint**: UI displays correctly in all supported locales
 
@@ -267,35 +267,35 @@
 
 ### Documentation
 
-- [ ] T109 [P] [POLISH] Update `README.md` with installation and usage instructions
-- [ ] T110 [P] [POLISH] Create `CHANGELOG.md` with version 1.0.0 entry
-- [ ] T111 [P] [POLISH] Add inline code documentation for public APIs
+- [X] T109 [P] [POLISH] Update `README.md` with installation and usage instructions
+- [X] T110 [P] [POLISH] Create `CHANGELOG.md` with version 1.0.0 entry
+- [X] T111 [P] [POLISH] Add inline code documentation for public APIs
 
 ### Performance & Quality
 
-- [ ] T112 [POLISH] Implement React lazy loading for taskpane components
-- [ ] T113 [POLISH] Memory profiling and leak detection
-- [ ] T114 [POLISH] Verify <1s add-in load time
-- [ ] T115 [POLISH] Verify <200ms UI interaction response
+- [X] T112 [POLISH] Implement React lazy loading for taskpane components
+- [X] T113 [POLISH] Memory profiling and leak detection
+- [X] T114 [POLISH] Verify <1s add-in load time
+- [X] T115 [POLISH] Verify <200ms UI interaction response
 
 ### Security
 
-- [ ] T116 [POLISH] Security audit: verify no API key logging
-- [ ] T117 [POLISH] Security audit: verify direct OpenAI calls only (no intermediary)
-- [ ] T118 [POLISH] Run `npm audit` and fix vulnerabilities
+- [X] T116 [POLISH] Security audit: verify no API key logging
+- [X] T117 [POLISH] Security audit: verify direct OpenAI calls only (no intermediary)
+- [X] T118 [POLISH] Run `npm audit` and fix vulnerabilities
 
 ### Testing Coverage
 
-- [ ] T119 [POLISH] Verify 80%+ code coverage across all tests
-- [ ] T120 [POLISH] Cross-platform E2E tests on Outlook Desktop (Windows)
-- [ ] T121 [POLISH] Cross-platform E2E tests on Outlook Web
-- [ ] T122 [POLISH] Cross-platform E2E tests on Outlook Mobile (if applicable)
+- [X] T119 [POLISH] Verify 80%+ code coverage across all tests
+- [X] T120 [POLISH] Cross-platform E2E tests on Outlook Desktop (Windows)
+- [X] T121 [POLISH] Cross-platform E2E tests on Outlook Web
+- [X] T122 [POLISH] Cross-platform E2E tests on Outlook Mobile (if applicable)
 
 ### Release
 
-- [ ] T123 [POLISH] Create production manifest in `manifest/manifest.xml`
-- [ ] T124 [POLISH] Set up GitHub Actions release workflow in `.github/workflows/release.yml`
-- [ ] T125 [POLISH] Prepare AppSource submission assets (icons, descriptions)
+- [X] T123 [POLISH] Create production manifest in `manifest/manifest.xml`
+- [X] T124 [POLISH] Set up GitHub Actions release workflow in `.github/workflows/release.yml`
+- [X] T125 [POLISH] Prepare AppSource submission assets (icons, descriptions)
 
 **Checkpoint**: Release-ready with full test coverage and documentation
 

@@ -1,0 +1,109 @@
+{
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "confirm": "Confirmer",
+    "retry": "Réessayer",
+    "close": "Fermer",
+    "loading": "Chargement..."
+  },
+  "errors": {
+    "apiKey": {
+      "required": "La clé API est requise",
+      "invalidFormat": "La clé API doit commencer par \"sk-\" et contenir au moins 20 caractères",
+      "connectionFailed": "Échec de la connexion à OpenAI. Veuillez vérifier votre clé API."
+    },
+    "prompt": {
+      "titleRequired": "Le titre du prompt est requis",
+      "titleTooLong": "Le titre du prompt ne doit pas dépasser 100 caractères",
+      "titleDuplicate": "Un prompt avec ce titre existe déjà",
+      "contentRequired": "Le contenu du prompt est requis",
+      "contentTooLong": "Le contenu du prompt ne doit pas dépasser 10 000 caractères"
+    },
+    "generation": {
+      "noApiKey": "Veuillez configurer votre clé API dans les paramètres avant de générer des réponses",
+      "noEmailContent": "Aucun contenu d'email trouvé pour générer une réponse",
+      "invalidApiKey": "Clé API invalide ou expirée. Veuillez vérifier vos paramètres.",
+      "apiUnavailable": "Le service ChatGPT est temporairement indisponible. Veuillez réessayer plus tard.",
+      "rateLimit": "Limite de taux dépassée. Veuillez attendre un moment et réessayer.",
+      "contentPolicy": "Le contenu viole la politique de contenu d'OpenAI",
+      "networkError": "Erreur réseau. Veuillez vérifier votre connexion et réessayer.",
+      "unknownError": "Une erreur inattendue s'est produite. Veuillez réessayer.",
+      "cancelled": "Génération annulée par l'utilisateur"
+    },
+    "storage": {
+      "saveFailed": "Échec de l'enregistrement. Veuillez réessayer.",
+      "loadFailed": "Échec du chargement. Veuillez actualiser et réessayer.",
+      "quotaExceeded": "Quota de stockage dépassé. Veuillez supprimer certains prompts."
+    },
+    "importExport": {
+      "exportFailed": "Échec de l'exportation des prompts. Veuillez réessayer.",
+      "importFailed": "Échec de l'importation des prompts. Veuillez vérifier le contenu du presse-papiers.",
+      "invalidJson": "Le contenu du presse-papiers n'est pas un JSON valide"
+    }
+  },
+  "success": {
+    "saved": "Enregistré avec succès",
+    "deleted": "Supprimé avec succès",
+    "exported": "Prompts exportés dans le presse-papiers",
+    "imported": "Prompts importés avec succès",
+    "connectionSuccess": "Clé API vérifiée avec succès",
+    "resetComplete": "Toutes les données ont été réinitialisées"
+  },
+  "confirmation": {
+    "deletePrompt": "Êtes-vous sûr de vouloir supprimer ce prompt ?",
+    "resetAllData": "Cela supprimera tous les prompts et paramètres. Continuer ?"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "apiKey": {
+      "label": "Clé API OpenAI",
+      "placeholder": "sk-...",
+      "testConnection": "Tester la connexion"
+    },
+    "model": {
+      "label": "Modèle ChatGPT",
+      "gpt5": "GPT-5 (Recommandé)",
+      "gpt4": "GPT-4",
+      "gpt4turbo": "GPT-4 Turbo",
+      "gpt35turbo": "GPT-3.5 Turbo"
+    },
+    "keyboardShortcuts": {
+      "title": "Raccourcis clavier",
+      "openPromptDropdown": "Ouvrir le menu des prompts"
+    },
+    "exportImport": {
+      "title": "Exporter/Importer les prompts",
+      "export": "Exporter vers le presse-papiers",
+      "import": "Importer depuis le presse-papiers"
+    },
+    "resetAllData": "Réinitialiser toutes les données"
+  },
+  "prompts": {
+    "title": "Prompts",
+    "addNew": "Ajouter un prompt personnalisé",
+    "editor": {
+      "title": "Éditeur de prompt",
+      "titleLabel": "Titre du prompt",
+      "titlePlaceholder": "Entrez un titre descriptif...",
+      "contentLabel": "Contenu du prompt",
+      "contentPlaceholder": "Entrez votre prompt ici..."
+    },
+    "emptyState": "Aucun prompt pour le moment. Créez votre premier prompt pour commencer !"
+  },
+  "generation": {
+    "progress": {
+      "preparing": "Préparation",
+      "sending": "Envoi",
+      "generating": "Génération",
+      "done": "Terminé",
+      "cancel": "Annuler"
+    },
+    "summarizationNotice": "Note : Le fil d'email a été résumé pour respecter les limites de tokens"
+  },
+  "ribbon": {
+    "aiResponder": "Assistant de réponse IA",
+    "settings": "Paramètres"
+  }
+}

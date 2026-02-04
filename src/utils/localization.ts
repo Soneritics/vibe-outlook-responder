@@ -3,35 +3,25 @@
  * Detects Outlook locale and provides translation functions
  */
 
-/**
- * Supported locales
- */
-export type SupportedLocale = 'en' | 'de' | 'fr' | 'es';
+import { translations, TranslationStrings, Locale, DEFAULT_LOCALE, SUPPORTED_LOCALES } from '../locales';
 
 /**
- * Translation keys structure
+ * Gets translations for the specified locale
+ * @param locale - Optional locale to get translations for (auto-detects if not provided)
+ * @returns Translation strings for the specified locale
  */
-export interface Translations {
-  [key: string]: string | Translations;
+export function getTranslations(locale?: Locale): TranslationStrings {
+  const targetLocale = locale ?? detectOutlookLocale();
+  return translations[targetLocale] || translations[DEFAULT_LOCALE];
 }
-
-/**
- * Current locale (defaults to English)
- */
-let currentLocale: SupportedLocale = 'en';
-
-/**
- * Loaded translations for current locale
- */
-let translations: Translations = {};
 
 /**
  * Detects the user's Outlook locale
  * @returns The detected locale code
  */
-export function detectOutlookLocale(): SupportedLocale {
+export function detectOutlookLocale(): Locale {
   // Default to English
-  let locale: SupportedLocale = 'en';
+  let locale: Locale = DEFAULT_LOCALE;
 
   try {
     // Try to get Office locale
@@ -41,9 +31,8 @@ export function detectOutlookLocale(): SupportedLocale {
       const parts = displayLanguage.split('-');
       if (parts.length > 0 && parts[0]) {
         const languageCode = parts[0].toLowerCase();
-        const supportedLocales: SupportedLocale[] = ['en', 'de', 'fr', 'es'];
-        if (supportedLocales.includes(languageCode as SupportedLocale)) {
-          locale = languageCode as SupportedLocale;
+        if (SUPPORTED_LOCALES.includes(languageCode as Locale)) {
+          locale = languageCode as Locale;
         }
       }
     }
@@ -55,35 +44,16 @@ export function detectOutlookLocale(): SupportedLocale {
 }
 
 /**
- * Initializes localization by loading the appropriate locale file
- * @param locale - Optional locale to use (auto-detects if not provided)
- */
-export async function initLocalization(
-  locale?: SupportedLocale
-): Promise<void> {
-  currentLocale = locale ?? detectOutlookLocale();
-
-  try {
-    // Dynamically import the locale file
-    const localeModule = await import(`../locales/${currentLocale}.json`);
-    translations = (localeModule.default ?? localeModule) as Translations;
-  } catch (error) {
-    console.error(`Failed to load locale ${currentLocale}, using English`);
-    currentLocale = 'en';
-    const englishModule = await import('../locales/en.json');
-    translations = (englishModule.default ?? englishModule) as Translations;
-  }
-}
-
-/**
  * Gets a translated string by key path
  * @param keyPath - Dot-separated key path (e.g., "errors.apiKey.required")
+ * @param locale - Optional locale to use (auto-detects if not provided)
  * @param fallback - Optional fallback text if key not found
  * @returns The translated string or fallback
  */
-export function t(keyPath: string, fallback?: string): string {
+export function t(keyPath: string, locale?: Locale, fallback?: string): string {
+  const translations = getTranslations(locale);
   const keys = keyPath.split('.');
-  let value: string | Translations | undefined = translations;
+  let value: any = translations;
 
   for (const key of keys) {
     if (value !== undefined && typeof value === 'object' && key in value) {
@@ -98,12 +68,4 @@ export function t(keyPath: string, fallback?: string): string {
   }
   
   return fallback ?? keyPath;
-}
-
-/**
- * Gets the current locale
- * @returns The current locale code
- */
-export function getCurrentLocale(): SupportedLocale {
-  return currentLocale;
 }

@@ -1,9 +1,27 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const fs = require('fs');
+const os = require('os');
+
+// Get Office Add-in dev certificates
+const getDevCerts = () => {
+  const certPath = path.join(os.homedir(), '.office-addin-dev-certs');
+  const certFile = path.join(certPath, 'localhost.crt');
+  const keyFile = path.join(certPath, 'localhost.key');
+  
+  if (fs.existsSync(certFile) && fs.existsSync(keyFile)) {
+    return {
+      cert: fs.readFileSync(certFile),
+      key: fs.readFileSync(keyFile),
+    };
+  }
+  return null;
+};
 
 module.exports = (env, argv) => {
   const isDevelopment = argv.mode === 'development';
+  const devCerts = isDevelopment ? getDevCerts() : null;
 
   return {
     entry: {
@@ -21,6 +39,9 @@ module.exports = (env, argv) => {
         '@': path.resolve(__dirname, '../src'),
       },
     },
+    experiments: {
+      asyncWebAssembly: true,
+    },
     module: {
       rules: [
         {
@@ -37,8 +58,18 @@ module.exports = (env, argv) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './src/taskpane/taskpane.html',
+        filename: 'taskpane.html',
+        chunks: ['taskpane'],
+      }),
+      new HtmlWebpackPlugin({
+        template: './src/taskpane/taskpane.html',
         filename: 'taskpane/taskpane.html',
         chunks: ['taskpane'],
+      }),
+      new HtmlWebpackPlugin({
+        template: './src/commands/commands.html',
+        filename: 'commands.html',
+        chunks: ['commands'],
       }),
       new HtmlWebpackPlugin({
         template: './src/commands/commands.html',
@@ -51,7 +82,10 @@ module.exports = (env, argv) => {
     ],
     devServer: {
       port: 3000,
-      https: true,
+      server: devCerts ? {
+        type: 'https',
+        options: devCerts,
+      } : 'https',
       hot: true,
       headers: {
         'Access-Control-Allow-Origin': '*',
