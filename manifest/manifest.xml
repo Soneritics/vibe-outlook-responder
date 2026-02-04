@@ -13,13 +13,13 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="AI Assistant"/>
   <Description DefaultValue="ChatGPT-powered email response generator for Outlook"/>
-  <IconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
-  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-128.png"/>
+  <IconUrl DefaultValue="https://soneritics.github.io/vibe-outlook-responder/assets/icon-64.png"/>
+  <HighResolutionIconUrl DefaultValue="https://soneritics.github.io/vibe-outlook-responder/assets/icon-128.png"/>
   <SupportUrl DefaultValue="https://github.com/Soneritics/vibe-outlook-responder"/>
 
   <!-- App Domains -->
   <AppDomains>
-    <AppDomain>https://localhost:3000</AppDomain>
+    <AppDomain>https://soneritics.github.io</AppDomain>
   </AppDomains>
 
   <!-- Hosts -->
@@ -38,7 +38,7 @@
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://localhost:3000/taskpane.html"/>
+        <SourceLocation DefaultValue="https://soneritics.github.io/vibe-outlook-responder/taskpane.html"/>
         <RequestedHeight>450</RequestedHeight>
       </DesktopSettings>
     </Form>
@@ -156,16 +156,16 @@
       <!-- Resources -->
       <Resources>
         <bt:Images>
-          <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
-          <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
-          <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
+          <bt:Image id="Icon.16x16" DefaultValue="https://soneritics.github.io/vibe-outlook-responder/assets/icon-16.png"/>
+          <bt:Image id="Icon.32x32" DefaultValue="https://soneritics.github.io/vibe-outlook-responder/assets/icon-32.png"/>
+          <bt:Image id="Icon.80x80" DefaultValue="https://soneritics.github.io/vibe-outlook-responder/assets/icon-80.png"/>
         </bt:Images>
         <bt:Urls>
-          <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html"/>
-          <bt:Url id="Taskpane.ManagePromptsUrl" DefaultValue="https://localhost:3000/taskpane.html?panel=manage-prompts"/>
-          <bt:Url id="Taskpane.SettingsUrl" DefaultValue="https://localhost:3000/taskpane.html?panel=settings"/>
-          <bt:Url id="Taskpane.GenerateUrl" DefaultValue="https://localhost:3000/taskpane.html?panel=generate"/>
-          <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html"/>
+          <bt:Url id="Taskpane.Url" DefaultValue="https://soneritics.github.io/vibe-outlook-responder/taskpane.html"/>
+          <bt:Url id="Taskpane.ManagePromptsUrl" DefaultValue="https://soneritics.github.io/vibe-outlook-responder/taskpane.html?panel=manage-prompts"/>
+          <bt:Url id="Taskpane.SettingsUrl" DefaultValue="https://soneritics.github.io/vibe-outlook-responder/taskpane.html?panel=settings"/>
+          <bt:Url id="Taskpane.GenerateUrl" DefaultValue="https://soneritics.github.io/vibe-outlook-responder/taskpane.html?panel=generate"/>
+          <bt:Url id="Commands.Url" DefaultValue="https://soneritics.github.io/vibe-outlook-responder/commands.html"/>
         </bt:Urls>
         <bt:ShortStrings>
           <bt:String id="GroupLabel" DefaultValue="AI Assistant"/>

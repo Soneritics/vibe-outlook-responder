@@ -7,13 +7,14 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to release (e.g., 1.0.0)'
+        description: '1.0.0'
         required: true
         type: string
 
 permissions:
   contents: write
   packages: write
+  pages: write
 
 jobs:
   build-and-release:
@@ -45,6 +46,12 @@ jobs:
 
       - name: Validate manifest
         run: npm run validate
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
 
       - name: Get version
         id: get_version
