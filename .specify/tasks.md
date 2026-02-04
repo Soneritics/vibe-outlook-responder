@@ -181,11 +181,11 @@
 - [X] T076 [US4] Create `GenerationProgress` component in `src/taskpane/components/generation/GenerationProgress.tsx` (Preparing → Sending → Generating → Done + Cancel)
 - [X] T077 [US4] Create `GenerationOverlay` component in `src/taskpane/components/generation/GenerationOverlay.tsx`
 - [X] T078 [US4] Implement `useGeneration` hook in `src/taskpane/hooks/useGeneration.ts` (orchestrates generation flow)
-- [ ] T079 [US4] Wire compose mode dropdown in `src/commands/commandHandlers.ts` to trigger generation
-- [ ] T080 [US4] Update `manifest/manifest.xml` with compose mode ribbon button and dropdown
-- [ ] T081 [US4] Implement cancel functionality in `useGeneration.ts` (AbortController)
-- [ ] T082 [US4] Handle "no email content" case with user-friendly message
-- [ ] T083 [US4] Support multiple generations (each inserts above previous)
+- [X] T079 [US4] Wire compose mode dropdown in `src/commands/commandHandlers.ts` to trigger generation
+- [X] T080 [US4] Update `manifest/manifest.xml` with compose mode ribbon button and dropdown
+- [X] T081 [US4] Implement cancel functionality in `useGeneration.ts` (AbortController)
+- [X] T082 [US4] Handle "no email content" case with user-friendly message
+- [X] T083 [US4] Support multiple generations (each inserts above previous)
 
 **Checkpoint**: User Story 4 complete - AI responses generate and insert correctly in compose mode
 

@@ -89,11 +89,34 @@ export function openEditPrompt(event: Office.AddinCommands.Event, promptId?: str
 
 /**
  * Generates AI response using selected prompt
+ * Triggered from compose mode dropdown (FR-023, FR-024)
+ * @param promptId - ID of the prompt to use (from event source)
  */
-export function generateResponse(event: Office.AddinCommands.Event): void {
+export function generateResponse(event: Office.AddinCommands.Event, promptId?: string): void {
   try {
-    // For now, just log - will be implemented in Phase 6
-    console.log('Generate response command triggered');
+    // Get promptId from event source if not provided
+    let id = promptId;
+    if (!id && event.source && (event.source as any).id) {
+      id = (event.source as any).id;
+    }
+
+    if (!id) {
+      console.error('No prompt ID provided for generation');
+      event.completed();
+      return;
+    }
+
+    // Open generation overlay taskpane
+    Office.context.ui.displayDialogAsync(
+      `${window.location.origin}/taskpane.html?panel=generation&promptId=${encodeURIComponent(id)}`,
+      { height: 50, width: 35, displayInIframe: true },
+      (result) => {
+        if (result.status === Office.AsyncResultStatus.Failed) {
+          console.error('Failed to open generation overlay:', result.error);
+        }
+      }
+    );
+
     event.completed();
   } catch (error) {
     console.error('Error generating response:', error);

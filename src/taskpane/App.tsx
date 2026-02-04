@@ -3,6 +3,7 @@ import { FluentProvider, webLightTheme } from '@fluentui/react-components';
 import { SettingsPanel } from './components/settings/SettingsPanel';
 import { PromptEditor } from './components/prompts/PromptEditor';
 import { MainScreen } from './components/main/MainScreen';
+import { GenerationPanel } from './components/generation/GenerationPanel';
 import { usePrompts } from './hooks/usePrompts';
 import { Prompt } from '../models/Prompt';
 
@@ -10,6 +11,7 @@ const App: React.FC = () => {
   const [currentPanel, setCurrentPanel] = useState<string>('home');
   const [editPromptId, setEditPromptId] = useState<string | null>(null);
   const [editPrompt, setEditPrompt] = useState<Prompt | undefined>(undefined);
+  const [generationPromptId, setGenerationPromptId] = useState<string | null>(null);
   const { createPrompt, updatePrompt, deletePrompt, getPrompt } = usePrompts();
 
   useEffect(() => {
@@ -22,7 +24,11 @@ const App: React.FC = () => {
       setCurrentPanel(panel);
     }
     if (promptId) {
-      setEditPromptId(promptId);
+      if (panel === 'generation') {
+        setGenerationPromptId(promptId);
+      } else {
+        setEditPromptId(promptId);
+      }
     }
   }, []);
 
@@ -98,6 +104,12 @@ const App: React.FC = () => {
             onDelete={editPromptId ? handleDeletePrompt : undefined}
           />
         );
+      }
+      case 'generation': {
+        if (!generationPromptId) {
+          return <div>Error: No prompt ID provided for generation</div>;
+        }
+        return <GenerationPanel promptId={generationPromptId} />;
       }
       case 'main':
       default:
