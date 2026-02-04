@@ -7,49 +7,49 @@
 
 ## Clarified Requirements
 
-| Decision | Choice |
-|----------|--------|
-| Target Platforms | All platforms: Desktop (Windows/Mac), Web (OWA), and Mobile |
-| ChatGPT Model | User-selectable in Settings, defaults to GPT-5 |
-| Response Placement | Insert above user's existing content |
-| Prompt Limit | No limit on number of prompts |
-| Email Format | Preserve HTML formatting from original email |
-| Prompt Sync | Sync across devices using Microsoft account |
-| Language Support | Multiple languages based on user's Outlook locale |
-| Thread Context | Include entire email thread for context |
-| Token Limit Handling | Automatically summarize older messages to fit within limits |
-| Prompt Display Order | Alphabetically by title |
-| Delete Confirmation | Simple confirmation dialog |
-| First-Time Use | Allow creating prompts before API key is set; block generation only |
-| Prompt Field Limits | Title: 100 chars, Content: 10,000 chars |
-| Compose Dropdown | Shows prompts + "Add Custom Prompt" (no Settings) |
-| Multiple Generations | Allowed; each inserts above previous |
-| Keyboard Shortcuts | Configurable in settings |
-| Response Preview | No preview; insert directly inline |
-| Undo Generation | Ctrl+Z works to undo insertion |
-| Settings Sync | Model preference syncs; API key stays local for security |
-| API Key Validation | Format validation + optional "Test Connection" button |
-| System Prompt | No wrapping; user controls prompt entirely |
-| Loading Indicator | Progress bar with steps: Preparing → Sending → Generating → Done |
-| Cancel Generation | Always show cancel button during generation |
-| Retry on Failure | Show "Retry" button on error |
-| API Timeout | No timeout; wait for OpenAI response |
-| Prompt Export/Import | Via clipboard (copy/paste JSON) |
-| Duplicate Titles | Block saving; require unique titles |
-| Demo Mode | None; API key required for generation |
-| Usage Logging | No logging; privacy first |
-| Button Appearance | Ribbon button with icon and text label |
-| Button Label | "AI Responder" |
-| Screen Display | Dialog/Taskpane (standard Outlook add-in panel) |
-| Sync Conflict | Last write wins (most recent save overwrites) |
-| Email Attachments | No special handling; generate normally |
-| Reading Pane | Generation only works in compose mode |
-| Signature Handling | Insert response above signature (auto-detect position) |
-| Prompt Placeholders | None; advanced users handle manually |
-| Content Policy | Show OpenAI's content policy message on violation |
-| Factory Reset | "Reset All Data" button in settings with confirmation |
+| Decision             | Choice                                                              |
+| -------------------- | ------------------------------------------------------------------- |
+| Target Platforms     | All platforms: Desktop (Windows/Mac), Web (OWA), and Mobile         |
+| ChatGPT Model        | User-selectable in Settings, defaults to GPT-5                      |
+| Response Placement   | Insert above user's existing content                                |
+| Prompt Limit         | No limit on number of prompts                                       |
+| Email Format         | Preserve HTML formatting from original email                        |
+| Prompt Sync          | Sync across devices using Microsoft account                         |
+| Language Support     | Multiple languages based on user's Outlook locale                   |
+| Thread Context       | Include entire email thread for context                             |
+| Token Limit Handling | Automatically summarize older messages to fit within limits         |
+| Prompt Display Order | Alphabetically by title                                             |
+| Delete Confirmation  | Simple confirmation dialog                                          |
+| First-Time Use       | Allow creating prompts before API key is set; block generation only |
+| Prompt Field Limits  | Title: 100 chars, Content: 10,000 chars                             |
+| Compose Dropdown     | Shows prompts + "Add Custom Prompt" (no Settings)                   |
+| Multiple Generations | Allowed; each inserts above previous                                |
+| Keyboard Shortcuts   | Configurable in settings                                            |
+| Response Preview     | No preview; insert directly inline                                  |
+| Undo Generation      | Ctrl+Z works to undo insertion                                      |
+| Settings Sync        | Model preference syncs; API key stays local for security            |
+| API Key Validation   | Format validation + optional "Test Connection" button               |
+| System Prompt        | No wrapping; user controls prompt entirely                          |
+| Loading Indicator    | Progress bar with steps: Preparing → Sending → Generating → Done    |
+| Cancel Generation    | Always show cancel button during generation                         |
+| Retry on Failure     | Show "Retry" button on error                                        |
+| API Timeout          | No timeout; wait for OpenAI response                                |
+| Prompt Export/Import | Via clipboard (copy/paste JSON)                                     |
+| Duplicate Titles     | Block saving; require unique titles                                 |
+| Demo Mode            | None; API key required for generation                               |
+| Usage Logging        | No logging; privacy first                                           |
+| Button Appearance    | Ribbon button with icon and text label                              |
+| Button Label         | "AI Responder"                                                      |
+| Screen Display       | Dialog/Taskpane (standard Outlook add-in panel)                     |
+| Sync Conflict        | Last write wins (most recent save overwrites)                       |
+| Email Attachments    | No special handling; generate normally                              |
+| Reading Pane         | Generation only works in compose mode                               |
+| Signature Handling   | Insert response above signature (auto-detect position)              |
+| Prompt Placeholders  | None; advanced users handle manually                                |
+| Content Policy       | Show OpenAI's content policy message on violation                   |
+| Factory Reset        | "Reset All Data" button in settings with confirmation               |
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Configure ChatGPT API Key (Priority: P1)
 
@@ -146,11 +146,12 @@ As a user, I want to see helpful error messages when something goes wrong so tha
 - What happens if the generated response contains inappropriate content? → Display with option to regenerate or discard.
 - What happens when trying to delete the last remaining prompt? → Allow deletion, showing empty prompt list.
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
 **Main Outlook Screen Button/Dropdown**:
+
 - **FR-001**: Add-in MUST display a button labeled "AI Responder" with icon in the main Outlook ribbon/toolbar.
 - **FR-002**: Button MUST show a dropdown menu when clicked.
 - **FR-003**: Dropdown MUST display user-configured prompt titles at the top (alphabetically).
@@ -160,6 +161,7 @@ As a user, I want to see helpful error messages when something goes wrong so tha
 - **FR-007**: Dropdown MUST show "Settings" as the last item.
 
 **Settings Screen**:
+
 - **FR-008**: Settings screen MUST open in a Dialog/Taskpane (standard Outlook add-in panel).
 - **FR-009**: Settings screen MUST provide an input field for ChatGPT API key.
 - **FR-010**: Settings screen MUST mask the stored API key for security display.
@@ -171,6 +173,7 @@ As a user, I want to see helpful error messages when something goes wrong so tha
 - **FR-014a**: Settings MUST provide a "Reset All Data" button with confirmation dialog.
 
 **Prompt Editor Screen**:
+
 - **FR-015**: Prompt editor MUST open in a Dialog/Taskpane (standard Outlook add-in panel).
 - **FR-016**: Prompt editor MUST display a text field for prompt title (max 100 characters).
 - **FR-017**: Prompt editor MUST display a textarea for prompt content (max 10,000 characters).
@@ -182,6 +185,7 @@ As a user, I want to see helpful error messages when something goes wrong so tha
 - **FR-021b**: Prompt titles MUST be unique; saving duplicate title MUST be blocked with error message.
 
 **Email Compose Screen Integration**:
+
 - **FR-022**: Add-in MUST display a dropdown labeled "AI Responder" in the compose toolbar for new, reply, and forward email actions.
 - **FR-023**: Compose dropdown MUST list all user-configured prompts alphabetically by title.
 - **FR-023a**: Compose dropdown MUST include "Add Custom Prompt" option (after separator), but NOT Settings.
@@ -201,6 +205,7 @@ As a user, I want to see helpful error messages when something goes wrong so tha
 - **FR-029e**: Email attachments require no special handling.
 
 **Data Persistence & Sync**:
+
 - **FR-030**: User prompts MUST persist across Outlook sessions.
 - **FR-031**: API key MUST be stored securely and locally (not synced for security).
 - **FR-032**: Prompts MUST sync across devices using Microsoft account/Roaming Settings.
@@ -210,27 +215,33 @@ As a user, I want to see helpful error messages when something goes wrong so tha
 - **FR-033a**: Prompts MUST be displayed alphabetically by title in all dropdowns.
 
 **Prompt Export/Import**:
+
 - **FR-034**: Settings MUST provide "Export Prompts" button that copies all prompts as JSON to clipboard.
 - **FR-035**: Settings MUST provide "Import Prompts" button that imports prompts from clipboard JSON.
 - **FR-036**: Import MUST handle duplicate titles by appending "(imported)" suffix.
 
 **Privacy**:
+
 - **FR-037**: Add-in MUST NOT log any usage data, email content, or analytics.
 - **FR-038**: All API calls MUST go directly to OpenAI; no intermediary servers.
 
 **First-Time Use**:
+
 - **FR-039**: Users MUST be able to create and edit prompts without an API key configured.
 - **FR-040**: Generation MUST be blocked with helpful message if API key is not configured.
 
 **Keyboard Shortcuts**:
+
 - **FR-041**: Settings MUST allow configuring keyboard shortcuts for opening prompt dropdown.
 - **FR-042**: Keyboard shortcuts MUST work in compose mode across all supported platforms.
 
 **Token Limit Handling**:
+
 - **FR-043**: When email thread exceeds token limit, add-in MUST automatically summarize older messages.
 - **FR-044**: User MUST be notified when content summarization occurs.
 
 **Platform & Localization**:
+
 - **FR-045**: Add-in MUST work on Outlook Desktop (Windows/Mac), Outlook Web, and Outlook Mobile.
 - **FR-046**: Add-in UI MUST support multiple languages based on user's Outlook locale.
 
@@ -241,7 +252,7 @@ As a user, I want to see helpful error messages when something goes wrong so tha
 - **GenerationRequest**: Transient object for API calls. Attributes: emailContent, promptContent, timestamp.
 - **GenerationResponse**: Transient object from API. Attributes: generatedText, tokensUsed, responseTime.
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 
@@ -256,11 +267,11 @@ As a user, I want to see helpful error messages when something goes wrong so tha
 
 ## UI Components Summary
 
-| Location | Component | Contents |
-|----------|-----------|----------|
-| Main Outlook Screen | Ribbon Button "AI Responder" (icon + text) | Dropdown: Prompt titles (alphabetical) → Separator → "Add Custom Prompt" → Separator → "Settings" |
-| Settings Screen | Taskpane/Dialog | API Key input (masked) + Test Connection button, Model selector (GPT-5 default), Keyboard shortcut config, Export/Import Prompts buttons, Reset All Data button, Save/Cancel buttons |
-| Prompt Editor Screen | Taskpane/Dialog | Title field (100 char max, unique), Prompt textarea (10,000 char max), Save/Delete/Cancel buttons |
-| Email Compose Screen | Ribbon Button "AI Responder" (icon + text) | Dropdown: Prompt titles (alphabetical) → Separator → "Add Custom Prompt" |
-| Generation Progress | Overlay/Banner in compose | Progress bar (Preparing → Sending → Generating → Done) + Cancel button |
-| Error State | Banner in compose | Error message (including OpenAI policy messages) + Retry button |
+| Location             | Component                                  | Contents                                                                                                                                                                             |
+| -------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Main Outlook Screen  | Ribbon Button "AI Responder" (icon + text) | Dropdown: Prompt titles (alphabetical) → Separator → "Add Custom Prompt" → Separator → "Settings"                                                                                    |
+| Settings Screen      | Taskpane/Dialog                            | API Key input (masked) + Test Connection button, Model selector (GPT-5 default), Keyboard shortcut config, Export/Import Prompts buttons, Reset All Data button, Save/Cancel buttons |
+| Prompt Editor Screen | Taskpane/Dialog                            | Title field (100 char max, unique), Prompt textarea (10,000 char max), Save/Delete/Cancel buttons                                                                                    |
+| Email Compose Screen | Ribbon Button "AI Responder" (icon + text) | Dropdown: Prompt titles (alphabetical) → Separator → "Add Custom Prompt"                                                                                                             |
+| Generation Progress  | Overlay/Banner in compose                  | Progress bar (Preparing → Sending → Generating → Done) + Cancel button                                                                                                               |
+| Error State          | Banner in compose                          | Error message (including OpenAI policy messages) + Retry button                                                                                                                      |

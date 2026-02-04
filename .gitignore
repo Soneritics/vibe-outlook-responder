@@ -33,9 +33,14 @@ Desktop.ini
 
 # Test coverage
 coverage/
+.nyc_output/
 
 # TypeScript cache
 *.tsbuildinfo
+
+# Testing
+playwright-report/
+test-results/
 
 # Certificates (generated for dev)
 *.pem

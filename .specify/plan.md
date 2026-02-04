@@ -23,17 +23,17 @@ Build an Outlook add-in that integrates ChatGPT for AI-powered email response ge
 
 ## Constitution Check
 
-*GATE: Must pass before implementation. All items verified against constitution v1.0.0*
+_GATE: Must pass before implementation. All items verified against constitution v1.0.0_
 
-| Principle | Requirement | Plan Compliance |
-|-----------|-------------|-----------------|
-| I. Code Quality | TypeScript strict, SOLID, 50-line functions, 300-line files | ✅ TypeScript strict mode, component-based architecture |
-| II. Latest Versions | Node 22+, npm 10+, ES2024+, latest packages | ✅ All dependencies pinned to latest stable |
-| III. Testing | 80% coverage, TDD, unit/integration/E2E, mocking | ✅ Jest + RTL + Playwright, office-addin-mock |
-| IV. UX Consistency | Loading states, error messages, confirmations | ✅ Progress bar, Retry buttons, delete confirmations |
-| V. Performance | <200ms UI, <3s startup, async patterns | ✅ React lazy loading, async/await throughout |
-| Security | No secrets in code, input validation, HTTPS | ✅ API key in localStorage, validation, TLS only |
-| Development Workflow | PR-based, CI/CD, linting, pre-commit | ✅ GitHub Actions, ESLint, Prettier, Husky |
+| Principle            | Requirement                                                 | Plan Compliance                                         |
+| -------------------- | ----------------------------------------------------------- | ------------------------------------------------------- |
+| I. Code Quality      | TypeScript strict, SOLID, 50-line functions, 300-line files | ✅ TypeScript strict mode, component-based architecture |
+| II. Latest Versions  | Node 22+, npm 10+, ES2024+, latest packages                 | ✅ All dependencies pinned to latest stable             |
+| III. Testing         | 80% coverage, TDD, unit/integration/E2E, mocking            | ✅ Jest + RTL + Playwright, office-addin-mock           |
+| IV. UX Consistency   | Loading states, error messages, confirmations               | ✅ Progress bar, Retry buttons, delete confirmations    |
+| V. Performance       | <200ms UI, <3s startup, async patterns                      | ✅ React lazy loading, async/await throughout           |
+| Security             | No secrets in code, input validation, HTTPS                 | ✅ API key in localStorage, validation, TLS only        |
+| Development Workflow | PR-based, CI/CD, linting, pre-commit                        | ✅ GitHub Actions, ESLint, Prettier, Husky              |
 
 ## Project Structure
 
@@ -160,6 +160,7 @@ config/                          # Build configuration
 ## Implementation Phases
 
 ### Phase 1: Project Setup & Core Infrastructure
+
 - Initialize Office Add-in project with Yeoman generator (yo office)
 - Configure TypeScript strict mode, ESLint, Prettier
 - Set up Jest, React Testing Library, Playwright
@@ -169,6 +170,7 @@ config/                          # Build configuration
 - Implement base component library (Button, Input, Dropdown)
 
 ### Phase 2: Storage & Data Layer
+
 - Implement Settings model and SettingsStorage service
 - Implement Prompt model and PromptStorage service
 - Implement RoamingSync for cross-device prompt synchronization
@@ -177,6 +179,7 @@ config/                          # Build configuration
 - Write unit tests for all storage and validation (80%+ coverage)
 
 ### Phase 3: Settings Screen
+
 - Build SettingsPanel component with Fluent UI
 - Implement ApiKeyInput with masking and Test Connection
 - Implement ModelSelector dropdown (GPT-5 default)
@@ -186,6 +189,7 @@ config/                          # Build configuration
 - Write component tests and integration tests
 
 ### Phase 4: Prompt Management
+
 - Build PromptEditor component (title, content, validation)
 - Build PromptList/PromptDropdown for alphabetical display
 - Implement Save, Delete (with confirmation), Cancel flows
@@ -193,6 +197,7 @@ config/                          # Build configuration
 - Write component and integration tests
 
 ### Phase 5: OpenAI Integration
+
 - Implement OpenAIClient with direct API calls
 - Implement TokenCounter for context window management
 - Implement ContentSummarizer for long threads
@@ -200,6 +205,7 @@ config/                          # Build configuration
 - Write unit tests with mocked API responses
 
 ### Phase 6: Email Compose Integration
+
 - Implement EmailParser to extract thread content
 - Implement SignatureDetector for insertion positioning
 - Implement ContentInserter for response placement
@@ -209,6 +215,7 @@ config/                          # Build configuration
 - Write E2E tests for generation flow
 
 ### Phase 7: Localization & Polish
+
 - Implement localization system with Outlook locale detection
 - Add translations for supported languages
 - Ensure Ctrl+Z undo works correctly
@@ -216,6 +223,7 @@ config/                          # Build configuration
 - Cross-platform testing (Desktop, Web, Mobile)
 
 ### Phase 8: Release Preparation
+
 - Final test coverage verification (80%+ requirement)
 - Security audit (API key handling, no logging)
 - Documentation (README, CHANGELOG)
@@ -223,36 +231,36 @@ config/                          # Build configuration
 
 ## Key Technical Decisions
 
-| Decision | Choice | Rationale |
-|----------|--------|-----------|
-| UI Framework | React 18 + Fluent UI 9 | Microsoft design consistency, modern React features |
-| State Management | React hooks + context | Simple app, no need for Redux complexity |
-| API Client | OpenAI SDK 4+ | Official SDK, TypeScript support, streaming ready |
-| Storage | Office.RoamingSettings | Built-in cross-device sync, no external server |
-| Local Storage | Office.localStorage | Secure local-only storage for API key |
-| Testing | Jest + RTL + Playwright | Industry standard, good Office.js mock support |
-| Build | Webpack 5 | Required for Office Add-in compatibility |
-| Token Counting | tiktoken-js | Accurate GPT token counting for summarization |
+| Decision         | Choice                  | Rationale                                           |
+| ---------------- | ----------------------- | --------------------------------------------------- |
+| UI Framework     | React 18 + Fluent UI 9  | Microsoft design consistency, modern React features |
+| State Management | React hooks + context   | Simple app, no need for Redux complexity            |
+| API Client       | OpenAI SDK 4+           | Official SDK, TypeScript support, streaming ready   |
+| Storage          | Office.RoamingSettings  | Built-in cross-device sync, no external server      |
+| Local Storage    | Office.localStorage     | Secure local-only storage for API key               |
+| Testing          | Jest + RTL + Playwright | Industry standard, good Office.js mock support      |
+| Build            | Webpack 5               | Required for Office Add-in compatibility            |
+| Token Counting   | tiktoken-js             | Accurate GPT token counting for summarization       |
 
 ## Risk Mitigation
 
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| Roaming Settings quota exceeded | Prompts don't sync | Implement prompt size limits, warn on quota approach |
-| Office.js API differences across platforms | Features broken on some platforms | E2E tests on all platforms, feature detection |
-| OpenAI API changes | Generation breaks | Version pin SDK, integration tests, error handling |
-| Long email threads exceed token limits | Poor summarization | Quality summarization algorithm, user notification |
+| Risk                                       | Impact                            | Mitigation                                           |
+| ------------------------------------------ | --------------------------------- | ---------------------------------------------------- |
+| Roaming Settings quota exceeded            | Prompts don't sync                | Implement prompt size limits, warn on quota approach |
+| Office.js API differences across platforms | Features broken on some platforms | E2E tests on all platforms, feature detection        |
+| OpenAI API changes                         | Generation breaks                 | Version pin SDK, integration tests, error handling   |
+| Long email threads exceed token limits     | Poor summarization                | Quality summarization algorithm, user notification   |
 
 ## Complexity Tracking
 
 > No constitution violations identified. All requirements achievable within guidelines.
 
-| Aspect | Complexity | Justification |
-|--------|------------|---------------|
-| Cross-platform support | Medium | Office.js abstracts most differences; E2E testing required |
-| Token management | Medium | tiktoken-js library handles counting; summarization logic needed |
-| Signature detection | Low-Medium | Heuristic-based detection; may need refinement |
-| Roaming sync | Low | Office.RoamingSettings handles sync; last-write-wins is simple |
+| Aspect                 | Complexity | Justification                                                    |
+| ---------------------- | ---------- | ---------------------------------------------------------------- |
+| Cross-platform support | Medium     | Office.js abstracts most differences; E2E testing required       |
+| Token management       | Medium     | tiktoken-js library handles counting; summarization logic needed |
+| Signature detection    | Low-Medium | Heuristic-based detection; may need refinement                   |
+| Roaming sync           | Low        | Office.RoamingSettings handles sync; last-write-wins is simple   |
 
 ## Dependencies to Install
 

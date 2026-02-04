@@ -3,6 +3,7 @@
 ## Core Principles
 
 ### I. Code Quality Excellence
+
 - All code must be clean, readable, and self-documenting
 - Follow established design patterns and SOLID principles
 - Maximum function length: 50 lines; maximum file length: 300 lines
@@ -12,6 +13,7 @@
 - All functions must have clear single responsibility
 
 ### II. Latest Versions Policy (NON-NEGOTIABLE)
+
 - Always use the latest stable LTS versions of all technologies
 - Package managers must be latest stable: npm 10+, pip 24+, or equivalent
 - Dependencies must be updated to latest compatible versions before each release
@@ -21,6 +23,7 @@
 - Lock files (package-lock.json, poetry.lock) must be committed and maintained
 
 ### III. Testing Standards (NON-NEGOTIABLE)
+
 - Minimum 80% code coverage for all new code
 - Unit tests required for all business logic
 - Integration tests required for API endpoints and external service interactions
@@ -31,6 +34,7 @@
 - Test naming convention: `should_[expected]_when_[condition]`
 
 ### IV. User Experience Consistency
+
 - Consistent error messaging format across all user-facing outputs
 - Loading states and progress indicators for all async operations
 - Response times must be communicated to users when > 2 seconds expected
@@ -40,6 +44,7 @@
 - Undo/confirmation for destructive actions
 
 ### V. Performance Requirements
+
 - API response times: < 200ms for simple operations, < 2s for AI-generated responses
 - Memory usage: < 512MB for standard operation
 - Startup time: < 3 seconds
@@ -72,6 +77,7 @@
 ## Governance
 
 This constitution supersedes all other practices and guidelines. Any amendments require:
+
 1. Documentation of the proposed change
 2. Justification for the amendment
 3. Update to this constitution with new version number
