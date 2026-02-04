@@ -1,0 +1,1 @@
+{"version":3,"file":"GenerationResponse.d.ts","sourceRoot":"","sources":["../../src/models/GenerationResponse.ts"],"names":[],"mappings":"AAAA;;;GAGG;AACH,MAAM,WAAW,kBAAkB;IACjC;;;OAGG;IACH,aAAa,EAAE,MAAM,CAAC;IAEtB;;;OAGG;IACH,UAAU,EAAE,MAAM,CAAC;IAEnB;;;OAGG;IACH,YAAY,EAAE,MAAM,CAAC;IAErB;;OAEG;IACH,SAAS,EAAE,MAAM,CAAC;IAElB;;;OAGG;IACH,aAAa,EAAE,OAAO,CAAC;CACxB"}

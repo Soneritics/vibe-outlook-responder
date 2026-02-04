@@ -1,0 +1,1 @@
+{"version":3,"file":"GenerateScreen.d.ts","sourceRoot":"","sources":["../../../../src/taskpane/components/generation/GenerateScreen.tsx"],"names":[],"mappings":"AAAA;;;;;;;GAOG;AAEH,OAAO,KAAmB,MAAM,OAAO,CAAC;AAyFxC,UAAU,mBAAmB;IAC3B,cAAc,CAAC,EAAE,MAAM,IAAI,CAAC;IAC5B,WAAW,CAAC,EAAE,MAAM,IAAI,CAAC;CAC1B;AAED,eAAO,MAAM,cAAc,EAAE,KAAK,CAAC,EAAE,CAAC,mBAAmB,CA8GxD,CAAC"}
