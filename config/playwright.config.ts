@@ -12,6 +12,7 @@ export default defineConfig({
     baseURL: 'https://localhost:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    ignoreHTTPSErrors: true,
   },
 
   projects: [
@@ -34,5 +35,8 @@ export default defineConfig({
     url: 'https://localhost:3000',
     reuseExistingServer: !(process.env.CI ?? false),
     ignoreHTTPSErrors: true,
+    timeout: 120000, // 2 minutes for CI builds
+    stdout: 'pipe',
+    stderr: 'pipe',
   },
 });
