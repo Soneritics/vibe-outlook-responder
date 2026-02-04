@@ -1,11 +1,11 @@
 # Privacy Policy
 
-**AI Responder - Outlook Add-in**  
+**Outlook AI Assistant**  
 **Last Updated**: February 4, 2026
 
 ## Introduction
 
-This Privacy Policy describes how AI Responder ("the Add-in"), developed by Jordi Jolink ("I", "me"), handles your information. I am committed to protecting your privacy and being transparent about data practices.
+This Privacy Policy describes how Outlook AI Assistant ("the Add-in"), developed by Jordi Jolink ("I", "me"), handles your information. I am committed to protecting your privacy and being transparent about data practices.
 
 ## Data Collection and Access
 
@@ -114,6 +114,7 @@ I may update this Privacy Policy from time to time. Changes will be reflected in
 
 If you have questions about this Privacy Policy or the Add-in's data practices, please contact me:
 
+- **Email**: outlook-responder@jordijolink.nl
 - **GitHub Issues**: [github.com/Soneritics/vibe-outlook-responder/issues](https://github.com/Soneritics/vibe-outlook-responder/issues)
 - **Repository**: [github.com/Soneritics/vibe-outlook-responder](https://github.com/Soneritics/vibe-outlook-responder)
 

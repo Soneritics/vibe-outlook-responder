@@ -1,6 +1,9 @@
-# Outlook ChatGPT Email Responder Add-in
+# Outlook AI Assistant
 
 An intelligent Outlook add-in that integrates ChatGPT to help you compose professional email responses with custom AI prompts. Works across all Outlook platforms: Desktop (Windows/Mac), Web, and Mobile.
+
+**Author**: Jordi Jolink  
+**Contact**: outlook-responder@jordijolink.nl
 
 ## Features
 
@@ -8,7 +11,7 @@ An intelligent Outlook add-in that integrates ChatGPT to help you compose profes
 🔐 **Secure API Key Storage**: Your OpenAI API key is stored locally and never shared  
 📝 **Custom Prompt Library**: Create, edit, and manage unlimited custom prompts  
 ☁️ **Cross-Device Sync**: Your prompts sync across all devices via Microsoft account  
-🌍 **Multi-Language Support**: UI adapts to your Outlook locale (English, German, French, Spanish)  
+🌍 **Multi-Language Support**: UI adapts to your Outlook locale (English, German, French, Spanish, Dutch)  
 ⚡ **Smart Context Handling**: Includes full email thread context with automatic summarization for long threads  
 ⌨️ **Keyboard Shortcuts**: Configurable shortcuts for faster workflow  
 📤 **Export/Import**: Backup and share your prompts via clipboard
@@ -24,7 +27,7 @@ An intelligent Outlook add-in that integrates ChatGPT to help you compose profes
 ### For Users (AppSource)
 
 1. Open Outlook and go to **Get Add-ins** or **Store**
-2. Search for "Outlook ChatGPT Email Responder"
+2. Search for "Outlook AI Assistant"
 3. Click **Add** to install the add-in
 4. The add-in will appear in your Outlook ribbon
 
@@ -64,7 +67,7 @@ An intelligent Outlook add-in that integrates ChatGPT to help you compose profes
 
 ### 1. Configure Your API Key
 
-1. Click the **AI Responder** button in the Outlook ribbon
+1. Click the **AI Assistant** button in the Outlook ribbon
 2. Select **Settings** from the dropdown
 3. Paste your OpenAI API key (starts with `sk-`)
 4. Optionally click **Test Connection** to verify
@@ -73,7 +76,7 @@ An intelligent Outlook add-in that integrates ChatGPT to help you compose profes
 
 ### 2. Create Your First Prompt
 
-1. Click **AI Responder** → **Add Custom Prompt**
+1. Click **AI Assistant** → **Add Custom Prompt**
 2. Enter a title (e.g., "Professional Reply")
 3. Write your prompt template:
    ```
@@ -86,7 +89,7 @@ An intelligent Outlook add-in that integrates ChatGPT to help you compose profes
 ### 3. Generate a Response
 
 1. Open or reply to an email
-2. Click **AI Responder** in the compose ribbon
+2. Click **AI Reply** in the compose ribbon
 3. Select your prompt from the dropdown
 4. Wait for ChatGPT to generate the response
 5. The response is inserted above your signature
@@ -98,13 +101,13 @@ An intelligent Outlook add-in that integrates ChatGPT to help you compose profes
 
 **Create a Prompt**:
 
-- Main screen → AI Responder → Add Custom Prompt
+- Main screen → AI Assistant → Add Custom Prompt
 - Enter title (max 100 chars) and content (max 10,000 chars)
 - Save to add to your library
 
 **Edit a Prompt**:
 
-- Main screen → AI Responder → Select prompt name
+- Main screen → AI Assistant → Select prompt name
 - Modify title or content
 - Save changes or Delete prompt
 
@@ -117,7 +120,7 @@ An intelligent Outlook add-in that integrates ChatGPT to help you compose profes
 ### Using in Compose Mode
 
 1. **Start Composing**: Open a new email or reply
-2. **Select Prompt**: Click AI Responder ribbon button → choose prompt
+2. **Select Prompt**: Click AI Reply ribbon button → choose prompt
 3. **Progress Display**: See real-time progress (Preparing → Sending → Generating → Done)
 4. **Review Response**: Response is inserted above your content
 5. **Edit & Send**: Customize the generated text and send
@@ -201,7 +204,7 @@ src/
 │   └── validation/    # Input validation
 ├── models/            # TypeScript interfaces
 ├── utils/             # Utility functions
-└── locales/           # Translations (en, de, fr, es)
+└── locales/           # Translations (en, de, fr, es, nl)
 ```
 
 ### Available Scripts
@@ -301,10 +304,11 @@ We welcome contributions! Please:
 
 ## License
 
-ISC License - see [LICENSE](LICENSE) file for details
+MIT License - see [LICENSE](LICENSE) file for details
 
 ## Support
 
+- **Email**: outlook-responder@jordijolink.nl
 - **Issues**: [GitHub Issues](https://github.com/Soneritics/vibe-outlook-responder/issues)
 - **Documentation**: [Project Wiki](https://github.com/Soneritics/vibe-outlook-responder/wiki)
 - **OpenAI API**: [OpenAI Documentation](https://platform.openai.com/docs)
@@ -315,4 +319,4 @@ See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.
 
 ---
 
-**Made with ❤️ for better email communication**
+**Made with ❤️ by Jordi Jolink for better email communication**

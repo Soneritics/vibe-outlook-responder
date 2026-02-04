@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the Outlook ChatGPT Email Responder Add-in will be documented in this file.
+All notable changes to the Outlook AI Assistant Add-in will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 🎉 Initial Release
 
-The first production-ready version of the Outlook ChatGPT Email Responder Add-in.
+The first production-ready version of the Outlook AI Assistant Add-in.
 
 ### Added
 
@@ -51,6 +51,7 @@ The first production-ready version of the Outlook ChatGPT Email Responder Add-in
   - German (de)
   - French (fr)
   - Spanish (es)
+  - Dutch (nl)
 
 #### Platform Support
 

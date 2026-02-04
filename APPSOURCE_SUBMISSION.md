@@ -1,6 +1,6 @@
 # AppSource Submission Assets
 
-This document contains all the assets and information needed for submitting the Outlook ChatGPT Email Responder Add-in to Microsoft AppSource.
+This document contains all the assets and information needed for submitting the Outlook AI Assistant Add-in to Microsoft AppSource.
 
 ## Submission Checklist
 
@@ -26,8 +26,9 @@ This document contains all the assets and information needed for submitting the 
 
 ## App Identity
 
-**App Name**: AI Responder  
-**Publisher**: Vibe Outlook Responder  
+**App Name**: Outlook AI Assistant  
+**Short Name**: AI Assistant  
+**Publisher**: Jordi Jolink  
 **Version**: 1.0.0  
 **Category**: Productivity  
 **Supported Platforms**: Outlook Desktop (Windows/Mac), Outlook Web, Outlook Mobile
@@ -101,7 +102,7 @@ manifest/assets/
 ### Long Description (4000 characters max)
 
 ```
-Transform your email workflow with AI-powered response generation directly in Outlook. The AI Responder add-in integrates ChatGPT to help you compose professional, contextual email replies using your own custom prompts.
+Transform your email workflow with AI-powered response generation directly in Outlook. The Outlook AI Assistant add-in integrates ChatGPT to help you compose professional, contextual email replies using your own custom prompts.
 
 KEY FEATURES:
 
@@ -131,7 +132,7 @@ KEY FEATURES:
 
 🌍 Multi-Language Support
 - UI adapts to your Outlook locale
-- Supports English, German, French, and Spanish
+- Supports English, German, French, Spanish, and Dutch
 - Generate responses in any language
 
 ⌨️ Productivity Features
@@ -145,7 +146,7 @@ HOW IT WORKS:
 1. Configure your OpenAI API key in Settings
 2. Create custom prompts for different scenarios
 3. Open or reply to an email in Outlook
-4. Click the AI Responder button and select a prompt
+4. Click the AI Assistant button and select a prompt
 5. Watch as ChatGPT generates a professional response
 6. Edit the response and send your email
 
@@ -163,7 +164,7 @@ SUPPORT:
 
 - Documentation: github.com/Soneritics/vibe-outlook-responder
 - Issues: github.com/Soneritics/vibe-outlook-responder/issues
-- Email: support@example.com (update with real support email)
+- Email: outlook-responder@jordijolink.nl
 
 Perfect for:
 - Business professionals managing high email volumes
@@ -177,11 +178,11 @@ Get started today and experience the power of AI-assisted email composition!
 ### Version Notes (500 characters max)
 
 ```
-Initial release of AI Responder v1.0.0. Features include:
+Initial release of Outlook AI Assistant v1.0.0. Features include:
 - ChatGPT integration for email response generation
 - Custom prompt library with cross-device sync
 - Support for all Outlook platforms
-- Multi-language UI (English, German, French, Spanish)
+- Multi-language UI (English, German, French, Spanish, Dutch)
 - Configurable keyboard shortcuts
 - Export/import prompts functionality
 - Comprehensive error handling
@@ -208,7 +209,7 @@ Create a `PRIVACY.md` file with:
 
 **Support URL**: https://github.com/Soneritics/vibe-outlook-responder/issues
 
-**Support Email**: Update with real support email before submission
+**Support Email**: outlook-responder@jordijolink.nl
 
 **Documentation**: https://github.com/Soneritics/vibe-outlook-responder#readme
 
@@ -244,7 +245,7 @@ The project uses ISC License. Consider if you need a more specific EULA for comm
 
 4. **Generation Test**
    - Open/reply to email
-   - Click AI Responder button
+   - Click AI Assistant button
    - Select prompt
    - Verify response generates and inserts correctly
 
@@ -309,5 +310,7 @@ The project uses ISC License. Consider if you need a more specific EULA for comm
 
 ---
 
-**Last Updated**: 2026-02-03  
+**Author**: Jordi Jolink  
+**Contact**: outlook-responder@jordijolink.nl  
+**Last Updated**: 2026-02-04  
 **Version**: 1.0.0

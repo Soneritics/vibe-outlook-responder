@@ -9,7 +9,7 @@
   <!-- Basic Identity -->
   <Id>12345678-1234-1234-1234-123456789012</Id>
   <Version>1.0.0.0</Version>
-  <ProviderName>Soneritics Bv</ProviderName>
+  <ProviderName>Jordi Jolink</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="AI Assistant"/>
   <Description DefaultValue="ChatGPT-powered email response generator for Outlook"/>

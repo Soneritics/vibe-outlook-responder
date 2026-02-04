@@ -1,7 +1,7 @@
 {
-  "name": "vibe-outlook-responder",
+  "name": "outlook-ai-assistant",
   "version": "1.0.0",
-  "description": "Outlook ChatGPT Email Responder Add-in",
+  "description": "Outlook AI Assistant - ChatGPT-powered email response generator",
   "main": "dist/taskpane/index.js",
   "scripts": {
     "build": "webpack --config config/webpack.config.js --mode production",
@@ -28,10 +28,11 @@
     "office-addin",
     "chatgpt",
     "ai",
-    "email"
+    "email",
+    "ai-assistant"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "Jordi Jolink <outlook-responder@jordijolink.nl>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Soneritics/vibe-outlook-responder/issues"
   },
