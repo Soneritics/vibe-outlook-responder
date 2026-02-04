@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  Input as FluentInput,
-  Field,
-} from '@fluentui/react-components';
+import { Input as FluentInput, Field } from '@fluentui/react-components';
 
 /**
  * Props for the Input component
@@ -72,9 +69,7 @@ export const Input: React.FC<InputProps> = ({
   maxLength,
   disabled,
 }) => {
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     onChange(event.target.value);
   };
 

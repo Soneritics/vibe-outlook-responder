@@ -34,12 +34,19 @@ describe('PromptEditor - Edit Mode', () => {
       const contentInput = screen.getByLabelText(/content/i) as HTMLTextAreaElement;
 
       expect(titleInput.value).toBe('Customer Support Response');
-      expect(contentInput.value).toBe('You are a helpful customer support agent. Please respond to the following email...');
+      expect(contentInput.value).toBe(
+        'You are a helpful customer support agent. Please respond to the following email...'
+      );
     });
 
     it('should show Save, Cancel, and Delete buttons in edit mode', () => {
       render(
-        <PromptEditor prompt={existingPrompt} onSave={mockOnSave} onCancel={mockOnCancel} onDelete={mockOnDelete} />
+        <PromptEditor
+          prompt={existingPrompt}
+          onSave={mockOnSave}
+          onCancel={mockOnCancel}
+          onDelete={mockOnDelete}
+        />
       );
 
       expect(screen.getByRole('button', { name: /save/i })).toBeInTheDocument();
@@ -188,7 +195,12 @@ describe('PromptEditor - Edit Mode', () => {
     it('should show confirmation dialog when Delete is clicked', async () => {
       const user = userEvent.setup();
       render(
-        <PromptEditor prompt={existingPrompt} onSave={mockOnSave} onCancel={mockOnCancel} onDelete={mockOnDelete} />
+        <PromptEditor
+          prompt={existingPrompt}
+          onSave={mockOnSave}
+          onCancel={mockOnCancel}
+          onDelete={mockOnDelete}
+        />
       );
 
       const deleteButton = screen.getByRole('button', { name: /delete/i });
@@ -202,7 +214,12 @@ describe('PromptEditor - Edit Mode', () => {
     it('should include prompt title in confirmation message', async () => {
       const user = userEvent.setup();
       render(
-        <PromptEditor prompt={existingPrompt} onSave={mockOnSave} onCancel={mockOnCancel} onDelete={mockOnDelete} />
+        <PromptEditor
+          prompt={existingPrompt}
+          onSave={mockOnSave}
+          onCancel={mockOnCancel}
+          onDelete={mockOnDelete}
+        />
       );
 
       const deleteButton = screen.getByRole('button', { name: /delete/i });
@@ -214,7 +231,12 @@ describe('PromptEditor - Edit Mode', () => {
     it('should show "cannot be undone" warning in confirmation', async () => {
       const user = userEvent.setup();
       render(
-        <PromptEditor prompt={existingPrompt} onSave={mockOnSave} onCancel={mockOnCancel} onDelete={mockOnDelete} />
+        <PromptEditor
+          prompt={existingPrompt}
+          onSave={mockOnSave}
+          onCancel={mockOnCancel}
+          onDelete={mockOnDelete}
+        />
       );
 
       const deleteButton = screen.getByRole('button', { name: /delete/i });
@@ -226,7 +248,12 @@ describe('PromptEditor - Edit Mode', () => {
     it('should call onDelete when confirmed', async () => {
       const user = userEvent.setup();
       render(
-        <PromptEditor prompt={existingPrompt} onSave={mockOnSave} onCancel={mockOnCancel} onDelete={mockOnDelete} />
+        <PromptEditor
+          prompt={existingPrompt}
+          onSave={mockOnSave}
+          onCancel={mockOnCancel}
+          onDelete={mockOnDelete}
+        />
       );
 
       const deleteButton = screen.getByRole('button', { name: /delete/i });
@@ -248,7 +275,12 @@ describe('PromptEditor - Edit Mode', () => {
     it('should not call onDelete when cancelled', async () => {
       const user = userEvent.setup();
       render(
-        <PromptEditor prompt={existingPrompt} onSave={mockOnSave} onCancel={mockOnCancel} onDelete={mockOnDelete} />
+        <PromptEditor
+          prompt={existingPrompt}
+          onSave={mockOnSave}
+          onCancel={mockOnCancel}
+          onDelete={mockOnDelete}
+        />
       );
 
       const deleteButton = screen.getByRole('button', { name: /delete/i });
@@ -265,7 +297,9 @@ describe('PromptEditor - Edit Mode', () => {
 
     it('should disable all buttons while delete is in progress', async () => {
       const user = userEvent.setup();
-      const mockOnDeleteSlow = jest.fn().mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 1000)));
+      const mockOnDeleteSlow = jest
+        .fn()
+        .mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 1000)));
 
       render(
         <PromptEditor
@@ -280,7 +314,9 @@ describe('PromptEditor - Edit Mode', () => {
       await user.click(deleteButton);
 
       // Confirm deletion
-      const confirmButton = screen.getAllByRole('button', { name: /delete/i }).find((btn) => btn !== deleteButton);
+      const confirmButton = screen
+        .getAllByRole('button', { name: /delete/i })
+        .find((btn) => btn !== deleteButton);
 
       if (confirmButton) {
         await user.click(confirmButton);
@@ -296,7 +332,9 @@ describe('PromptEditor - Edit Mode', () => {
       const user = userEvent.setup();
       const mockOnSaveError = jest.fn().mockRejectedValue(new Error('Failed to update prompt'));
 
-      render(<PromptEditor prompt={existingPrompt} onSave={mockOnSaveError} onCancel={mockOnCancel} />);
+      render(
+        <PromptEditor prompt={existingPrompt} onSave={mockOnSaveError} onCancel={mockOnCancel} />
+      );
 
       const titleInput = screen.getByLabelText(/title/i);
       await user.clear(titleInput);
@@ -327,7 +365,9 @@ describe('PromptEditor - Edit Mode', () => {
       await user.click(deleteButton);
 
       // Confirm deletion
-      const confirmButton = screen.getAllByRole('button', { name: /delete/i }).find((btn) => btn !== deleteButton);
+      const confirmButton = screen
+        .getAllByRole('button', { name: /delete/i })
+        .find((btn) => btn !== deleteButton);
 
       if (confirmButton) {
         await user.click(confirmButton);
@@ -340,9 +380,13 @@ describe('PromptEditor - Edit Mode', () => {
 
     it('should show duplicate title error in edit mode', async () => {
       const user = userEvent.setup();
-      const mockOnSaveError = jest.fn().mockRejectedValue(new Error('Prompt with this title already exists'));
+      const mockOnSaveError = jest
+        .fn()
+        .mockRejectedValue(new Error('Prompt with this title already exists'));
 
-      render(<PromptEditor prompt={existingPrompt} onSave={mockOnSaveError} onCancel={mockOnCancel} />);
+      render(
+        <PromptEditor prompt={existingPrompt} onSave={mockOnSaveError} onCancel={mockOnCancel} />
+      );
 
       const titleInput = screen.getByLabelText(/title/i);
       await user.clear(titleInput);
@@ -360,7 +404,9 @@ describe('PromptEditor - Edit Mode', () => {
       const user = userEvent.setup();
       const mockOnSaveError = jest.fn().mockRejectedValue(new Error('Validation error'));
 
-      render(<PromptEditor prompt={existingPrompt} onSave={mockOnSaveError} onCancel={mockOnCancel} />);
+      render(
+        <PromptEditor prompt={existingPrompt} onSave={mockOnSaveError} onCancel={mockOnCancel} />
+      );
 
       const titleInput = screen.getByLabelText(/title/i);
       await user.clear(titleInput);
@@ -400,9 +446,13 @@ describe('PromptEditor - Edit Mode', () => {
 
     it('should disable Cancel button during save operation', async () => {
       const user = userEvent.setup();
-      const mockOnSaveSlow = jest.fn().mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 1000)));
+      const mockOnSaveSlow = jest
+        .fn()
+        .mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 1000)));
 
-      render(<PromptEditor prompt={existingPrompt} onSave={mockOnSaveSlow} onCancel={mockOnCancel} />);
+      render(
+        <PromptEditor prompt={existingPrompt} onSave={mockOnSaveSlow} onCancel={mockOnCancel} />
+      );
 
       const titleInput = screen.getByLabelText(/title/i);
       await user.clear(titleInput);

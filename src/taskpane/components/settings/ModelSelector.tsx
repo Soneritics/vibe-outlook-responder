@@ -84,7 +84,7 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
   const styles = useStyles();
 
   const selectedModel = value || 'gpt-4o';
-  const selectedModelInfo = MODEL_OPTIONS.find(m => m.id === selectedModel);
+  const selectedModelInfo = MODEL_OPTIONS.find((m) => m.id === selectedModel);
 
   const handleChange = (_event: any, data: any) => {
     if (data.optionValue) {
@@ -102,7 +102,7 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
           disabled={disabled}
           aria-label="Select ChatGPT model"
         >
-          {MODEL_OPTIONS.map(model => (
+          {MODEL_OPTIONS.map((model) => (
             <Option key={model.id} value={model.id} text={model.name}>
               <div className={styles.optionContent}>
                 <Text className={styles.optionTitle}>{model.name}</Text>

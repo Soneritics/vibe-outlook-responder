@@ -232,9 +232,7 @@ describe('EmailParser', () => {
     });
 
     it('should include sender and date info', () => {
-      const messages = [
-        { from: 'alice@example.com', date: '2024-01-01', content: 'Message' },
-      ];
+      const messages = [{ from: 'alice@example.com', date: '2024-01-01', content: 'Message' }];
 
       const combined = parser.combineMessagesForContext(messages);
 

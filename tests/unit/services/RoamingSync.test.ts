@@ -16,7 +16,11 @@ describe('RoamingSync', () => {
       set: jest.fn(),
       remove: jest.fn(),
       saveAsync: jest.fn((callback) => {
-        callback({ status: Office.AsyncResultStatus.Succeeded, value: null, error: null } as Office.AsyncResult<void>);
+        callback({
+          status: Office.AsyncResultStatus.Succeeded,
+          value: null,
+          error: null,
+        } as Office.AsyncResult<void>);
       }),
     };
 
@@ -148,7 +152,9 @@ describe('RoamingSync', () => {
       global.Office = undefined as any;
       roamingSync = new RoamingSync();
 
-      await expect(roamingSync.saveAsync()).rejects.toThrow('Office roaming settings not available');
+      await expect(roamingSync.saveAsync()).rejects.toThrow(
+        'Office roaming settings not available'
+      );
     });
 
     it('should handle undefined error object', async () => {

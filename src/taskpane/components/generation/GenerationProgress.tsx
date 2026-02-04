@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  ProgressBar,
-  Button,
-  makeStyles,
-  tokens,
-  Text,
-  Spinner,
-} from '@fluentui/react-components';
+import { ProgressBar, Button, makeStyles, tokens, Text, Spinner } from '@fluentui/react-components';
 import { Dismiss24Regular, Warning20Regular } from '@fluentui/react-icons';
 
 const useStyles = makeStyles({
@@ -145,9 +138,7 @@ export const GenerationProgress: React.FC<GenerationProgressProps> = ({
             )}
             <Text>{step.label}</Text>
             {step.id === currentStep && estimatedTime && (
-              <Text className={styles.timeEstimate}>
-                (~{estimatedTime} seconds)
-              </Text>
+              <Text className={styles.timeEstimate}>(~{estimatedTime} seconds)</Text>
             )}
           </div>
         ))}
@@ -165,9 +156,10 @@ export const GenerationProgress: React.FC<GenerationProgressProps> = ({
             <br />
             <Text size={200}>
               The email content exceeded token limits and was automatically summarized
-              {originalTokenCount && finalTokenCount && 
-                ` (${originalTokenCount} → ${finalTokenCount} tokens)`
-              }.
+              {originalTokenCount &&
+                finalTokenCount &&
+                ` (${originalTokenCount} → ${finalTokenCount} tokens)`}
+              .
             </Text>
           </div>
         </div>

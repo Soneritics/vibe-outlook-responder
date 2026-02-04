@@ -136,9 +136,7 @@ export class SignatureDetector {
     }
 
     // Check for email or phone
-    return (
-      /@[a-z0-9.-]+\.[a-z]{2,}/i.test(text) || /\d{3}[-.\s]?\d{3}[-.\s]?\d{4}/.test(text)
-    );
+    return /@[a-z0-9.-]+\.[a-z]{2,}/i.test(text) || /\d{3}[-.\s]?\d{3}[-.\s]?\d{4}/.test(text);
   }
 
   /**
@@ -243,8 +241,6 @@ export class SignatureDetector {
     const afterContent = content.substring(position, position + 200);
 
     // Should have some signature-like content after
-    return (
-      this.isLikelySignature(afterContent) || /@[a-z0-9.-]+\.[a-z]{2,}/i.test(afterContent)
-    );
+    return this.isLikelySignature(afterContent) || /@[a-z0-9.-]+\.[a-z]{2,}/i.test(afterContent);
   }
 }

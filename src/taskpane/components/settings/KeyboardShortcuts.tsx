@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  makeStyles,
-  tokens,
-  Text,
-  Label,
-  Card,
-  CardHeader,
-} from '@fluentui/react-components';
+import { makeStyles, tokens, Text, Label, Card, CardHeader } from '@fluentui/react-components';
 import { Keyboard20Regular } from '@fluentui/react-icons';
 
 const useStyles = makeStyles({
@@ -49,9 +42,7 @@ interface KeyboardShortcutsProps {
  * Shows configured keyboard shortcuts for the add-in
  * Currently read-only - future versions will allow customization
  */
-export const KeyboardShortcuts: React.FC<KeyboardShortcutsProps> = ({
-  shortcuts = {},
-}) => {
+export const KeyboardShortcuts: React.FC<KeyboardShortcutsProps> = ({ shortcuts = {} }) => {
   const styles = useStyles();
 
   // Default shortcuts (Office Add-ins have limited keyboard shortcut support)
@@ -73,17 +64,15 @@ export const KeyboardShortcuts: React.FC<KeyboardShortcutsProps> = ({
       <Label size="large">
         <Keyboard20Regular /> Keyboard Shortcuts
       </Label>
-      
+
       <Text className={styles.description}>
-        Keyboard shortcuts for quick access to common actions. Office Add-ins have limited
-        keyboard shortcut customization support.
+        Keyboard shortcuts for quick access to common actions. Office Add-ins have limited keyboard
+        shortcut customization support.
       </Text>
 
       <Card className={styles.card}>
-        <CardHeader
-          header={<Text weight="semibold">Available Shortcuts</Text>}
-        />
-        
+        <CardHeader header={<Text weight="semibold">Available Shortcuts</Text>} />
+
         {defaultShortcuts.map((shortcut, index) => (
           <div key={index} className={styles.shortcutRow}>
             <div className={styles.shortcutLabel}>
@@ -98,8 +87,8 @@ export const KeyboardShortcuts: React.FC<KeyboardShortcutsProps> = ({
       </Card>
 
       <Text size={200} className={styles.description}>
-        Note: Keyboard shortcuts in Office Add-ins are platform-specific and may not work
-        in all environments (Desktop, Web, Mobile).
+        Note: Keyboard shortcuts in Office Add-ins are platform-specific and may not work in all
+        environments (Desktop, Web, Mobile).
       </Text>
     </div>
   );

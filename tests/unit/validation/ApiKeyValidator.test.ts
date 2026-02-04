@@ -1,8 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import {
-  validateApiKeyFormat,
-  maskApiKey,
-} from '../../../src/services/validation/ApiKeyValidator';
+import { validateApiKeyFormat, maskApiKey } from '../../../src/services/validation/ApiKeyValidator';
 import { API_KEY_ERRORS } from '../../../src/utils/errorMessages';
 
 describe('ApiKeyValidator', () => {

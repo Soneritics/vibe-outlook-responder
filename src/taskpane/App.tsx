@@ -4,12 +4,26 @@ import { usePrompts } from './hooks/usePrompts';
 import { Prompt } from '../models/Prompt';
 
 // Lazy load all major panels for better performance
-const SettingsPanel = lazy(() => import('./components/settings/SettingsPanel').then(m => ({ default: m.SettingsPanel })));
-const PromptEditor = lazy(() => import('./components/prompts/PromptEditor').then(m => ({ default: m.PromptEditor })));
-const ManagePromptsScreen = lazy(() => import('./components/prompts/ManagePromptsScreen').then(m => ({ default: m.ManagePromptsScreen })));
-const MainScreen = lazy(() => import('./components/main/MainScreen').then(m => ({ default: m.MainScreen })));
-const GenerationPanel = lazy(() => import('./components/generation/GenerationPanel').then(m => ({ default: m.GenerationPanel })));
-const GenerateScreen = lazy(() => import('./components/generation/GenerateScreen').then(m => ({ default: m.GenerateScreen })));
+const SettingsPanel = lazy(() =>
+  import('./components/settings/SettingsPanel').then((m) => ({ default: m.SettingsPanel }))
+);
+const PromptEditor = lazy(() =>
+  import('./components/prompts/PromptEditor').then((m) => ({ default: m.PromptEditor }))
+);
+const ManagePromptsScreen = lazy(() =>
+  import('./components/prompts/ManagePromptsScreen').then((m) => ({
+    default: m.ManagePromptsScreen,
+  }))
+);
+const MainScreen = lazy(() =>
+  import('./components/main/MainScreen').then((m) => ({ default: m.MainScreen }))
+);
+const GenerationPanel = lazy(() =>
+  import('./components/generation/GenerationPanel').then((m) => ({ default: m.GenerationPanel }))
+);
+const GenerateScreen = lazy(() =>
+  import('./components/generation/GenerateScreen').then((m) => ({ default: m.GenerateScreen }))
+);
 
 const App: React.FC = () => {
   const [currentPanel, setCurrentPanel] = useState<string>('manage-prompts');
@@ -25,7 +39,7 @@ const App: React.FC = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const panel = urlParams.get('panel');
     const promptId = urlParams.get('promptId');
-    
+
     if (panel) {
       setCurrentPanel(panel);
     } else {
@@ -137,12 +151,7 @@ const App: React.FC = () => {
         );
       }
       case 'generate':
-        return (
-          <GenerateScreen
-            onOpenSettings={handleOpenSettings}
-            onAddPrompt={handleAddPrompt}
-          />
-        );
+        return <GenerateScreen onOpenSettings={handleOpenSettings} onAddPrompt={handleAddPrompt} />;
       case 'generation': {
         if (!generationPromptId) {
           return <div>Error: No prompt ID provided for generation</div>;
@@ -164,16 +173,20 @@ const App: React.FC = () => {
 
   return (
     <FluentProvider theme={webLightTheme}>
-      <Suspense fallback={
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          height: '100vh' 
-        }}>
-          <Spinner label="Loading..." />
-        </div>
-      }>
+      <Suspense
+        fallback={
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100vh',
+            }}
+          >
+            <Spinner label="Loading..." />
+          </div>
+        }
+      >
         {renderPanel()}
       </Suspense>
     </FluentProvider>

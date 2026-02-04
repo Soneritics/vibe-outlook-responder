@@ -191,7 +191,9 @@ describe('PromptStorage', () => {
         content: 'New content',
       };
 
-      await expect(storage.create(newPrompt)).rejects.toThrow('Prompt with this title already exists');
+      await expect(storage.create(newPrompt)).rejects.toThrow(
+        'Prompt with this title already exists'
+      );
     });
 
     it('should perform case-insensitive title uniqueness check', async () => {
@@ -212,7 +214,9 @@ describe('PromptStorage', () => {
         content: 'New content',
       };
 
-      await expect(storage.create(newPrompt)).rejects.toThrow('Prompt with this title already exists');
+      await expect(storage.create(newPrompt)).rejects.toThrow(
+        'Prompt with this title already exists'
+      );
     });
   });
 
@@ -247,7 +251,9 @@ describe('PromptStorage', () => {
     it('should throw error if prompt not found', async () => {
       mockRoamingSync.get.mockReturnValue(JSON.stringify([]));
 
-      await expect(storage.update('999', { title: 'New Title' })).rejects.toThrow('Prompt not found');
+      await expect(storage.update('999', { title: 'New Title' })).rejects.toThrow(
+        'Prompt not found'
+      );
     });
 
     it('should throw error if new title conflicts with another prompt', async () => {

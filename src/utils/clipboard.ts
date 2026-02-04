@@ -25,7 +25,7 @@ export async function copyToClipboard(text: string): Promise<void> {
       document.execCommand('copy');
       document.body.removeChild(textArea);
     }
-  } catch (error) {
+  } catch (_error) {
     throw new Error('Failed to copy to clipboard');
   }
 }
@@ -42,7 +42,7 @@ export async function readFromClipboard(): Promise<string> {
     } else {
       throw new Error('Clipboard API not available in this browser');
     }
-  } catch (error) {
+  } catch (_error) {
     throw new Error('Failed to read from clipboard');
   }
 }
@@ -52,9 +52,7 @@ export async function readFromClipboard(): Promise<string> {
  * @param prompts - Array of prompts to export
  * @returns Promise that resolves when export is complete
  */
-export async function exportPromptsToClipboard(
-  prompts: Prompt[]
-): Promise<void> {
+export async function exportPromptsToClipboard(prompts: Prompt[]): Promise<void> {
   const json = JSON.stringify(prompts, null, 2);
   return await copyToClipboard(json);
 }
@@ -72,7 +70,7 @@ export async function importPromptsFromClipboard(): Promise<Prompt[]> {
       throw new Error('Invalid format: expected array of prompts');
     }
     return prompts;
-  } catch (error) {
+  } catch (_error) {
     throw new Error('Failed to parse clipboard content as JSON');
   }
 }

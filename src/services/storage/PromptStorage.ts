@@ -32,7 +32,9 @@ export class PromptStorage {
 
       const prompts: Prompt[] = JSON.parse(data);
       // Sort alphabetically by title (case-insensitive)
-      return prompts.sort((a, b) => a.title.localeCompare(b.title, undefined, { sensitivity: 'base' }));
+      return prompts.sort((a, b) =>
+        a.title.localeCompare(b.title, undefined, { sensitivity: 'base' })
+      );
     } catch (error) {
       console.error('Failed to parse prompts from storage:', error);
       return [];
@@ -59,9 +61,7 @@ export class PromptStorage {
     const prompts = await this.getAll();
 
     // Check for duplicate title (case-insensitive)
-    const titleExists = prompts.some(
-      (p) => p.title.toLowerCase() === data.title.toLowerCase()
-    );
+    const titleExists = prompts.some((p) => p.title.toLowerCase() === data.title.toLowerCase());
 
     if (titleExists) {
       throw new Error('Prompt with this title already exists');

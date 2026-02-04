@@ -6,10 +6,10 @@ import { test, expect, Page } from '@playwright/test';
  */
 
 test.describe('AI Generation Flow', () => {
-  let page: Page;
+  let _page: Page;
 
   test.beforeEach(async ({ page: p }) => {
-    page = p;
+    _page = p;
     // Navigate to the add-in in Outlook compose mode
     // This would be set up based on your testing environment
   });

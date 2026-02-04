@@ -19,7 +19,12 @@ import {
   tokens,
   shorthands,
 } from '@fluentui/react-components';
-import { Delete24Regular, Save24Regular, Dismiss24Regular, ArrowLeft24Regular } from '@fluentui/react-icons';
+import {
+  Delete24Regular,
+  Save24Regular,
+  Dismiss24Regular,
+  ArrowLeft24Regular,
+} from '@fluentui/react-icons';
 import { Prompt } from '../../../models/Prompt';
 import { ConfirmDialog } from '../common/ConfirmDialog';
 
@@ -82,7 +87,13 @@ const MAX_TITLE_LENGTH = 100;
 const MAX_CONTENT_LENGTH = 10000;
 const CHAR_WARNING_THRESHOLD = 0.95; // Show warning at 95% capacity
 
-export const PromptEditor: React.FC<PromptEditorProps> = ({ prompt, onSave, onCancel, onDelete, onBack }) => {
+export const PromptEditor: React.FC<PromptEditorProps> = ({
+  prompt,
+  onSave,
+  onCancel,
+  onDelete,
+  onBack,
+}) => {
   const styles = useStyles();
   const [title, setTitle] = useState(prompt?.title || '');
   const [content, setContent] = useState(prompt?.content || '');
@@ -193,7 +204,7 @@ export const PromptEditor: React.FC<PromptEditorProps> = ({ prompt, onSave, onCa
           </Button>
         </div>
       )}
-      
+
       <div className={styles.formField}>
         <Label htmlFor="prompt-title" required>
           Title
@@ -246,11 +257,7 @@ export const PromptEditor: React.FC<PromptEditorProps> = ({ prompt, onSave, onCa
         >
           Save
         </Button>
-        <Button 
-          icon={<Dismiss24Regular />} 
-          onClick={onBack || onCancel} 
-          disabled={saving}
-        >
+        <Button icon={<Dismiss24Regular />} onClick={onBack || onCancel} disabled={saving}>
           Cancel
         </Button>
         {isEditMode && onDelete && (

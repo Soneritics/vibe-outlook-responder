@@ -64,7 +64,9 @@ export const ManagePromptsScreen: React.FC<ManagePromptsScreenProps> = ({
 
   useEffect(() => {
     // Sort alphabetically by title (FR-047)
-    const sorted = [...prompts].sort((a: Prompt, b: Prompt): number => a.title.localeCompare(b.title));
+    const sorted = [...prompts].sort((a: Prompt, b: Prompt): number =>
+      a.title.localeCompare(b.title)
+    );
     setSortedPrompts(sorted);
   }, [prompts]);
 
@@ -76,22 +78,14 @@ export const ManagePromptsScreen: React.FC<ManagePromptsScreenProps> = ({
     <div className={styles.container}>
       <div className={styles.header}>
         <Title3>Manage Prompts</Title3>
-        <Button
-          appearance="primary"
-          icon={<Add24Regular />}
-          onClick={onAddPrompt}
-        >
+        <Button appearance="primary" icon={<Add24Regular />} onClick={onAddPrompt}>
           Add New Prompt
         </Button>
       </div>
 
       <div className={styles.promptList}>
         {sortedPrompts.length === 0 ? (
-          <Button
-            appearance="primary"
-            icon={<Add24Regular />}
-            onClick={onAddPrompt}
-          >
+          <Button appearance="primary" icon={<Add24Regular />} onClick={onAddPrompt}>
             Add New Prompt
           </Button>
         ) : (
@@ -102,7 +96,11 @@ export const ManagePromptsScreen: React.FC<ManagePromptsScreenProps> = ({
               onClick={(): void => handlePromptClick(prompt.id)}
             >
               <CardHeader
-                header={<Body1><strong>{prompt.title}</strong></Body1>}
+                header={
+                  <Body1>
+                    <strong>{prompt.title}</strong>
+                  </Body1>
+                }
                 description={
                   <Body1>
                     {prompt.content.length > 100

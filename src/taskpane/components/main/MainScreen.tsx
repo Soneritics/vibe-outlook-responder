@@ -7,13 +7,7 @@
  */
 
 import React, { useState } from 'react';
-import {
-  makeStyles,
-  tokens,
-  shorthands,
-  Text,
-  Button,
-} from '@fluentui/react-components';
+import { makeStyles, tokens, shorthands, Text, Button } from '@fluentui/react-components';
 import { Add24Regular, Settings24Regular } from '@fluentui/react-icons';
 import { PromptDropdown } from '../prompts/PromptDropdown';
 import { usePrompts } from '../../hooks/usePrompts';
@@ -103,20 +97,14 @@ export const MainScreen: React.FC<MainScreenProps> = ({
 
       <div className={styles.section}>
         <Text className={styles.sectionLabel}>Manage Prompts</Text>
-        
+
         {prompts.length === 0 && !loading ? (
           <div className={styles.emptyState}>
-            <Text className={styles.emptyStateText}>
-              You haven't created any prompts yet.
-            </Text>
+            <Text className={styles.emptyStateText}>You haven't created any prompts yet.</Text>
             <Text className={styles.emptyStateText}>
               Get started by creating your first custom prompt!
             </Text>
-            <Button
-              appearance="primary"
-              icon={<Add24Regular />}
-              onClick={onAddPrompt}
-            >
+            <Button appearance="primary" icon={<Add24Regular />} onClick={onAddPrompt}>
               Create Your First Prompt
             </Button>
           </div>
@@ -132,7 +120,7 @@ export const MainScreen: React.FC<MainScreenProps> = ({
               placeholder="Select a prompt to edit..."
               showActions={true}
             />
-            
+
             <Text className={styles.emptyStateText}>
               💡 Tip: Select a prompt from the dropdown to edit or delete it
             </Text>
@@ -143,18 +131,10 @@ export const MainScreen: React.FC<MainScreenProps> = ({
       <div className={styles.section}>
         <Text className={styles.sectionLabel}>Quick Actions</Text>
         <div className={styles.buttonGroup}>
-          <Button
-            appearance="secondary"
-            icon={<Add24Regular />}
-            onClick={onAddPrompt}
-          >
+          <Button appearance="secondary" icon={<Add24Regular />} onClick={onAddPrompt}>
             Add Prompt
           </Button>
-          <Button
-            appearance="secondary"
-            icon={<Settings24Regular />}
-            onClick={onSettings}
-          >
+          <Button appearance="secondary" icon={<Settings24Regular />} onClick={onSettings}>
             Settings
           </Button>
         </div>

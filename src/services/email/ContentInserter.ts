@@ -18,52 +18,49 @@ export class ContentInserter {
   async insertContent(content: string, signaturePosition: number): Promise<void> {
     return new Promise((resolve, reject) => {
       // Get current body content
-      Office.context.mailbox.item!.body.getAsync(
-        Office.CoercionType.Html,
-        async (result) => {
-          if (result.status === Office.AsyncResultStatus.Failed) {
-            reject(new Error(result.error?.message || 'Failed to get email body'));
-            return;
-          }
-
-          const existingContent = result.value || '';
-
-          // Determine insertion position
-          let finalContent: string;
-
-          if (signaturePosition !== -1 && signaturePosition < existingContent.length) {
-            // Insert above signature
-            const beforeSignature = existingContent.substring(0, signaturePosition);
-            const signature = existingContent.substring(signaturePosition);
-
-            finalContent = `${beforeSignature}${this.formatContentForInsertion(content)}\n\n${signature}`;
-          } else {
-            // Insert at beginning
-            finalContent = `${this.formatContentForInsertion(content)}\n\n${existingContent}`;
-          }
-
-          // Set new content
-          Office.context.mailbox.item!.body.setAsync(
-            finalContent,
-            { coercionType: Office.CoercionType.Html },
-            (setResult) => {
-              if (setResult.status === Office.AsyncResultStatus.Failed) {
-                reject(new Error(setResult.error?.message || 'Failed to set email body'));
-                return;
-              }
-
-              // Track insertion for history
-              this.insertionHistory.push({
-                content,
-                position: signaturePosition,
-                timestamp: Date.now(),
-              });
-
-              resolve();
-            }
-          );
+      Office.context.mailbox.item!.body.getAsync(Office.CoercionType.Html, async (result) => {
+        if (result.status === Office.AsyncResultStatus.Failed) {
+          reject(new Error(result.error?.message || 'Failed to get email body'));
+          return;
         }
-      );
+
+        const existingContent = result.value || '';
+
+        // Determine insertion position
+        let finalContent: string;
+
+        if (signaturePosition !== -1 && signaturePosition < existingContent.length) {
+          // Insert above signature
+          const beforeSignature = existingContent.substring(0, signaturePosition);
+          const signature = existingContent.substring(signaturePosition);
+
+          finalContent = `${beforeSignature}${this.formatContentForInsertion(content)}\n\n${signature}`;
+        } else {
+          // Insert at beginning
+          finalContent = `${this.formatContentForInsertion(content)}\n\n${existingContent}`;
+        }
+
+        // Set new content
+        Office.context.mailbox.item!.body.setAsync(
+          finalContent,
+          { coercionType: Office.CoercionType.Html },
+          (setResult) => {
+            if (setResult.status === Office.AsyncResultStatus.Failed) {
+              reject(new Error(setResult.error?.message || 'Failed to set email body'));
+              return;
+            }
+
+            // Track insertion for history
+            this.insertionHistory.push({
+              content,
+              position: signaturePosition,
+              timestamp: Date.now(),
+            });
+
+            resolve();
+          }
+        );
+      });
     });
   }
 
@@ -79,46 +76,43 @@ export class ContentInserter {
     }
 
     return new Promise((resolve, reject) => {
-      Office.context.mailbox.item!.body.getAsync(
-        Office.CoercionType.Html,
-        async (result) => {
-          if (result.status === Office.AsyncResultStatus.Failed) {
-            reject(new Error(result.error?.message || 'Failed to get email body'));
-            return;
-          }
-
-          const existingContent = result.value || '';
-
-          if (position > existingContent.length) {
-            reject(new Error('Position exceeds content length'));
-            return;
-          }
-
-          const before = existingContent.substring(0, position);
-          const after = existingContent.substring(position);
-
-          const finalContent = `${before}${this.formatContentForInsertion(content)}${after}`;
-
-          Office.context.mailbox.item!.body.setAsync(
-            finalContent,
-            { coercionType: Office.CoercionType.Html },
-            (setResult) => {
-              if (setResult.status === Office.AsyncResultStatus.Failed) {
-                reject(new Error(setResult.error?.message || 'Failed to set email body'));
-                return;
-              }
-
-              this.insertionHistory.push({
-                content,
-                position,
-                timestamp: Date.now(),
-              });
-
-              resolve();
-            }
-          );
+      Office.context.mailbox.item!.body.getAsync(Office.CoercionType.Html, async (result) => {
+        if (result.status === Office.AsyncResultStatus.Failed) {
+          reject(new Error(result.error?.message || 'Failed to get email body'));
+          return;
         }
-      );
+
+        const existingContent = result.value || '';
+
+        if (position > existingContent.length) {
+          reject(new Error('Position exceeds content length'));
+          return;
+        }
+
+        const before = existingContent.substring(0, position);
+        const after = existingContent.substring(position);
+
+        const finalContent = `${before}${this.formatContentForInsertion(content)}${after}`;
+
+        Office.context.mailbox.item!.body.setAsync(
+          finalContent,
+          { coercionType: Office.CoercionType.Html },
+          (setResult) => {
+            if (setResult.status === Office.AsyncResultStatus.Failed) {
+              reject(new Error(setResult.error?.message || 'Failed to set email body'));
+              return;
+            }
+
+            this.insertionHistory.push({
+              content,
+              position,
+              timestamp: Date.now(),
+            });
+
+            resolve();
+          }
+        );
+      });
     });
   }
 
@@ -129,37 +123,34 @@ export class ContentInserter {
    */
   async prependContent(content: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      Office.context.mailbox.item!.body.getAsync(
-        Office.CoercionType.Html,
-        async (result) => {
-          if (result.status === Office.AsyncResultStatus.Failed) {
-            reject(new Error(result.error?.message || 'Failed to get email body'));
-            return;
-          }
-
-          const existingContent = result.value || '';
-          const finalContent = `${this.formatContentForInsertion(content)}\n\n${existingContent}`;
-
-          Office.context.mailbox.item!.body.setAsync(
-            finalContent,
-            { coercionType: Office.CoercionType.Html },
-            (setResult) => {
-              if (setResult.status === Office.AsyncResultStatus.Failed) {
-                reject(new Error(setResult.error?.message || 'Failed to set email body'));
-                return;
-              }
-
-              this.insertionHistory.push({
-                content,
-                position: 0,
-                timestamp: Date.now(),
-              });
-
-              resolve();
-            }
-          );
+      Office.context.mailbox.item!.body.getAsync(Office.CoercionType.Html, async (result) => {
+        if (result.status === Office.AsyncResultStatus.Failed) {
+          reject(new Error(result.error?.message || 'Failed to get email body'));
+          return;
         }
-      );
+
+        const existingContent = result.value || '';
+        const finalContent = `${this.formatContentForInsertion(content)}\n\n${existingContent}`;
+
+        Office.context.mailbox.item!.body.setAsync(
+          finalContent,
+          { coercionType: Office.CoercionType.Html },
+          (setResult) => {
+            if (setResult.status === Office.AsyncResultStatus.Failed) {
+              reject(new Error(setResult.error?.message || 'Failed to set email body'));
+              return;
+            }
+
+            this.insertionHistory.push({
+              content,
+              position: 0,
+              timestamp: Date.now(),
+            });
+
+            resolve();
+          }
+        );
+      });
     });
   }
 
@@ -170,37 +161,34 @@ export class ContentInserter {
    */
   async appendContent(content: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      Office.context.mailbox.item!.body.getAsync(
-        Office.CoercionType.Html,
-        async (result) => {
-          if (result.status === Office.AsyncResultStatus.Failed) {
-            reject(new Error(result.error?.message || 'Failed to get email body'));
-            return;
-          }
-
-          const existingContent = result.value || '';
-          const finalContent = `${existingContent}\n\n${this.formatContentForInsertion(content)}`;
-
-          Office.context.mailbox.item!.body.setAsync(
-            finalContent,
-            { coercionType: Office.CoercionType.Html },
-            (setResult) => {
-              if (setResult.status === Office.AsyncResultStatus.Failed) {
-                reject(new Error(setResult.error?.message || 'Failed to set email body'));
-                return;
-              }
-
-              this.insertionHistory.push({
-                content,
-                position: existingContent.length,
-                timestamp: Date.now(),
-              });
-
-              resolve();
-            }
-          );
+      Office.context.mailbox.item!.body.getAsync(Office.CoercionType.Html, async (result) => {
+        if (result.status === Office.AsyncResultStatus.Failed) {
+          reject(new Error(result.error?.message || 'Failed to get email body'));
+          return;
         }
-      );
+
+        const existingContent = result.value || '';
+        const finalContent = `${existingContent}\n\n${this.formatContentForInsertion(content)}`;
+
+        Office.context.mailbox.item!.body.setAsync(
+          finalContent,
+          { coercionType: Office.CoercionType.Html },
+          (setResult) => {
+            if (setResult.status === Office.AsyncResultStatus.Failed) {
+              reject(new Error(setResult.error?.message || 'Failed to set email body'));
+              return;
+            }
+
+            this.insertionHistory.push({
+              content,
+              position: existingContent.length,
+              timestamp: Date.now(),
+            });
+
+            resolve();
+          }
+        );
+      });
     });
   }
 

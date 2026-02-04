@@ -18,9 +18,7 @@ describe('ProgressBar Component', () => {
   ];
 
   it('should render all step labels', () => {
-    renderWithProvider(
-      <ProgressBar steps={mockSteps} currentStep="step1" />
-    );
+    renderWithProvider(<ProgressBar steps={mockSteps} currentStep="step1" />);
 
     expect(screen.getByText(/Preparing/)).toBeInTheDocument();
     expect(screen.getByText(/Sending/)).toBeInTheDocument();
@@ -29,9 +27,7 @@ describe('ProgressBar Component', () => {
   });
 
   it('should highlight current step', () => {
-    renderWithProvider(
-      <ProgressBar steps={mockSteps} currentStep="step2" />
-    );
+    renderWithProvider(<ProgressBar steps={mockSteps} currentStep="step2" />);
 
     const stepText = screen.getByText(/Sending/);
     expect(stepText).toBeInTheDocument();
@@ -39,29 +35,21 @@ describe('ProgressBar Component', () => {
 
   it('should display error message when provided', () => {
     renderWithProvider(
-      <ProgressBar
-        steps={mockSteps}
-        currentStep="step2"
-        error="An error occurred"
-      />
+      <ProgressBar steps={mockSteps} currentStep="step2" error="An error occurred" />
     );
 
     expect(screen.getByText('An error occurred')).toBeInTheDocument();
   });
 
   it('should not display error when not provided', () => {
-    renderWithProvider(
-      <ProgressBar steps={mockSteps} currentStep="step1" />
-    );
+    renderWithProvider(<ProgressBar steps={mockSteps} currentStep="step1" />);
 
     const errorText = screen.queryByText('An error occurred');
     expect(errorText).not.toBeInTheDocument();
   });
 
   it('should show arrows between steps', () => {
-    renderWithProvider(
-      <ProgressBar steps={mockSteps} currentStep="step1" />
-    );
+    renderWithProvider(<ProgressBar steps={mockSteps} currentStep="step1" />);
 
     // Check for arrows in the rendered text
     const container = screen.getByText(/Preparing/).closest('div');
@@ -70,17 +58,13 @@ describe('ProgressBar Component', () => {
 
   it('should handle single step', () => {
     const singleStep = [{ id: 'only', label: 'Only Step' }];
-    renderWithProvider(
-      <ProgressBar steps={singleStep} currentStep="only" />
-    );
+    renderWithProvider(<ProgressBar steps={singleStep} currentStep="only" />);
 
     expect(screen.getByText('Only Step')).toBeInTheDocument();
   });
 
   it('should calculate progress correctly', () => {
-    renderWithProvider(
-      <ProgressBar steps={mockSteps} currentStep="step2" />
-    );
+    renderWithProvider(<ProgressBar steps={mockSteps} currentStep="step2" />);
 
     // Step 2 is the second step out of 4, so progress should be 50%
     const progressBar = screen.getByRole('progressbar');
@@ -88,9 +72,7 @@ describe('ProgressBar Component', () => {
   });
 
   it('should show 100% progress when on last step', () => {
-    renderWithProvider(
-      <ProgressBar steps={mockSteps} currentStep="step4" />
-    );
+    renderWithProvider(<ProgressBar steps={mockSteps} currentStep="step4" />);
 
     const progressBar = screen.getByRole('progressbar');
     expect(progressBar).toHaveAttribute('aria-valuenow', '100');

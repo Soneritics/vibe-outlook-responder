@@ -124,11 +124,7 @@ export function validatePrompt(
     return contentValidation;
   }
 
-  const uniquenessValidation = validatePromptUniqueness(
-    prompt.title,
-    existingPrompts,
-    prompt.id
-  );
+  const uniquenessValidation = validatePromptUniqueness(prompt.title, existingPrompts, prompt.id);
   if (!uniquenessValidation.isValid) {
     return uniquenessValidation;
   }

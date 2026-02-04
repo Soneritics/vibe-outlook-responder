@@ -14,6 +14,7 @@ The first production-ready version of the Outlook ChatGPT Email Responder Add-in
 ### Added
 
 #### Core Features
+
 - **ChatGPT Integration**: Direct integration with OpenAI API for AI-powered email response generation
 - **Custom Prompt Library**: Create, edit, delete, and manage unlimited custom prompts
 - **API Key Configuration**: Secure local storage of OpenAI API key with masked display
@@ -21,6 +22,7 @@ The first production-ready version of the Outlook ChatGPT Email Responder Add-in
 - **Cross-Device Sync**: Automatic synchronization of prompts and model preferences via Microsoft Roaming Settings
 
 #### User Interface
+
 - **Ribbon Integration**: Dropdown button in main screen and compose mode ribbons
 - **Settings Panel**: Comprehensive settings screen for API key, model selection, and preferences
 - **Prompt Editor**: Full-featured editor for creating and editing prompts (title + content)
@@ -28,12 +30,14 @@ The first production-ready version of the Outlook ChatGPT Email Responder Add-in
 - **Error Handling**: User-friendly error messages with Retry buttons for all API errors
 
 #### Smart Email Handling
+
 - **Full Thread Context**: Includes entire email thread for better context understanding
 - **Automatic Summarization**: Intelligently summarizes long threads when token limits are exceeded
 - **Signature Detection**: Automatically inserts responses above email signatures
 - **Format Preservation**: Maintains HTML formatting from original emails
 
 #### Productivity Features
+
 - **Keyboard Shortcuts**: Configurable shortcuts for common actions
 - **Export/Import Prompts**: Backup and share prompts via clipboard (JSON format)
 - **Multiple Generations**: Generate multiple responses in one compose session
@@ -41,6 +45,7 @@ The first production-ready version of the Outlook ChatGPT Email Responder Add-in
 - **Undo Support**: Standard Ctrl+Z works to undo response insertions
 
 #### Localization
+
 - **Multi-Language Support**: UI automatically adapts based on Outlook locale
   - English (en)
   - German (de)
@@ -48,6 +53,7 @@ The first production-ready version of the Outlook ChatGPT Email Responder Add-in
   - Spanish (es)
 
 #### Platform Support
+
 - ✅ Outlook Desktop (Windows)
 - ✅ Outlook Desktop (Mac)
 - ✅ Outlook Web (OWA)
@@ -92,21 +98,25 @@ The first production-ready version of the Outlook ChatGPT Email Responder Add-in
 ### Technical Stack
 
 **Frontend**:
+
 - React 19.2.4
 - TypeScript 5.9.3
 - Fluent UI React Components 9.72.11
 - Office.js 1.1.110
 
 **AI Integration**:
+
 - OpenAI SDK 6.17.0
 - Tiktoken 1.0.22 (token counting)
 
 **Testing**:
+
 - Jest 30.2.0
 - React Testing Library 16.3.2
 - Playwright 1.58.1
 
 **Build Tools**:
+
 - Webpack 5.105.0
 - ESLint 9.39.2
 - Prettier 3.8.1
@@ -132,6 +142,7 @@ This is the first release - no migration needed.
 ## Version History Format
 
 **Types of Changes**:
+
 - `Added` for new features
 - `Changed` for changes in existing functionality
 - `Deprecated` for soon-to-be removed features
@@ -140,6 +151,7 @@ This is the first release - no migration needed.
 - `Security` for vulnerability patches
 
 **Version Numbers**:
+
 - **Major** (X.0.0): Breaking changes or major new features
 - **Minor** (0.X.0): New features, backward compatible
 - **Patch** (0.0.X): Bug fixes, backward compatible

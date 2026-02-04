@@ -6,9 +6,11 @@ const ROAMING_PREFIX = 'outlook_addin_roaming_';
  * Check if Office.js roaming settings are available
  */
 function isOfficeAvailable(): boolean {
-  return typeof Office !== 'undefined' && 
-         Office.context !== undefined && 
-         Office.context.roamingSettings !== undefined;
+  return (
+    typeof Office !== 'undefined' &&
+    Office.context !== undefined &&
+    Office.context.roamingSettings !== undefined
+  );
 }
 
 /**
@@ -39,9 +41,14 @@ export class SettingsStorage {
   async getSettings(): Promise<Settings> {
     try {
       const apiKey = this.getFromLocalStorage(this.STORAGE_KEYS.API_KEY) || '';
-      const selectedModel = this.getFromRoamingSettings(this.STORAGE_KEYS.SELECTED_MODEL) || this.DEFAULT_SETTINGS.selectedModel;
-      const keyboardShortcuts = this.getFromRoamingSettings(this.STORAGE_KEYS.KEYBOARD_SHORTCUTS) || {};
-      const lastUpdated = this.getFromRoamingSettings(this.STORAGE_KEYS.LAST_UPDATED) || this.DEFAULT_SETTINGS.lastUpdated;
+      const selectedModel =
+        this.getFromRoamingSettings(this.STORAGE_KEYS.SELECTED_MODEL) ||
+        this.DEFAULT_SETTINGS.selectedModel;
+      const keyboardShortcuts =
+        this.getFromRoamingSettings(this.STORAGE_KEYS.KEYBOARD_SHORTCUTS) || {};
+      const lastUpdated =
+        this.getFromRoamingSettings(this.STORAGE_KEYS.LAST_UPDATED) ||
+        this.DEFAULT_SETTINGS.lastUpdated;
 
       return {
         apiKey,
@@ -67,7 +74,7 @@ export class SettingsStorage {
       // Save other settings to roaming storage (synced across devices)
       this.saveToRoamingSettings(this.STORAGE_KEYS.SELECTED_MODEL, settings.selectedModel);
       this.saveToRoamingSettings(this.STORAGE_KEYS.KEYBOARD_SHORTCUTS, settings.keyboardShortcuts);
-      
+
       // Update timestamp
       const timestamp = new Date().toISOString();
       this.saveToRoamingSettings(this.STORAGE_KEYS.LAST_UPDATED, timestamp);
@@ -195,7 +202,7 @@ export class SettingsStorage {
       // localStorage saves immediately
       return Promise.resolve();
     }
-    
+
     return new Promise((resolve, reject) => {
       try {
         Office.context.roamingSettings.saveAsync((result: Office.AsyncResult<void>) => {

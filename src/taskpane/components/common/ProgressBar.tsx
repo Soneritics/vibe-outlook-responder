@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  ProgressBar as FluentProgressBar,
-  makeStyles,
-  tokens,
-} from '@fluentui/react-components';
+import { ProgressBar as FluentProgressBar, makeStyles, tokens } from '@fluentui/react-components';
 
 /**
  * Represents a single step in the progress flow
@@ -65,11 +61,7 @@ const useStyles = makeStyles({
  * Progress bar component with step indicators
  * Used during AI generation: Preparing → Sending → Generating → Done
  */
-export const ProgressBar: React.FC<ProgressBarProps> = ({
-  steps,
-  currentStep,
-  error,
-}) => {
+export const ProgressBar: React.FC<ProgressBarProps> = ({ steps, currentStep, error }) => {
   const styles = useStyles();
   const currentIndex = steps.findIndex((step) => step.id === currentStep);
   const progress = ((currentIndex + 1) / steps.length) * 100;
@@ -81,11 +73,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
         {steps.map((step, index) => (
           <span
             key={step.id}
-            className={
-              step.id === currentStep
-                ? styles.activeStepLabel
-                : styles.stepLabel
-            }
+            className={step.id === currentStep ? styles.activeStepLabel : styles.stepLabel}
           >
             {step.label}
             {index < steps.length - 1 && ' → '}

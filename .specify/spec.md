@@ -7,52 +7,52 @@
 
 ## Clarified Requirements
 
-| Decision             | Choice                                                              |
-| -------------------- | ------------------------------------------------------------------- |
-| Target Platforms     | All platforms: Desktop (Windows/Mac), Web (OWA), and Mobile         |
-| ChatGPT Model        | User-selectable in Settings, defaults to GPT-5                      |
-| Response Placement   | Insert above user's existing content                                |
-| Prompt Limit         | No limit on number of prompts                                       |
-| Email Format         | Preserve HTML formatting from original email                        |
-| Prompt Sync          | Sync across devices using Microsoft account                         |
-| Language Support     | Multiple languages based on user's Outlook locale                   |
-| Thread Context       | Include entire email thread for context                             |
-| Token Limit Handling | Automatically summarize older messages to fit within limits         |
-| Prompt Display Order | Alphabetically by title                                             |
-| Delete Confirmation  | Simple confirmation dialog                                          |
-| First-Time Use       | Allow creating prompts before API key is set; block generation only |
-| Prompt Field Limits  | Title: 100 chars, Content: 10,000 chars                             |
-| Manage Prompts Screen| Side panel opens from    | List of prompts with click-to-edit + Add New button (Recommended) |
-| Prompt Editor (Compose) | Side panel (consistent with main screen) |
-| Navigation          | Back button to return to Manage Prompts list after editing           |
-| Button Configuration | Two separate buttons: "AI Assistant" (main) and "AI Reply" (compose) |
-| First-time Guidance  | No special messaging; just show empty list                           |
-| Panel Behavior       | Stay open after save (user manually closes)                          |
-| Multiple Generations | Allowed; each inserts above previous                                |
-| Keyboard Shortcuts   | Configurable in settings                                            |
-| Response Preview     | No preview; insert directly inline                                  |
-| Undo Generation      | Ctrl+Z works to undo insertion                                      |
-| Settings Sync        | Model preference syncs; API key stays local for security            |
-| API Key Validation   | Format validation + optional "Test Connection" button               |
-| System Prompt        | No wrapping; user controls prompt entirely                          |
-| Loading Indicator    | Progress bar with steps: Preparing → Sending → Generating → Done    |
-| Cancel Generation    | Always show cancel button during generation                         |
-| Retry on Failure     | Show "Retry" button on error                                        |
-| API Timeout          | No timeout; wait for OpenAI response                                |
-| Prompt Export/Import | Via clipboard (copy/paste JSON)                                     |
-| Duplicate Titles     | Block saving; require unique titles                                 |
-| Demo Mode            | None; API key required for generation                               |
-| Usage Logging        | No logging; privacy first                                           |
-| Button Appearance    | Ribbon button with icon and text label                              |
-| Button Label         | "AI Assistant"                                                      |
-| Screen Display       | Dialog/Taskpane (standard Outlook add-in panel)                     |
-| Sync Conflict        | Last write wins (most recent save overwrites)                       |
-| Email Attachments    | No special handling; generate normally                              |
-| Reading Pane         | Generation only works in compose mode                               |
-| Signature Handling   | Insert response above signature (auto-detect position)              |
-| Prompt Placeholders  | None; advanced users handle manually                                |
-| Content Policy       | Show OpenAI's content policy message on violation                   |
-| Factory Reset        | "Reset All Data" button in settings with confirmation               |
+| Decision                | Choice                                                               |
+| ----------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Target Platforms        | All platforms: Desktop (Windows/Mac), Web (OWA), and Mobile          |
+| ChatGPT Model           | User-selectable in Settings, defaults to GPT-5                       |
+| Response Placement      | Insert above user's existing content                                 |
+| Prompt Limit            | No limit on number of prompts                                        |
+| Email Format            | Preserve HTML formatting from original email                         |
+| Prompt Sync             | Sync across devices using Microsoft account                          |
+| Language Support        | Multiple languages based on user's Outlook locale                    |
+| Thread Context          | Include entire email thread for context                              |
+| Token Limit Handling    | Automatically summarize older messages to fit within limits          |
+| Prompt Display Order    | Alphabetically by title                                              |
+| Delete Confirmation     | Simple confirmation dialog                                           |
+| First-Time Use          | Allow creating prompts before API key is set; block generation only  |
+| Prompt Field Limits     | Title: 100 chars, Content: 10,000 chars                              |
+| Manage Prompts Screen   | Side panel opens from                                                | List of prompts with click-to-edit + Add New button (Recommended) |
+| Prompt Editor (Compose) | Side panel (consistent with main screen)                             |
+| Navigation              | Back button to return to Manage Prompts list after editing           |
+| Button Configuration    | Two separate buttons: "AI Assistant" (main) and "AI Reply" (compose) |
+| First-time Guidance     | No special messaging; just show empty list                           |
+| Panel Behavior          | Stay open after save (user manually closes)                          |
+| Multiple Generations    | Allowed; each inserts above previous                                 |
+| Keyboard Shortcuts      | Configurable in settings                                             |
+| Response Preview        | No preview; insert directly inline                                   |
+| Undo Generation         | Ctrl+Z works to undo insertion                                       |
+| Settings Sync           | Model preference syncs; API key stays local for security             |
+| API Key Validation      | Format validation + optional "Test Connection" button                |
+| System Prompt           | No wrapping; user controls prompt entirely                           |
+| Loading Indicator       | Progress bar with steps: Preparing → Sending → Generating → Done     |
+| Cancel Generation       | Always show cancel button during generation                          |
+| Retry on Failure        | Show "Retry" button on error                                         |
+| API Timeout             | No timeout; wait for OpenAI response                                 |
+| Prompt Export/Import    | Via clipboard (copy/paste JSON)                                      |
+| Duplicate Titles        | Block saving; require unique titles                                  |
+| Demo Mode               | None; API key required for generation                                |
+| Usage Logging           | No logging; privacy first                                            |
+| Button Appearance       | Ribbon button with icon and text label                               |
+| Button Label            | "AI Assistant"                                                       |
+| Screen Display          | Dialog/Taskpane (standard Outlook add-in panel)                      |
+| Sync Conflict           | Last write wins (most recent save overwrites)                        |
+| Email Attachments       | No special handling; generate normally                               |
+| Reading Pane            | Generation only works in compose mode                                |
+| Signature Handling      | Insert response above signature (auto-detect position)               |
+| Prompt Placeholders     | None; advanced users handle manually                                 |
+| Content Policy          | Show OpenAI's content policy message on violation                    |
+| Factory Reset           | "Reset All Data" button in settings with confirmation                |
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -285,12 +285,12 @@ As a user, I want to see helpful error messages when something goes wrong so tha
 
 ## UI Components Summary
 
-| Location             | Component                                  | Contents                                                                                                                                                                             |
-| -------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Main Outlook Screen  | Ribbon Button "AI Assistant" (icon + text, always active) | Dropdown: "Manage Prompts" → "Settings" (both open in side panel)                                                                                    |
-| Settings Screen      | Side Panel (Taskpane)                      | API Key input (masked) + Test Connection button, Model selector (GPT-5 default), Keyboard shortcut config, Export/Import Prompts buttons, Reset All Data button, Save/Cancel buttons |
-| Prompt Editor Screen | Side Panel (Taskpane)                      | Title field (100 char max, unique), Prompt textarea (10,000 char max), Save/Delete/Cancel buttons                                                                                    |
-| Manage Prompts Screen| Side Panel (Taskpane)                      | List of prompts with edit/delete options, Add New Prompt button                                                                                                                       |
-| Email Compose Screen | Ribbon Button "AI Reply" (icon + text) | Dropdown: Prompt titles (alphabetical) → Separator → "Add Custom Prompt"                                                                                                             |
-| Generation Progress  | Overlay/Banner in compose                  | Progress bar (Preparing → Sending → Generating → Done) + Cancel button                                                                                                               |
-| Error State          | Banner in compose                          | Error message (including OpenAI policy messages) + Retry button                                                                                                                      |
+| Location              | Component                                                 | Contents                                                                                                                                                                             |
+| --------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Main Outlook Screen   | Ribbon Button "AI Assistant" (icon + text, always active) | Dropdown: "Manage Prompts" → "Settings" (both open in side panel)                                                                                                                    |
+| Settings Screen       | Side Panel (Taskpane)                                     | API Key input (masked) + Test Connection button, Model selector (GPT-5 default), Keyboard shortcut config, Export/Import Prompts buttons, Reset All Data button, Save/Cancel buttons |
+| Prompt Editor Screen  | Side Panel (Taskpane)                                     | Title field (100 char max, unique), Prompt textarea (10,000 char max), Save/Delete/Cancel buttons                                                                                    |
+| Manage Prompts Screen | Side Panel (Taskpane)                                     | List of prompts with edit/delete options, Add New Prompt button                                                                                                                      |
+| Email Compose Screen  | Ribbon Button "AI Reply" (icon + text)                    | Dropdown: Prompt titles (alphabetical) → Separator → "Add Custom Prompt"                                                                                                             |
+| Generation Progress   | Overlay/Banner in compose                                 | Progress bar (Preparing → Sending → Generating → Done) + Cancel button                                                                                                               |
+| Error State           | Banner in compose                                         | Error message (including OpenAI policy messages) + Retry button                                                                                                                      |

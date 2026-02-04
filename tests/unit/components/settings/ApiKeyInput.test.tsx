@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { ApiKeyInput } from '../../../../src/taskpane/components/settings/ApiKeyInput';
 
@@ -13,8 +13,10 @@ describe('ApiKeyInput', () => {
 
   describe('rendering', () => {
     it('should render input field with label', () => {
-      const { container } = render(<ApiKeyInput value="" onChange={mockOnChange} onTestConnection={mockOnTestConnection} />);
-      
+      const { container } = render(
+        <ApiKeyInput value="" onChange={mockOnChange} onTestConnection={mockOnTestConnection} />
+      );
+
       const input = container.querySelector('input');
       expect(input).toBeTruthy();
       expect(input).toHaveAttribute('aria-label', 'API Key');
@@ -28,20 +30,28 @@ describe('ApiKeyInput', () => {
           onTestConnection={mockOnTestConnection}
         />
       );
-      
+
       const input = container.querySelector('input') as HTMLInputElement;
       expect(input.type).toBe('password');
     });
 
     it('should show "Test Connection" button', () => {
-      render(<ApiKeyInput value="" onChange={mockOnChange} onTestConnection={mockOnTestConnection} />);
-      
+      render(
+        <ApiKeyInput value="" onChange={mockOnChange} onTestConnection={mockOnTestConnection} />
+      );
+
       expect(screen.getByRole('button', { name: /Test Connection/i })).toBeInTheDocument();
     });
 
     it('should show toggle visibility button', () => {
-      render(<ApiKeyInput value="sk-test" onChange={mockOnChange} onTestConnection={mockOnTestConnection} />);
-      
+      render(
+        <ApiKeyInput
+          value="sk-test"
+          onChange={mockOnChange}
+          onTestConnection={mockOnTestConnection}
+        />
+      );
+
       const toggleButton = screen.getByRole('button', { name: /show|hide/i });
       expect(toggleButton).toBeInTheDocument();
     });
@@ -56,7 +66,7 @@ describe('ApiKeyInput', () => {
           onTestConnection={mockOnTestConnection}
         />
       );
-      
+
       const input = container.querySelector('input') as HTMLInputElement;
       expect(input.type).toBe('password');
     });
@@ -69,14 +79,14 @@ describe('ApiKeyInput', () => {
           onTestConnection={mockOnTestConnection}
         />
       );
-      
+
       const input = container.querySelector('input') as HTMLInputElement;
       const toggleButton = screen.getByRole('button', { name: /show/i });
-      
+
       expect(input.type).toBe('password');
-      
+
       fireEvent.click(toggleButton);
-      
+
       expect(input.type).toBe('text');
     });
 
@@ -88,13 +98,13 @@ describe('ApiKeyInput', () => {
           onTestConnection={mockOnTestConnection}
         />
       );
-      
+
       const input = container.querySelector('input') as HTMLInputElement;
       const toggleButton = screen.getByRole('button', { name: /show/i });
-      
+
       fireEvent.click(toggleButton);
       expect(input.type).toBe('text');
-      
+
       fireEvent.click(screen.getByRole('button', { name: /hide/i }));
       expect(input.type).toBe('password');
     });
@@ -110,7 +120,7 @@ describe('ApiKeyInput', () => {
           error="Invalid API key format. Must start with 'sk-'"
         />
       );
-      
+
       expect(screen.getByText(/Invalid API key format/i)).toBeInTheDocument();
     });
 
@@ -122,13 +132,15 @@ describe('ApiKeyInput', () => {
           onTestConnection={mockOnTestConnection}
         />
       );
-      
+
       expect(screen.queryByText(/Invalid API key format/i)).not.toBeInTheDocument();
     });
 
     it('should disable Test Connection button when API key is empty', () => {
-      render(<ApiKeyInput value="" onChange={mockOnChange} onTestConnection={mockOnTestConnection} />);
-      
+      render(
+        <ApiKeyInput value="" onChange={mockOnChange} onTestConnection={mockOnTestConnection} />
+      );
+
       const testButton = screen.getByRole('button', { name: /Test Connection/i });
       expect(testButton).toBeDisabled();
     });
@@ -141,7 +153,7 @@ describe('ApiKeyInput', () => {
           onTestConnection={mockOnTestConnection}
         />
       );
-      
+
       const testButton = screen.getByRole('button', { name: /Test Connection/i });
       expect(testButton).not.toBeDisabled();
     });
@@ -149,11 +161,13 @@ describe('ApiKeyInput', () => {
 
   describe('interactions', () => {
     it('should call onChange when input value changes', () => {
-      const { container } = render(<ApiKeyInput value="" onChange={mockOnChange} onTestConnection={mockOnTestConnection} />);
-      
+      const { container } = render(
+        <ApiKeyInput value="" onChange={mockOnChange} onTestConnection={mockOnTestConnection} />
+      );
+
       const input = container.querySelector('input') as HTMLInputElement;
       fireEvent.change(input, { target: { value: 'sk-newkey' } });
-      
+
       expect(mockOnChange).toHaveBeenCalledWith('sk-newkey');
     });
 
@@ -165,10 +179,10 @@ describe('ApiKeyInput', () => {
           onTestConnection={mockOnTestConnection}
         />
       );
-      
+
       const testButton = screen.getByRole('button', { name: /Test Connection/i });
       fireEvent.click(testButton);
-      
+
       expect(mockOnTestConnection).toHaveBeenCalled();
     });
 
@@ -181,7 +195,7 @@ describe('ApiKeyInput', () => {
           isTestingConnection={true}
         />
       );
-      
+
       const testButton = screen.getByRole('button', { name: /Testing/i });
       expect(testButton).toBeDisabled();
     });
@@ -195,7 +209,7 @@ describe('ApiKeyInput', () => {
           testConnectionResult={{ success: true, message: 'Connection successful' }}
         />
       );
-      
+
       expect(screen.getByText(/Connection successful/i)).toBeInTheDocument();
     });
 
@@ -208,15 +222,17 @@ describe('ApiKeyInput', () => {
           testConnectionResult={{ success: false, message: 'Invalid API key' }}
         />
       );
-      
+
       expect(screen.getByText(/Invalid API key/i)).toBeInTheDocument();
     });
   });
 
   describe('accessibility', () => {
     it('should have accessible label', () => {
-      const { container } = render(<ApiKeyInput value="" onChange={mockOnChange} onTestConnection={mockOnTestConnection} />);
-      
+      const { container } = render(
+        <ApiKeyInput value="" onChange={mockOnChange} onTestConnection={mockOnTestConnection} />
+      );
+
       const input = container.querySelector('input');
       expect(input).toHaveAttribute('aria-label');
     });
@@ -230,10 +246,10 @@ describe('ApiKeyInput', () => {
           error="Invalid format"
         />
       );
-      
+
       // Check that error message is displayed
       expect(screen.getByText(/Invalid format/i)).toBeInTheDocument();
-      
+
       // Check that input exists (may not be role="textbox" in error state)
       const container = screen.getByText(/Invalid format/i).closest('div');
       expect(container).toBeTruthy();

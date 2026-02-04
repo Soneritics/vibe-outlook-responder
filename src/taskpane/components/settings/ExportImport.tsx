@@ -76,7 +76,7 @@ export const ExportImport: React.FC<ExportImportProps> = ({ prompts, onImport })
     try {
       // Convert prompts to JSON
       const json = JSON.stringify(prompts, null, 2);
-      
+
       // Copy to clipboard
       await copyToClipboard(json);
 
@@ -91,7 +91,7 @@ export const ExportImport: React.FC<ExportImportProps> = ({ prompts, onImport })
       });
     } finally {
       setIsExporting(false);
-      
+
       // Clear message after 5 seconds
       setTimeout(() => setMessage(null), 5000);
     }
@@ -117,7 +117,7 @@ export const ExportImport: React.FC<ExportImportProps> = ({ prompts, onImport })
       let importedPrompts: Prompt[];
       try {
         importedPrompts = JSON.parse(clipboardText);
-      } catch (parseError) {
+      } catch (_parseError) {
         setMessage({
           type: 'error',
           text: 'Invalid JSON format. Please check clipboard content.',
@@ -151,11 +151,11 @@ export const ExportImport: React.FC<ExportImportProps> = ({ prompts, onImport })
       const existingTitles = new Set(prompts.map((p) => p.title.toLowerCase()));
       const processedPrompts = importedPrompts.map((prompt) => {
         let title = prompt.title;
-        
+
         // Check if title already exists
         if (existingTitles.has(title.toLowerCase())) {
           title = `${title} (imported)`;
-          
+
           // If "(imported)" version also exists, add number
           let counter = 1;
           while (existingTitles.has(title.toLowerCase())) {
@@ -187,7 +187,7 @@ export const ExportImport: React.FC<ExportImportProps> = ({ prompts, onImport })
       });
     } finally {
       setIsImporting(false);
-      
+
       // Clear message after 5 seconds
       setTimeout(() => setMessage(null), 5000);
     }
@@ -196,7 +196,7 @@ export const ExportImport: React.FC<ExportImportProps> = ({ prompts, onImport })
   return (
     <div className={styles.container}>
       <Label size="large">Export/Import Prompts</Label>
-      
+
       <Text className={styles.description}>
         Backup your prompts by exporting to clipboard, or restore from a previous export.
       </Text>
@@ -234,25 +234,19 @@ export const ExportImport: React.FC<ExportImportProps> = ({ prompts, onImport })
         {message && (
           <div
             className={`${styles.message} ${
-              message.type === 'success'
-                ? styles.successMessage
-                : styles.errorMessage
+              message.type === 'success' ? styles.successMessage : styles.errorMessage
             }`}
             role="alert"
           >
-            {message.type === 'success' ? (
-              <CheckmarkCircle20Regular />
-            ) : (
-              <DismissCircle20Regular />
-            )}
+            {message.type === 'success' ? <CheckmarkCircle20Regular /> : <DismissCircle20Regular />}
             <Text>{message.text}</Text>
           </div>
         )}
       </Card>
 
       <Text size={200} className={styles.description}>
-        Note: Exported prompts include all content and metadata. Import will preserve
-        your existing prompts and append any duplicates with "(imported)".
+        Note: Exported prompts include all content and metadata. Import will preserve your existing
+        prompts and append any duplicates with "(imported)".
       </Text>
     </div>
   );

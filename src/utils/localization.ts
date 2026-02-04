@@ -3,7 +3,13 @@
  * Detects Outlook locale and provides translation functions
  */
 
-import { translations, TranslationStrings, Locale, DEFAULT_LOCALE, SUPPORTED_LOCALES } from '../locales';
+import {
+  translations,
+  TranslationStrings,
+  Locale,
+  DEFAULT_LOCALE,
+  SUPPORTED_LOCALES,
+} from '../locales';
 
 /**
  * Gets translations for the specified locale
@@ -27,7 +33,7 @@ export function detectOutlookLocale(): Locale {
     // Try to get Office locale
     const displayLanguage = Office?.context?.displayLanguage;
     if (displayLanguage) {
-      // Split and extract language code  
+      // Split and extract language code
       const parts = displayLanguage.split('-');
       if (parts.length > 0 && parts[0]) {
         const languageCode = parts[0].toLowerCase();
@@ -36,7 +42,7 @@ export function detectOutlookLocale(): Locale {
         }
       }
     }
-  } catch (error) {
+  } catch (_error) {
     console.warn('Failed to detect Outlook locale, defaulting to English');
   }
 
@@ -66,6 +72,6 @@ export function t(keyPath: string, locale?: Locale, fallback?: string): string {
   if (typeof value === 'string') {
     return value;
   }
-  
+
   return fallback ?? keyPath;
 }

@@ -46,12 +46,7 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
 }) => {
   return (
-    <FluentButton
-      appearance={appearance}
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-    >
+    <FluentButton appearance={appearance} type={type} onClick={onClick} disabled={disabled}>
       {children}
     </FluentButton>
   );

@@ -19,11 +19,7 @@ import {
   MessageBarBody,
   MessageBarTitle,
 } from '@fluentui/react-components';
-import { 
-  Send24Regular,
-  Settings24Regular,
-  Add24Regular,
-} from '@fluentui/react-icons';
+import { Send24Regular, Settings24Regular, Add24Regular } from '@fluentui/react-icons';
 import { usePrompts } from '../../hooks/usePrompts';
 import { useSettings } from '../../hooks/useSettings';
 import { useGeneration } from '../../hooks/useGeneration';
@@ -105,10 +101,7 @@ interface GenerateScreenProps {
   onAddPrompt?: () => void;
 }
 
-export const GenerateScreen: React.FC<GenerateScreenProps> = ({
-  onOpenSettings,
-  onAddPrompt,
-}) => {
+export const GenerateScreen: React.FC<GenerateScreenProps> = ({ onOpenSettings, onAddPrompt }) => {
   const styles = useStyles();
   const { prompts, loading: promptsLoading } = usePrompts();
   const { settings, isLoading: settingsLoading } = useSettings();
@@ -119,7 +112,7 @@ export const GenerateScreen: React.FC<GenerateScreenProps> = ({
     if (!settings?.apiKey) {
       return;
     }
-    
+
     setSelectedPrompt(prompt);
     await generate(prompt.content, settings.apiKey, settings.selectedModel || 'gpt-4');
   };
@@ -151,11 +144,7 @@ export const GenerateScreen: React.FC<GenerateScreenProps> = ({
         </MessageBar>
         {onOpenSettings && (
           <div className={styles.footer}>
-            <Button 
-              appearance="primary" 
-              icon={<Settings24Regular />}
-              onClick={onOpenSettings}
-            >
+            <Button appearance="primary" icon={<Settings24Regular />} onClick={onOpenSettings}>
               Open Settings
             </Button>
           </div>
@@ -168,18 +157,10 @@ export const GenerateScreen: React.FC<GenerateScreenProps> = ({
     <div className={styles.container}>
       <div className={styles.header}>
         <Text className={styles.title}>AI Reply</Text>
-        <Text className={styles.subtitle}>
-          Select a prompt to generate an AI-powered response
-        </Text>
+        <Text className={styles.subtitle}>Select a prompt to generate an AI-powered response</Text>
       </div>
 
-      {error && (
-        <ErrorBanner
-          message={error}
-          onRetry={handleRetry}
-          onDismiss={clearError}
-        />
-      )}
+      {error && <ErrorBanner message={error} onRetry={handleRetry} onDismiss={clearError} />}
 
       {prompts.length === 0 ? (
         <div className={styles.emptyState}>
@@ -187,11 +168,7 @@ export const GenerateScreen: React.FC<GenerateScreenProps> = ({
             No prompts available. Create a prompt to get started.
           </Text>
           {onAddPrompt && (
-            <Button 
-              appearance="primary" 
-              icon={<Add24Regular />}
-              onClick={onAddPrompt}
-            >
+            <Button appearance="primary" icon={<Add24Regular />} onClick={onAddPrompt}>
               Create Prompt
             </Button>
           )}
@@ -220,11 +197,7 @@ export const GenerateScreen: React.FC<GenerateScreenProps> = ({
 
       {prompts.length > 0 && onAddPrompt && (
         <div className={styles.footer}>
-          <Button 
-            appearance="secondary" 
-            icon={<Add24Regular />}
-            onClick={onAddPrompt}
-          >
+          <Button appearance="secondary" icon={<Add24Regular />} onClick={onAddPrompt}>
             Add Prompt
           </Button>
         </div>

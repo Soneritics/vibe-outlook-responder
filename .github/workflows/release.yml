@@ -18,7 +18,7 @@ permissions:
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -70,10 +70,10 @@ jobs:
         id: release_notes
         run: |
           VERSION=${{ steps.get_version.outputs.VERSION }}
-          
+
           # Extract changelog for this version
           sed -n "/## \[$VERSION\]/,/## \[/p" CHANGELOG.md | sed '$ d' > release_notes.md
-          
+
           # If no specific version notes found, use latest
           if [ ! -s release_notes.md ]; then
             sed -n "/## \[/,/## \[/p" CHANGELOG.md | sed '$ d' > release_notes.md
@@ -108,7 +108,7 @@ jobs:
     needs: build-and-release
     runs-on: ubuntu-latest
     if: success()
-    
+
     steps:
       - name: Release notification
         run: |

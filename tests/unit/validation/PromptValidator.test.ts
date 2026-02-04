@@ -96,37 +96,25 @@ describe('PromptValidator', () => {
 
   describe('validatePromptUniqueness', () => {
     it('should pass validation for unique title', () => {
-      const result = validatePromptUniqueness(
-        'New Unique Prompt',
-        mockPrompts
-      );
+      const result = validatePromptUniqueness('New Unique Prompt', mockPrompts);
       expect(result.isValid).toBe(true);
       expect(result.error).toBeUndefined();
     });
 
     it('should fail validation for duplicate title (exact match)', () => {
-      const result = validatePromptUniqueness(
-        'Professional Reply',
-        mockPrompts
-      );
+      const result = validatePromptUniqueness('Professional Reply', mockPrompts);
       expect(result.isValid).toBe(false);
       expect(result.error).toBe(PROMPT_ERRORS.TITLE_DUPLICATE);
     });
 
     it('should fail validation for duplicate title (case insensitive)', () => {
-      const result = validatePromptUniqueness(
-        'PROFESSIONAL REPLY',
-        mockPrompts
-      );
+      const result = validatePromptUniqueness('PROFESSIONAL REPLY', mockPrompts);
       expect(result.isValid).toBe(false);
       expect(result.error).toBe(PROMPT_ERRORS.TITLE_DUPLICATE);
     });
 
     it('should fail for duplicate with extra whitespace', () => {
-      const result = validatePromptUniqueness(
-        '  Professional Reply  ',
-        mockPrompts
-      );
+      const result = validatePromptUniqueness('  Professional Reply  ', mockPrompts);
       expect(result.isValid).toBe(false);
       expect(result.error).toBe(PROMPT_ERRORS.TITLE_DUPLICATE);
     });

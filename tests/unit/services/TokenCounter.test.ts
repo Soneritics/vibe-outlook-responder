@@ -57,7 +57,8 @@ describe('TokenCounter', () => {
 
   describe('estimateTokens', () => {
     it('should estimate tokens approximately', () => {
-      const text = 'This is approximately one hundred characters long text for testing token estimation algorithm.';
+      const text =
+        'This is approximately one hundred characters long text for testing token estimation algorithm.';
       const estimate = counter.estimateTokens(text);
       const actual = counter.countTokens(text);
 

@@ -4,10 +4,9 @@
  */
 
 import { PromptStorage } from '../../src/services/storage/PromptStorage';
-import { RoamingSync } from '../../src/services/storage/RoamingSync';
 
 describe('Prompt Sync Integration', () => {
-  let storage: PromptStorage;
+  let _storage: PromptStorage;
   let mockRoamingSettingsData: Map<string, any>;
 
   beforeEach(() => {

@@ -84,10 +84,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
                 {cancelLabel}
               </Button>
             </DialogTrigger>
-            <Button
-              appearance={destructive ? 'primary' : 'primary'}
-              onClick={onConfirm}
-            >
+            <Button appearance={destructive ? 'primary' : 'primary'} onClick={onConfirm}>
               {confirmLabel}
             </Button>
           </DialogActions>

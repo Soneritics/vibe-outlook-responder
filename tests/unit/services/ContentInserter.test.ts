@@ -31,14 +31,17 @@ describe('ContentInserter', () => {
         callback({ status: 'succeeded', value: existingContent });
       });
 
-      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation((_, __, callback) => {
-        callback({ status: 'succeeded' });
-      });
+      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation(
+        (_, __, callback) => {
+          callback({ status: 'succeeded' });
+        }
+      );
 
       await inserter.insertContent(newContent, -1);
 
       expect(Office.context.mailbox.item.body.setAsync).toHaveBeenCalled();
-      const insertedContent = (Office.context.mailbox.item.body.setAsync as jest.Mock).mock.calls[0][0];
+      const insertedContent = (Office.context.mailbox.item.body.setAsync as jest.Mock).mock
+        .calls[0][0];
       expect(insertedContent).toContain(newContent);
       expect(insertedContent).toContain(existingContent);
     });
@@ -58,13 +61,16 @@ describe('ContentInserter', () => {
         callback({ status: 'succeeded', value: existingContent });
       });
 
-      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation((_, __, callback) => {
-        callback({ status: 'succeeded' });
-      });
+      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation(
+        (_, __, callback) => {
+          callback({ status: 'succeeded' });
+        }
+      );
 
       await inserter.insertContent(newContent, signaturePosition);
 
-      const insertedContent = (Office.context.mailbox.item.body.setAsync as jest.Mock).mock.calls[0][0];
+      const insertedContent = (Office.context.mailbox.item.body.setAsync as jest.Mock).mock
+        .calls[0][0];
       const newContentIndex = insertedContent.indexOf(newContent);
       const signatureIndex = insertedContent.indexOf('Best regards');
 
@@ -79,13 +85,16 @@ describe('ContentInserter', () => {
         callback({ status: 'succeeded', value: existingContent });
       });
 
-      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation((_, __, callback) => {
-        callback({ status: 'succeeded' });
-      });
+      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation(
+        (_, __, callback) => {
+          callback({ status: 'succeeded' });
+        }
+      );
 
       await inserter.insertContent(newContent, -1);
 
-      const insertedContent = (Office.context.mailbox.item.body.setAsync as jest.Mock).mock.calls[0][0];
+      const insertedContent = (Office.context.mailbox.item.body.setAsync as jest.Mock).mock
+        .calls[0][0];
       expect(insertedContent).toContain('<strong>');
       expect(insertedContent).toContain('<em>');
     });
@@ -97,9 +106,11 @@ describe('ContentInserter', () => {
         callback({ status: 'succeeded', value: '' });
       });
 
-      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation((_, __, callback) => {
-        callback({ status: 'succeeded' });
-      });
+      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation(
+        (_, __, callback) => {
+          callback({ status: 'succeeded' });
+        }
+      );
 
       await inserter.insertContent(newContent, -1);
 
@@ -122,13 +133,16 @@ describe('ContentInserter', () => {
         callback({ status: 'succeeded', value: existingContent });
       });
 
-      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation((_, __, callback) => {
-        callback({ status: 'succeeded' });
-      });
+      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation(
+        (_, __, callback) => {
+          callback({ status: 'succeeded' });
+        }
+      );
 
       await inserter.insertContent(newContent, -1);
 
-      const insertedContent = (Office.context.mailbox.item.body.setAsync as jest.Mock).mock.calls[0][0];
+      const insertedContent = (Office.context.mailbox.item.body.setAsync as jest.Mock).mock
+        .calls[0][0];
       // Should have some separation between contents
       expect(insertedContent.length).toBeGreaterThan(newContent.length + existingContent.length);
     });
@@ -144,13 +158,16 @@ describe('ContentInserter', () => {
         callback({ status: 'succeeded', value: content });
       });
 
-      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation((_, __, callback) => {
-        callback({ status: 'succeeded' });
-      });
+      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation(
+        (_, __, callback) => {
+          callback({ status: 'succeeded' });
+        }
+      );
 
       await inserter.insertContentAtPosition(newContent, position);
 
-      const insertedContent = (Office.context.mailbox.item.body.setAsync as jest.Mock).mock.calls[0][0];
+      const insertedContent = (Office.context.mailbox.item.body.setAsync as jest.Mock).mock
+        .calls[0][0];
       expect(insertedContent).toContain('Inserted');
     });
 
@@ -175,14 +192,19 @@ describe('ContentInserter', () => {
         callback({ status: 'succeeded', value: existingContent });
       });
 
-      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation((_, __, callback) => {
-        callback({ status: 'succeeded' });
-      });
+      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation(
+        (_, __, callback) => {
+          callback({ status: 'succeeded' });
+        }
+      );
 
       await inserter.prependContent(newContent);
 
-      const insertedContent = (Office.context.mailbox.item.body.setAsync as jest.Mock).mock.calls[0][0];
-      expect(insertedContent.indexOf('Prepended')).toBeLessThan(insertedContent.indexOf('Existing'));
+      const insertedContent = (Office.context.mailbox.item.body.setAsync as jest.Mock).mock
+        .calls[0][0];
+      expect(insertedContent.indexOf('Prepended')).toBeLessThan(
+        insertedContent.indexOf('Existing')
+      );
     });
 
     it('should handle empty existing content', async () => {
@@ -192,9 +214,11 @@ describe('ContentInserter', () => {
         callback({ status: 'succeeded', value: '' });
       });
 
-      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation((_, __, callback) => {
-        callback({ status: 'succeeded' });
-      });
+      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation(
+        (_, __, callback) => {
+          callback({ status: 'succeeded' });
+        }
+      );
 
       await inserter.prependContent(newContent);
 
@@ -211,13 +235,16 @@ describe('ContentInserter', () => {
         callback({ status: 'succeeded', value: existingContent });
       });
 
-      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation((_, __, callback) => {
-        callback({ status: 'succeeded' });
-      });
+      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation(
+        (_, __, callback) => {
+          callback({ status: 'succeeded' });
+        }
+      );
 
       await inserter.appendContent(newContent);
 
-      const insertedContent = (Office.context.mailbox.item.body.setAsync as jest.Mock).mock.calls[0][0];
+      const insertedContent = (Office.context.mailbox.item.body.setAsync as jest.Mock).mock
+        .calls[0][0];
       expect(insertedContent.indexOf('Existing')).toBeLessThan(insertedContent.indexOf('Appended'));
     });
   });
@@ -230,9 +257,11 @@ describe('ContentInserter', () => {
         callback({ status: 'succeeded', value: '<div></div>' });
       });
 
-      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation((_, __, callback) => {
-        callback({ status: 'succeeded' });
-      });
+      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation(
+        (_, __, callback) => {
+          callback({ status: 'succeeded' });
+        }
+      );
 
       await inserter.prependContent(content);
 
@@ -246,9 +275,11 @@ describe('ContentInserter', () => {
         callback({ status: 'succeeded', value: '<div></div>' });
       });
 
-      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation((_, __, callback) => {
-        callback({ status: 'succeeded' });
-      });
+      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation(
+        (_, __, callback) => {
+          callback({ status: 'succeeded' });
+        }
+      );
 
       await inserter.prependContent('First');
       await inserter.prependContent('Second');
@@ -264,9 +295,11 @@ describe('ContentInserter', () => {
         callback({ status: 'succeeded', value: '<div></div>' });
       });
 
-      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation((_, __, callback) => {
-        callback({ status: 'succeeded' });
-      });
+      (Office.context.mailbox.item.body.setAsync as jest.Mock).mockImplementation(
+        (_, __, callback) => {
+          callback({ status: 'succeeded' });
+        }
+      );
 
       await inserter.prependContent('Content');
 

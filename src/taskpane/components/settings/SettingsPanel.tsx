@@ -70,12 +70,14 @@ export const SettingsPanel: React.FC = () => {
   const styles = useStyles();
   const { settings, isLoading, updateSettings, resetSettings } = useSettings();
   const { prompts, createPrompt, deletePrompt } = usePrompts();
-  
+
   const [localApiKey, setLocalApiKey] = useState('');
   const [localModel, setLocalModel] = useState('');
   const [apiKeyError, setApiKeyError] = useState('');
   const [isTesting, setIsTesting] = useState(false);
-  const [testResult, setTestResult] = useState<{ success: boolean; message: string } | undefined>(undefined);
+  const [testResult, setTestResult] = useState<{ success: boolean; message: string } | undefined>(
+    undefined
+  );
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
   const [showResetDialog, setShowResetDialog] = useState(false);
@@ -108,7 +110,7 @@ export const SettingsPanel: React.FC = () => {
     try {
       // Validate API key format
       const validation = validateApiKeyFormat(localApiKey);
-      
+
       if (!validation.isValid) {
         setApiKeyError(validation.error || 'Invalid API key format');
         setTestResult({
@@ -122,7 +124,7 @@ export const SettingsPanel: React.FC = () => {
       const response = await fetch('https://api.openai.com/v1/models', {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${localApiKey}`,
+          Authorization: `Bearer ${localApiKey}`,
         },
       });
 
@@ -142,7 +144,7 @@ export const SettingsPanel: React.FC = () => {
           message: `Connection failed with status ${response.status}. Please try again.`,
         });
       }
-    } catch (error) {
+    } catch (_error) {
       setTestResult({
         success: false,
         message: 'Network error. Please check your connection and try again.',
@@ -161,7 +163,7 @@ export const SettingsPanel: React.FC = () => {
       // Validate API key if provided
       if (localApiKey.trim()) {
         const validation = validateApiKeyFormat(localApiKey);
-        
+
         if (!validation.isValid) {
           setApiKeyError(validation.error || 'Invalid API key format');
           setIsSaving(false);
@@ -177,7 +179,7 @@ export const SettingsPanel: React.FC = () => {
 
       setSaveMessage('Settings saved successfully!');
       setTimeout(() => setSaveMessage(''), 3000);
-    } catch (error) {
+    } catch (_error) {
       setSaveMessage('Failed to save settings. Please try again.');
     } finally {
       setIsSaving(false);
@@ -197,7 +199,7 @@ export const SettingsPanel: React.FC = () => {
       setTestResult(undefined);
       setSaveMessage('All settings and prompts have been reset.');
       setShowResetDialog(false);
-    } catch (error) {
+    } catch (_error) {
       setSaveMessage('Failed to reset settings. Please try again.');
     }
   };
@@ -208,7 +210,7 @@ export const SettingsPanel: React.FC = () => {
       for (const prompt of importedPrompts) {
         await createPrompt({ title: prompt.title, content: prompt.content });
       }
-    } catch (error) {
+    } catch (_error) {
       throw new Error('Failed to import prompts');
     }
   };
@@ -240,11 +242,7 @@ export const SettingsPanel: React.FC = () => {
           testConnectionResult={testResult}
         />
 
-        <ModelSelector
-          value={localModel}
-          onChange={handleModelChange}
-          disabled={isSaving}
-        />
+        <ModelSelector value={localModel} onChange={handleModelChange} disabled={isSaving} />
       </div>
 
       <Divider />
@@ -272,11 +270,7 @@ export const SettingsPanel: React.FC = () => {
 
       {saveMessage && (
         <Text
-          className={
-            saveMessage.includes('success')
-              ? styles.successMessage
-              : styles.errorMessage
-          }
+          className={saveMessage.includes('success') ? styles.successMessage : styles.errorMessage}
           role="alert"
         >
           {saveMessage}

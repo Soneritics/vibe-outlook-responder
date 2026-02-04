@@ -20,12 +20,7 @@ describe('Dropdown Component', () => {
   it('should render dropdown with label', () => {
     const handleChange = jest.fn();
     renderWithProvider(
-      <Dropdown
-        label="Select Option"
-        options={mockOptions}
-        value=""
-        onChange={handleChange}
-      />
+      <Dropdown label="Select Option" options={mockOptions} value="" onChange={handleChange} />
     );
 
     expect(screen.getByText('Select Option')).toBeInTheDocument();
@@ -51,12 +46,7 @@ describe('Dropdown Component', () => {
     const user = userEvent.setup();
 
     renderWithProvider(
-      <Dropdown
-        label="Test"
-        options={mockOptions}
-        value=""
-        onChange={handleChange}
-      />
+      <Dropdown label="Test" options={mockOptions} value="" onChange={handleChange} />
     );
 
     const dropdown = screen.getByRole('combobox');
@@ -93,12 +83,7 @@ describe('Dropdown Component', () => {
     ];
 
     renderWithProvider(
-      <Dropdown
-        label="Test"
-        options={optionsWithDisabled}
-        value=""
-        onChange={handleChange}
-      />
+      <Dropdown label="Test" options={optionsWithDisabled} value="" onChange={handleChange} />
     );
 
     const dropdown = screen.getByRole('combobox');
@@ -111,13 +96,7 @@ describe('Dropdown Component', () => {
   it('should show required indicator when required is true', () => {
     const handleChange = jest.fn();
     renderWithProvider(
-      <Dropdown
-        label="Test"
-        options={mockOptions}
-        value=""
-        onChange={handleChange}
-        required
-      />
+      <Dropdown label="Test" options={mockOptions} value="" onChange={handleChange} required />
     );
 
     expect(screen.getByText('Test')).toBeInTheDocument();
@@ -128,12 +107,7 @@ describe('Dropdown Component', () => {
     const user = userEvent.setup();
 
     renderWithProvider(
-      <Dropdown
-        label="Test"
-        options={mockOptions}
-        value=""
-        onChange={handleChange}
-      />
+      <Dropdown label="Test" options={mockOptions} value="" onChange={handleChange} />
     );
 
     const dropdown = screen.getByRole('combobox');

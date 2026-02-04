@@ -13,18 +13,14 @@ const renderWithProvider = (ui: React.ReactElement): ReturnType<typeof render> =
 describe('Input Component', () => {
   it('should render input with label', () => {
     const handleChange = jest.fn();
-    renderWithProvider(
-      <Input label="Test Label" value="" onChange={handleChange} />
-    );
+    renderWithProvider(<Input label="Test Label" value="" onChange={handleChange} />);
 
     expect(screen.getByText('Test Label')).toBeInTheDocument();
   });
 
   it('should display the provided value', () => {
     const handleChange = jest.fn();
-    renderWithProvider(
-      <Input label="Test" value="test value" onChange={handleChange} />
-    );
+    renderWithProvider(<Input label="Test" value="test value" onChange={handleChange} />);
 
     const input = screen.getByRole('textbox') as HTMLInputElement;
     expect(input.value).toBe('test value');
@@ -34,9 +30,7 @@ describe('Input Component', () => {
     const handleChange = jest.fn();
     const user = userEvent.setup();
 
-    renderWithProvider(
-      <Input label="Test" value="" onChange={handleChange} />
-    );
+    renderWithProvider(<Input label="Test" value="" onChange={handleChange} />);
 
     const input = screen.getByRole('textbox');
     await user.type(input, 'hello');
@@ -51,12 +45,7 @@ describe('Input Component', () => {
   it('should display placeholder text', () => {
     const handleChange = jest.fn();
     renderWithProvider(
-      <Input
-        label="Test"
-        value=""
-        onChange={handleChange}
-        placeholder="Enter text..."
-      />
+      <Input label="Test" value="" onChange={handleChange} placeholder="Enter text..." />
     );
 
     const input = screen.getByPlaceholderText('Enter text...');
@@ -66,12 +55,7 @@ describe('Input Component', () => {
   it('should show error message when error prop is provided', () => {
     const handleChange = jest.fn();
     renderWithProvider(
-      <Input
-        label="Test"
-        value=""
-        onChange={handleChange}
-        error="This field is required"
-      />
+      <Input label="Test" value="" onChange={handleChange} error="This field is required" />
     );
 
     expect(screen.getByText('This field is required')).toBeInTheDocument();
@@ -79,9 +63,7 @@ describe('Input Component', () => {
 
   it('should render as password input when type is password', () => {
     const handleChange = jest.fn();
-    renderWithProvider(
-      <Input label="Password" value="" onChange={handleChange} type="password" />
-    );
+    renderWithProvider(<Input label="Password" value="" onChange={handleChange} type="password" />);
 
     const input = screen.getByLabelText('Password');
     expect(input).toHaveAttribute('type', 'password');
@@ -89,9 +71,7 @@ describe('Input Component', () => {
 
   it('should be disabled when disabled prop is true', () => {
     const handleChange = jest.fn();
-    renderWithProvider(
-      <Input label="Test" value="" onChange={handleChange} disabled />
-    );
+    renderWithProvider(<Input label="Test" value="" onChange={handleChange} disabled />);
 
     const input = screen.getByRole('textbox');
     expect(input).toBeDisabled();
@@ -99,9 +79,7 @@ describe('Input Component', () => {
 
   it('should respect maxLength prop', () => {
     const handleChange = jest.fn();
-    renderWithProvider(
-      <Input label="Test" value="" onChange={handleChange} maxLength={10} />
-    );
+    renderWithProvider(<Input label="Test" value="" onChange={handleChange} maxLength={10} />);
 
     const input = screen.getByRole('textbox');
     expect(input).toHaveAttribute('maxLength', '10');
@@ -109,9 +87,7 @@ describe('Input Component', () => {
 
   it('should show required indicator when required prop is true', () => {
     const handleChange = jest.fn();
-    renderWithProvider(
-      <Input label="Test" value="" onChange={handleChange} required />
-    );
+    renderWithProvider(<Input label="Test" value="" onChange={handleChange} required />);
 
     // Fluent UI adds an asterisk or required indicator
     expect(screen.getByText('Test')).toBeInTheDocument();

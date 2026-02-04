@@ -42,7 +42,7 @@ const mockLocalStorageImpl = {
     delete mockLocalStorage[key];
   }),
   clear: jest.fn(() => {
-    Object.keys(mockLocalStorage).forEach(key => delete mockLocalStorage[key]);
+    Object.keys(mockLocalStorage).forEach((key) => delete mockLocalStorage[key]);
   }),
   length: 0,
   key: jest.fn(),
@@ -58,9 +58,9 @@ describe('Settings Persistence Integration', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    Object.keys(mockLocalStorage).forEach(key => delete mockLocalStorage[key]);
-    Object.keys(mockRoamingSettings).forEach(key => delete mockRoamingSettings[key]);
-    
+    Object.keys(mockLocalStorage).forEach((key) => delete mockLocalStorage[key]);
+    Object.keys(mockRoamingSettings).forEach((key) => delete mockRoamingSettings[key]);
+
     storage = new SettingsStorage();
   });
 
@@ -149,14 +149,14 @@ describe('Settings Persistence Integration', () => {
 
       // Device 2: Load settings (simulating sync)
       // Clear local storage but keep roaming settings
-      Object.keys(mockLocalStorage).forEach(key => delete mockLocalStorage[key]);
-      
+      Object.keys(mockLocalStorage).forEach((key) => delete mockLocalStorage[key]);
+
       const device2Storage = new SettingsStorage();
       const device2Settings = await device2Storage.getSettings();
 
       // Model should sync (from roaming)
       expect(device2Settings.selectedModel).toBe('gpt-4-turbo');
-      
+
       // API key should NOT sync (local only)
       expect(device2Settings.apiKey).toBe('');
     });
@@ -178,7 +178,7 @@ describe('Settings Persistence Integration', () => {
       });
 
       // Device 2
-      Object.keys(mockLocalStorage).forEach(key => delete mockLocalStorage[key]);
+      Object.keys(mockLocalStorage).forEach((key) => delete mockLocalStorage[key]);
       const device2Storage = new SettingsStorage();
       const device2Settings = await device2Storage.getSettings();
 
@@ -255,7 +255,7 @@ describe('Settings Persistence Integration', () => {
       mockRoamingSettings['settings_selectedModel'] = 'invalid-json{';
 
       const settings = await storage.getSettings();
-      
+
       // Should fall back to defaults
       expect(settings.selectedModel).toBe('gpt-4o');
     });
@@ -271,7 +271,7 @@ describe('Settings Persistence Integration', () => {
         lastUpdated: time1,
       });
 
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
 
       const time2 = new Date('2024-01-02T00:00:00Z').toISOString();
       await storage.saveSettings({
@@ -282,9 +282,7 @@ describe('Settings Persistence Integration', () => {
       });
 
       const settings = await storage.getSettings();
-      expect(new Date(settings.lastUpdated).getTime()).toBeGreaterThan(
-        new Date(time1).getTime()
-      );
+      expect(new Date(settings.lastUpdated).getTime()).toBeGreaterThan(new Date(time1).getTime());
     });
   });
 });

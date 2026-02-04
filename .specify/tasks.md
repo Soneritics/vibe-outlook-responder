@@ -14,18 +14,18 @@
 
 **Purpose**: Project initialization, tooling, and base structure
 
-- [X] T001 [INFRA] Initialize Office Add-in project with `yo office` generator (React + TypeScript template)
-- [X] T002 [INFRA] Configure TypeScript strict mode in `tsconfig.json` with ES2024 target
-- [X] T003 [P] [INFRA] Configure ESLint 9+ with TypeScript rules in `eslint.config.js`
-- [X] T004 [P] [INFRA] Configure Prettier 3+ in `.prettierrc`
-- [X] T005 [P] [INFRA] Set up Husky 9+ pre-commit hooks in `.husky/`
-- [X] T006 [INFRA] Configure Jest 29+ with React Testing Library in `config/jest.config.js`
-- [X] T007 [P] [INFRA] Configure Playwright for E2E tests in `config/playwright.config.ts`
-- [X] T008 [INFRA] Set up GitHub Actions CI workflow in `.github/workflows/ci.yml` (lint, test, build)
-- [X] T009 [INFRA] Configure Webpack 5 for Office.js compatibility in `config/webpack.config.js`
-- [X] T010 [INFRA] Update `manifest/manifest.xml` with ribbon buttons for main screen and compose mode
-- [X] T011 [INFRA] Install production dependencies: `@fluentui/react-components`, `openai`, `tiktoken`, `react`, `react-dom`
-- [X] T012 [INFRA] Install dev dependencies: `@testing-library/react`, `@playwright/test`, `jest`, `office-addin-mock`
+- [x] T001 [INFRA] Initialize Office Add-in project with `yo office` generator (React + TypeScript template)
+- [x] T002 [INFRA] Configure TypeScript strict mode in `tsconfig.json` with ES2024 target
+- [x] T003 [P] [INFRA] Configure ESLint 9+ with TypeScript rules in `eslint.config.js`
+- [x] T004 [P] [INFRA] Configure Prettier 3+ in `.prettierrc`
+- [x] T005 [P] [INFRA] Set up Husky 9+ pre-commit hooks in `.husky/`
+- [x] T006 [INFRA] Configure Jest 29+ with React Testing Library in `config/jest.config.js`
+- [x] T007 [P] [INFRA] Configure Playwright for E2E tests in `config/playwright.config.ts`
+- [x] T008 [INFRA] Set up GitHub Actions CI workflow in `.github/workflows/ci.yml` (lint, test, build)
+- [x] T009 [INFRA] Configure Webpack 5 for Office.js compatibility in `config/webpack.config.js`
+- [x] T010 [INFRA] Update `manifest/manifest.xml` with ribbon buttons for main screen and compose mode
+- [x] T011 [INFRA] Install production dependencies: `@fluentui/react-components`, `openai`, `tiktoken`, `react`, `react-dom`
+- [x] T012 [INFRA] Install dev dependencies: `@testing-library/react`, `@playwright/test`, `jest`, `office-addin-mock`
 
 **Checkpoint**: Project builds, lints, and runs empty add-in in Outlook
 
@@ -39,36 +39,36 @@
 
 ### Models
 
-- [X] T013 [P] [INFRA] Create `Prompt` interface in `src/models/Prompt.ts` (id, title, content, createdAt, updatedAt)
-- [X] T014 [P] [INFRA] Create `Settings` interface in `src/models/Settings.ts` (apiKey, selectedModel, keyboardShortcuts, lastUpdated)
-- [X] T015 [P] [INFRA] Create `GenerationRequest` interface in `src/models/GenerationRequest.ts` (emailContent, promptContent, timestamp)
-- [X] T016 [P] [INFRA] Create `GenerationResponse` interface in `src/models/GenerationResponse.ts` (generatedText, tokensUsed, responseTime)
+- [x] T013 [P] [INFRA] Create `Prompt` interface in `src/models/Prompt.ts` (id, title, content, createdAt, updatedAt)
+- [x] T014 [P] [INFRA] Create `Settings` interface in `src/models/Settings.ts` (apiKey, selectedModel, keyboardShortcuts, lastUpdated)
+- [x] T015 [P] [INFRA] Create `GenerationRequest` interface in `src/models/GenerationRequest.ts` (emailContent, promptContent, timestamp)
+- [x] T016 [P] [INFRA] Create `GenerationResponse` interface in `src/models/GenerationResponse.ts` (generatedText, tokensUsed, responseTime)
 
 ### Shared UI Components
 
-- [X] T017 [P] [INFRA] Create `Button` component in `src/taskpane/components/common/Button.tsx` using Fluent UI
-- [X] T018 [P] [INFRA] Create `Input` component in `src/taskpane/components/common/Input.tsx` with validation support
-- [X] T019 [P] [INFRA] Create `Dropdown` component in `src/taskpane/components/common/Dropdown.tsx`
-- [X] T020 [P] [INFRA] Create `ProgressBar` component in `src/taskpane/components/common/ProgressBar.tsx` with steps support
-- [X] T021 [P] [INFRA] Create `ConfirmDialog` component in `src/taskpane/components/common/ConfirmDialog.tsx`
+- [x] T017 [P] [INFRA] Create `Button` component in `src/taskpane/components/common/Button.tsx` using Fluent UI
+- [x] T018 [P] [INFRA] Create `Input` component in `src/taskpane/components/common/Input.tsx` with validation support
+- [x] T019 [P] [INFRA] Create `Dropdown` component in `src/taskpane/components/common/Dropdown.tsx`
+- [x] T020 [P] [INFRA] Create `ProgressBar` component in `src/taskpane/components/common/ProgressBar.tsx` with steps support
+- [x] T021 [P] [INFRA] Create `ConfirmDialog` component in `src/taskpane/components/common/ConfirmDialog.tsx`
 
 ### Utility Functions
 
-- [X] T022 [P] [INFRA] Create clipboard utilities in `src/utils/clipboard.ts` (copy/paste JSON)
-- [X] T023 [P] [INFRA] Create error message constants in `src/utils/errorMessages.ts`
-- [X] T024 [P] [INFRA] Create localization setup in `src/utils/localization.ts` with Outlook locale detection
-- [X] T025 [P] [INFRA] Create English translations in `src/locales/en.json`
+- [x] T022 [P] [INFRA] Create clipboard utilities in `src/utils/clipboard.ts` (copy/paste JSON)
+- [x] T023 [P] [INFRA] Create error message constants in `src/utils/errorMessages.ts`
+- [x] T024 [P] [INFRA] Create localization setup in `src/utils/localization.ts` with Outlook locale detection
+- [x] T025 [P] [INFRA] Create English translations in `src/locales/en.json`
 
 ### Validation Services
 
-- [X] T026 [P] [INFRA] Implement `ApiKeyValidator` in `src/services/validation/ApiKeyValidator.ts` (format: sk-\*, length check)
-- [X] T027 [P] [INFRA] Implement `PromptValidator` in `src/services/validation/PromptValidator.ts` (empty check, length limits, uniqueness)
+- [x] T026 [P] [INFRA] Implement `ApiKeyValidator` in `src/services/validation/ApiKeyValidator.ts` (format: sk-\*, length check)
+- [x] T027 [P] [INFRA] Implement `PromptValidator` in `src/services/validation/PromptValidator.ts` (empty check, length limits, uniqueness)
 
 ### Unit Tests for Foundation
 
-- [X] T028 [P] [INFRA] Write unit tests for `ApiKeyValidator` in `tests/unit/validation/ApiKeyValidator.test.ts`
-- [X] T029 [P] [INFRA] Write unit tests for `PromptValidator` in `tests/unit/validation/PromptValidator.test.ts`
-- [X] T030 [P] [INFRA] Write unit tests for common components in `tests/unit/components/common/`
+- [x] T028 [P] [INFRA] Write unit tests for `ApiKeyValidator` in `tests/unit/validation/ApiKeyValidator.test.ts`
+- [x] T029 [P] [INFRA] Write unit tests for `PromptValidator` in `tests/unit/validation/PromptValidator.test.ts`
+- [x] T030 [P] [INFRA] Write unit tests for common components in `tests/unit/components/common/`
 
 **Checkpoint**: Foundation ready - all models, shared components, and validation in place
 
@@ -82,21 +82,21 @@
 
 ### Tests for User Story 1
 
-- [X] T031 [P] [US1] Write unit tests for `SettingsStorage` in `tests/unit/services/SettingsStorage.test.ts`
-- [X] T032 [P] [US1] Write component tests for `ApiKeyInput` in `tests/unit/components/settings/ApiKeyInput.test.tsx`
-- [X] T033 [P] [US1] Write component tests for `ModelSelector` in `tests/unit/components/settings/ModelSelector.test.tsx`
-- [X] T034 [US1] Write integration test for settings persistence in `tests/integration/storage.integration.test.ts`
+- [x] T031 [P] [US1] Write unit tests for `SettingsStorage` in `tests/unit/services/SettingsStorage.test.ts`
+- [x] T032 [P] [US1] Write component tests for `ApiKeyInput` in `tests/unit/components/settings/ApiKeyInput.test.tsx`
+- [x] T033 [P] [US1] Write component tests for `ModelSelector` in `tests/unit/components/settings/ModelSelector.test.tsx`
+- [x] T034 [US1] Write integration test for settings persistence in `tests/integration/storage.integration.test.ts`
 
 ### Implementation for User Story 1
 
-- [X] T035 [US1] Implement `SettingsStorage` in `src/services/storage/SettingsStorage.ts` (localStorage for API key, roaming for model)
-- [X] T036 [US1] Implement `useSettings` hook in `src/taskpane/hooks/useSettings.ts`
-- [X] T037 [P] [US1] Create `ApiKeyInput` component in `src/taskpane/components/settings/ApiKeyInput.tsx` (masked display, validation)
-- [X] T038 [P] [US1] Create `ModelSelector` component in `src/taskpane/components/settings/ModelSelector.tsx` (GPT-5 default)
-- [X] T039 [US1] Implement Test Connection button in `ApiKeyInput.tsx` (calls OpenAI API with minimal request)
-- [X] T040 [US1] Create `SettingsPanel` component in `src/taskpane/components/settings/SettingsPanel.tsx` (container for all settings)
-- [X] T041 [US1] Wire Settings command in `src/commands/commandHandlers.ts` to open SettingsPanel
-- [X] T042 [US1] Update `manifest/manifest.xml` with Settings menu item in main screen dropdown
+- [x] T035 [US1] Implement `SettingsStorage` in `src/services/storage/SettingsStorage.ts` (localStorage for API key, roaming for model)
+- [x] T036 [US1] Implement `useSettings` hook in `src/taskpane/hooks/useSettings.ts`
+- [x] T037 [P] [US1] Create `ApiKeyInput` component in `src/taskpane/components/settings/ApiKeyInput.tsx` (masked display, validation)
+- [x] T038 [P] [US1] Create `ModelSelector` component in `src/taskpane/components/settings/ModelSelector.tsx` (GPT-5 default)
+- [x] T039 [US1] Implement Test Connection button in `ApiKeyInput.tsx` (calls OpenAI API with minimal request)
+- [x] T040 [US1] Create `SettingsPanel` component in `src/taskpane/components/settings/SettingsPanel.tsx` (container for all settings)
+- [x] T041 [US1] Wire Settings command in `src/commands/commandHandlers.ts` to open SettingsPanel
+- [x] T042 [US1] Update `manifest/manifest.xml` with Settings menu item in main screen dropdown
 
 **Checkpoint**: User Story 1 complete - API key can be saved, masked, validated, and tested
 
@@ -110,21 +110,21 @@
 
 ### Tests for User Story 2
 
-- [X] T043 [P] [US2] Write unit tests for `PromptStorage` in `tests/unit/services/PromptStorage.test.ts`
-- [X] T044 [P] [US2] Write unit tests for `RoamingSync` in `tests/unit/services/RoamingSync.test.ts`
-- [X] T045 [P] [US2] Write component tests for `PromptEditor` in `tests/unit/components/prompts/PromptEditor.test.tsx`
-- [X] T046 [US2] Write integration test for prompt sync in `tests/integration/sync.integration.test.ts`
+- [x] T043 [P] [US2] Write unit tests for `PromptStorage` in `tests/unit/services/PromptStorage.test.ts`
+- [x] T044 [P] [US2] Write unit tests for `RoamingSync` in `tests/unit/services/RoamingSync.test.ts`
+- [x] T045 [P] [US2] Write component tests for `PromptEditor` in `tests/unit/components/prompts/PromptEditor.test.tsx`
+- [x] T046 [US2] Write integration test for prompt sync in `tests/integration/sync.integration.test.ts`
 
 ### Implementation for User Story 2
 
-- [X] T047 [US2] Implement `RoamingSync` in `src/services/storage/RoamingSync.ts` (Office.RoamingSettings wrapper, last-write-wins for sync conflicts per FR-032b)
-- [X] T048 [US2] Implement `PromptStorage` in `src/services/storage/PromptStorage.ts` (CRUD with roaming sync)
-- [X] T049 [US2] Implement `usePrompts` hook in `src/taskpane/hooks/usePrompts.ts`
-- [X] T050 [US2] Create `PromptEditor` component in `src/taskpane/components/prompts/PromptEditor.tsx` (title 100 chars, content 10k chars)
-- [X] T051 [US2] Implement Save functionality with unique title validation in `PromptEditor.tsx`
-- [X] T052 [US2] Create `PromptDropdown` component in `src/taskpane/components/prompts/PromptDropdown.tsx` (alphabetical sort)
-- [X] T053 [US2] Wire "Add Custom Prompt" command in `src/commands/commandHandlers.ts`
-- [X] T054 [US2] Update main screen dropdown in manifest to show prompts + "Add Custom Prompt" + separator + "Settings"
+- [x] T047 [US2] Implement `RoamingSync` in `src/services/storage/RoamingSync.ts` (Office.RoamingSettings wrapper, last-write-wins for sync conflicts per FR-032b)
+- [x] T048 [US2] Implement `PromptStorage` in `src/services/storage/PromptStorage.ts` (CRUD with roaming sync)
+- [x] T049 [US2] Implement `usePrompts` hook in `src/taskpane/hooks/usePrompts.ts`
+- [x] T050 [US2] Create `PromptEditor` component in `src/taskpane/components/prompts/PromptEditor.tsx` (title 100 chars, content 10k chars)
+- [x] T051 [US2] Implement Save functionality with unique title validation in `PromptEditor.tsx`
+- [x] T052 [US2] Create `PromptDropdown` component in `src/taskpane/components/prompts/PromptDropdown.tsx` (alphabetical sort)
+- [x] T053 [US2] Wire "Add Custom Prompt" command in `src/commands/commandHandlers.ts`
+- [x] T054 [US2] Update main screen dropdown in manifest to show prompts + "Add Custom Prompt" + separator + "Settings"
 
 **Checkpoint**: User Story 2 complete - Prompts can be created, saved, and appear in dropdowns
 
@@ -138,15 +138,15 @@
 
 ### Tests for User Story 3
 
-- [X] T055 [P] [US3] Write component tests for edit mode in `tests/unit/components/prompts/PromptEditor.edit.test.tsx`
-- [X] T056 [US3] Write E2E test for edit/delete flow in `tests/e2e/prompts.e2e.test.ts`
+- [x] T055 [P] [US3] Write component tests for edit mode in `tests/unit/components/prompts/PromptEditor.edit.test.tsx`
+- [x] T056 [US3] Write E2E test for edit/delete flow in `tests/e2e/prompts.e2e.test.ts`
 
 ### Implementation for User Story 3
 
-- [X] T057 [US3] Add edit mode to `PromptEditor.tsx` (pre-fill title/content, show Delete button)
-- [X] T058 [US3] Implement Delete with confirmation dialog in `PromptEditor.tsx`
-- [X] T059 [US3] Update prompt in `PromptStorage.ts` with updatedAt timestamp
-- [X] T060 [US3] Wire main screen dropdown prompt click to open editor in edit mode
+- [x] T057 [US3] Add edit mode to `PromptEditor.tsx` (pre-fill title/content, show Delete button)
+- [x] T058 [US3] Implement Delete with confirmation dialog in `PromptEditor.tsx`
+- [x] T059 [US3] Update prompt in `PromptStorage.ts` with updatedAt timestamp
+- [x] T060 [US3] Wire main screen dropdown prompt click to open editor in edit mode
 
 **Checkpoint**: User Story 3 complete - Prompts can be edited and deleted
 
@@ -160,32 +160,32 @@
 
 ### Tests for User Story 4
 
-- [X] T061 [P] [US4] Write unit tests for `OpenAIClient` in `tests/unit/services/OpenAIClient.test.ts`
-- [X] T062 [P] [US4] Write unit tests for `TokenCounter` in `tests/unit/services/TokenCounter.test.ts`
-- [X] T063 [P] [US4] Write unit tests for `ContentSummarizer` in `tests/unit/services/ContentSummarizer.test.ts`
-- [X] T064 [P] [US4] Write unit tests for `EmailParser` in `tests/unit/services/EmailParser.test.ts`
-- [X] T065 [P] [US4] Write unit tests for `SignatureDetector` in `tests/unit/services/SignatureDetector.test.ts`
-- [X] T066 [P] [US4] Write unit tests for `ContentInserter` in `tests/unit/services/ContentInserter.test.ts`
-- [X] T067 [P] [US4] Write component tests for `GenerationProgress` in `tests/unit/components/generation/GenerationProgress.test.tsx`
-- [X] T068 [US4] Write integration test for OpenAI API in `tests/integration/openai.integration.test.ts`
-- [X] T069 [US4] Write E2E test for generation flow in `tests/e2e/generation.e2e.test.ts`
+- [x] T061 [P] [US4] Write unit tests for `OpenAIClient` in `tests/unit/services/OpenAIClient.test.ts`
+- [x] T062 [P] [US4] Write unit tests for `TokenCounter` in `tests/unit/services/TokenCounter.test.ts`
+- [x] T063 [P] [US4] Write unit tests for `ContentSummarizer` in `tests/unit/services/ContentSummarizer.test.ts`
+- [x] T064 [P] [US4] Write unit tests for `EmailParser` in `tests/unit/services/EmailParser.test.ts`
+- [x] T065 [P] [US4] Write unit tests for `SignatureDetector` in `tests/unit/services/SignatureDetector.test.ts`
+- [x] T066 [P] [US4] Write unit tests for `ContentInserter` in `tests/unit/services/ContentInserter.test.ts`
+- [x] T067 [P] [US4] Write component tests for `GenerationProgress` in `tests/unit/components/generation/GenerationProgress.test.tsx`
+- [x] T068 [US4] Write integration test for OpenAI API in `tests/integration/openai.integration.test.ts`
+- [x] T069 [US4] Write E2E test for generation flow in `tests/e2e/generation.e2e.test.ts`
 
 ### Implementation for User Story 4
 
-- [X] T070 [US4] Implement `OpenAIClient` in `src/services/openai/OpenAIClient.ts` (direct API calls, no system prompt wrapping, no timeout per FR-029c)
-- [X] T071 [US4] Implement `TokenCounter` in `src/services/openai/TokenCounter.ts` (using tiktoken)
-- [X] T072 [US4] Implement `ContentSummarizer` in `src/services/openai/ContentSummarizer.ts` (auto-summarize long threads)
-- [X] T073 [US4] Implement `EmailParser` in `src/services/email/EmailParser.ts` (extract thread content, preserve HTML)
-- [X] T074 [US4] Implement `SignatureDetector` in `src/services/email/SignatureDetector.ts` (heuristic detection)
-- [X] T075 [US4] Implement `ContentInserter` in `src/services/email/ContentInserter.ts` (insert above signature, support undo)
-- [X] T076 [US4] Create `GenerationProgress` component in `src/taskpane/components/generation/GenerationProgress.tsx` (Preparing → Sending → Generating → Done + Cancel)
-- [X] T077 [US4] Create `GenerationOverlay` component in `src/taskpane/components/generation/GenerationOverlay.tsx`
-- [X] T078 [US4] Implement `useGeneration` hook in `src/taskpane/hooks/useGeneration.ts` (orchestrates generation flow)
-- [X] T079 [US4] Wire compose mode dropdown in `src/commands/commandHandlers.ts` to trigger generation
-- [X] T080 [US4] Update `manifest/manifest.xml` with compose mode ribbon button and dropdown
-- [X] T081 [US4] Implement cancel functionality in `useGeneration.ts` (AbortController)
-- [X] T082 [US4] Handle "no email content" case with user-friendly message
-- [X] T083 [US4] Support multiple generations (each inserts above previous)
+- [x] T070 [US4] Implement `OpenAIClient` in `src/services/openai/OpenAIClient.ts` (direct API calls, no system prompt wrapping, no timeout per FR-029c)
+- [x] T071 [US4] Implement `TokenCounter` in `src/services/openai/TokenCounter.ts` (using tiktoken)
+- [x] T072 [US4] Implement `ContentSummarizer` in `src/services/openai/ContentSummarizer.ts` (auto-summarize long threads)
+- [x] T073 [US4] Implement `EmailParser` in `src/services/email/EmailParser.ts` (extract thread content, preserve HTML)
+- [x] T074 [US4] Implement `SignatureDetector` in `src/services/email/SignatureDetector.ts` (heuristic detection)
+- [x] T075 [US4] Implement `ContentInserter` in `src/services/email/ContentInserter.ts` (insert above signature, support undo)
+- [x] T076 [US4] Create `GenerationProgress` component in `src/taskpane/components/generation/GenerationProgress.tsx` (Preparing → Sending → Generating → Done + Cancel)
+- [x] T077 [US4] Create `GenerationOverlay` component in `src/taskpane/components/generation/GenerationOverlay.tsx`
+- [x] T078 [US4] Implement `useGeneration` hook in `src/taskpane/hooks/useGeneration.ts` (orchestrates generation flow)
+- [x] T079 [US4] Wire compose mode dropdown in `src/commands/commandHandlers.ts` to trigger generation
+- [x] T080 [US4] Update `manifest/manifest.xml` with compose mode ribbon button and dropdown
+- [x] T081 [US4] Implement cancel functionality in `useGeneration.ts` (AbortController)
+- [x] T082 [US4] Handle "no email content" case with user-friendly message
+- [x] T083 [US4] Support multiple generations (each inserts above previous)
 
 **Checkpoint**: User Story 4 complete - AI responses generate and insert correctly in compose mode
 
@@ -199,18 +199,18 @@
 
 ### Tests for User Story 5
 
-- [X] T084 [P] [US5] Write unit tests for error handling in `tests/unit/services/OpenAIClient.errors.test.ts`
-- [X] T085 [P] [US5] Write component tests for `ErrorBanner` in `tests/unit/components/generation/ErrorBanner.test.tsx`
+- [x] T084 [P] [US5] Write unit tests for error handling in `tests/unit/services/OpenAIClient.errors.test.ts`
+- [x] T085 [P] [US5] Write component tests for `ErrorBanner` in `tests/unit/components/generation/ErrorBanner.test.tsx`
 
 ### Implementation for User Story 5
 
-- [X] T086 [US5] Create `ErrorBanner` component in `src/taskpane/components/generation/ErrorBanner.tsx` (message + Retry button)
-- [X] T087 [US5] Handle invalid/expired API key error with "check settings" message
-- [X] T088 [US5] Handle API unavailable error with "temporarily unavailable" message
-- [X] T089 [US5] Handle no API key configured with "configure in settings" message
-- [X] T090 [US5] Handle rate limit exceeded with "wait and try again" message
-- [X] T091 [US5] Handle content policy violations with OpenAI's error message display
-- [X] T092 [US5] Implement Retry button functionality in `ErrorBanner.tsx`
+- [x] T086 [US5] Create `ErrorBanner` component in `src/taskpane/components/generation/ErrorBanner.tsx` (message + Retry button)
+- [x] T087 [US5] Handle invalid/expired API key error with "check settings" message
+- [x] T088 [US5] Handle API unavailable error with "temporarily unavailable" message
+- [x] T089 [US5] Handle no API key configured with "configure in settings" message
+- [x] T090 [US5] Handle rate limit exceeded with "wait and try again" message
+- [x] T091 [US5] Handle content policy violations with OpenAI's error message display
+- [x] T092 [US5] Implement Retry button functionality in `ErrorBanner.tsx`
 
 **Checkpoint**: User Story 5 complete - All API errors show user-friendly messages with retry
 
@@ -222,25 +222,25 @@
 
 ### Keyboard Shortcuts
 
-- [X] T093 [P] [FEAT] Create `KeyboardShortcuts` component in `src/taskpane/components/settings/KeyboardShortcuts.tsx`
-- [X] T094 [FEAT] Implement `useKeyboardShortcuts` hook in `src/taskpane/hooks/useKeyboardShortcuts.ts`
-- [X] T095 [FEAT] Store keyboard shortcuts in `SettingsStorage.ts`
+- [x] T093 [P] [FEAT] Create `KeyboardShortcuts` component in `src/taskpane/components/settings/KeyboardShortcuts.tsx`
+- [x] T094 [FEAT] Implement `useKeyboardShortcuts` hook in `src/taskpane/hooks/useKeyboardShortcuts.ts`
+- [x] T095 [FEAT] Store keyboard shortcuts in `SettingsStorage.ts`
 
 ### Export/Import Prompts
 
-- [X] T096 [P] [FEAT] Create `ExportImport` component in `src/taskpane/components/settings/ExportImport.tsx`
-- [X] T097 [FEAT] Implement export to clipboard as JSON in `ExportImport.tsx`
-- [X] T098 [FEAT] Implement import from clipboard with duplicate handling (append "(imported)")
-- [X] T099 [FEAT] Write unit tests for export/import in `tests/unit/components/settings/ExportImport.test.tsx`
+- [x] T096 [P] [FEAT] Create `ExportImport` component in `src/taskpane/components/settings/ExportImport.tsx`
+- [x] T097 [FEAT] Implement export to clipboard as JSON in `ExportImport.tsx`
+- [x] T098 [FEAT] Implement import from clipboard with duplicate handling (append "(imported)")
+- [x] T099 [FEAT] Write unit tests for export/import in `tests/unit/components/settings/ExportImport.test.tsx`
 
 ### Reset All Data
 
-- [X] T100 [FEAT] Add "Reset All Data" button to `SettingsPanel.tsx` with confirmation dialog
-- [X] T101 [FEAT] Implement reset functionality in `SettingsStorage.ts` and `PromptStorage.ts`
+- [x] T100 [FEAT] Add "Reset All Data" button to `SettingsPanel.tsx` with confirmation dialog
+- [x] T101 [FEAT] Implement reset functionality in `SettingsStorage.ts` and `PromptStorage.ts`
 
 ### Token Limit Notification
 
-- [X] T102 [FEAT] Add user notification when content summarization occurs in `GenerationProgress.tsx`
+- [x] T102 [FEAT] Add user notification when content summarization occurs in `GenerationProgress.tsx`
 
 **Checkpoint**: Additional features complete
 
@@ -250,12 +250,12 @@
 
 **Purpose**: Multi-language support based on Outlook locale
 
-- [X] T103 [P] [L10N] Create German translations in `src/locales/de.json`
-- [X] T104 [P] [L10N] Create French translations in `src/locales/fr.json`
-- [X] T105 [P] [L10N] Create Spanish translations in `src/locales/es.json`
-- [X] T106 [L10N] Create locale index in `src/locales/index.ts`
-- [X] T107 [L10N] Integrate localization into all components
-- [X] T108 [L10N] Write tests for locale detection in `tests/unit/utils/localization.test.ts`
+- [x] T103 [P] [L10N] Create German translations in `src/locales/de.json`
+- [x] T104 [P] [L10N] Create French translations in `src/locales/fr.json`
+- [x] T105 [P] [L10N] Create Spanish translations in `src/locales/es.json`
+- [x] T106 [L10N] Create locale index in `src/locales/index.ts`
+- [x] T107 [L10N] Integrate localization into all components
+- [x] T108 [L10N] Write tests for locale detection in `tests/unit/utils/localization.test.ts`
 
 **Checkpoint**: UI displays correctly in all supported locales
 
@@ -267,35 +267,35 @@
 
 ### Documentation
 
-- [X] T109 [P] [POLISH] Update `README.md` with installation and usage instructions
-- [X] T110 [P] [POLISH] Create `CHANGELOG.md` with version 1.0.0 entry
-- [X] T111 [P] [POLISH] Add inline code documentation for public APIs
+- [x] T109 [P] [POLISH] Update `README.md` with installation and usage instructions
+- [x] T110 [P] [POLISH] Create `CHANGELOG.md` with version 1.0.0 entry
+- [x] T111 [P] [POLISH] Add inline code documentation for public APIs
 
 ### Performance & Quality
 
-- [X] T112 [POLISH] Implement React lazy loading for taskpane components
-- [X] T113 [POLISH] Memory profiling and leak detection
-- [X] T114 [POLISH] Verify <1s add-in load time
-- [X] T115 [POLISH] Verify <200ms UI interaction response
+- [x] T112 [POLISH] Implement React lazy loading for taskpane components
+- [x] T113 [POLISH] Memory profiling and leak detection
+- [x] T114 [POLISH] Verify <1s add-in load time
+- [x] T115 [POLISH] Verify <200ms UI interaction response
 
 ### Security
 
-- [X] T116 [POLISH] Security audit: verify no API key logging
-- [X] T117 [POLISH] Security audit: verify direct OpenAI calls only (no intermediary)
-- [X] T118 [POLISH] Run `npm audit` and fix vulnerabilities
+- [x] T116 [POLISH] Security audit: verify no API key logging
+- [x] T117 [POLISH] Security audit: verify direct OpenAI calls only (no intermediary)
+- [x] T118 [POLISH] Run `npm audit` and fix vulnerabilities
 
 ### Testing Coverage
 
-- [X] T119 [POLISH] Verify 80%+ code coverage across all tests
-- [X] T120 [POLISH] Cross-platform E2E tests on Outlook Desktop (Windows)
-- [X] T121 [POLISH] Cross-platform E2E tests on Outlook Web
-- [X] T122 [POLISH] Cross-platform E2E tests on Outlook Mobile (if applicable)
+- [x] T119 [POLISH] Verify 80%+ code coverage across all tests
+- [x] T120 [POLISH] Cross-platform E2E tests on Outlook Desktop (Windows)
+- [x] T121 [POLISH] Cross-platform E2E tests on Outlook Web
+- [x] T122 [POLISH] Cross-platform E2E tests on Outlook Mobile (if applicable)
 
 ### Release
 
-- [X] T123 [POLISH] Create production manifest in `manifest/manifest.xml`
-- [X] T124 [POLISH] Set up GitHub Actions release workflow in `.github/workflows/release.yml`
-- [X] T125 [POLISH] Prepare AppSource submission assets (icons, descriptions)
+- [x] T123 [POLISH] Create production manifest in `manifest/manifest.xml`
+- [x] T124 [POLISH] Set up GitHub Actions release workflow in `.github/workflows/release.yml`
+- [x] T125 [POLISH] Prepare AppSource submission assets (icons, descriptions)
 
 **Checkpoint**: Release-ready with full test coverage and documentation
 
@@ -394,6 +394,7 @@ T073, T074, T075 (Email services) ─── Run together
 **Purpose**: Update UI to match revised specification (Feb 2026)
 
 **Changes Summary**:
+
 - Rename "AI Responder" → "AI Assistant" (main) / "AI Reply" (compose)
 - Simplify main dropdown to 2 items: "Manage Prompts" + "Settings"
 - Open all screens in side panel (taskpane)
@@ -403,15 +404,15 @@ T073, T074, T075 (Email services) ─── Run together
 
 ### Manifest Updates
 
-- [X] T126 [INFRA] Update manifest DisplayName from "AI Responder" to "AI Assistant"
-- [X] T127 [INFRA] Update manifest GroupLabel and MenuButtonLabel to "AI Assistant"
-- [X] T128 [INFRA] Add new ShortString "ComposeMenuButtonLabel" with value "AI Reply"
-- [X] T129 [INFRA] Update compose menu button to use ComposeMenuButtonLabel
-- [X] T130 [INFRA] Simplify MessageReadCommandSurface dropdown to 2 items: "Manage Prompts" and "Settings"
-- [X] T131 [INFRA] Add ManagePromptsLabel ShortString with value "Manage Prompts"
-- [X] T132 [INFRA] Change main menu actions from ExecuteFunction to ShowTaskpane
-- [X] T133 [INFRA] Add Taskpane URL resources with panel parameters (?panel=manage-prompts, ?panel=settings)
-- [X] T134 [INFRA] Update activation rules to ensure button is always enabled (FR-001a)
+- [x] T126 [INFRA] Update manifest DisplayName from "AI Responder" to "AI Assistant"
+- [x] T127 [INFRA] Update manifest GroupLabel and MenuButtonLabel to "AI Assistant"
+- [x] T128 [INFRA] Add new ShortString "ComposeMenuButtonLabel" with value "AI Reply"
+- [x] T129 [INFRA] Update compose menu button to use ComposeMenuButtonLabel
+- [x] T130 [INFRA] Simplify MessageReadCommandSurface dropdown to 2 items: "Manage Prompts" and "Settings"
+- [x] T131 [INFRA] Add ManagePromptsLabel ShortString with value "Manage Prompts"
+- [x] T132 [INFRA] Change main menu actions from ExecuteFunction to ShowTaskpane
+- [x] T133 [INFRA] Add Taskpane URL resources with panel parameters (?panel=manage-prompts, ?panel=settings)
+- [x] T134 [INFRA] Update activation rules to ensure button is always enabled (FR-001a)
   - Remove `FormType` restriction from MessageReadCommandSurface Rule element
   - Change `<Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>` to `<Rule xsi:type="ItemIs" ItemType="Message"/>`
   - This allows button to be active regardless of email selection state
@@ -422,7 +423,7 @@ T073, T074, T075 (Email services) ─── Run together
 
 ### Create Manage Prompts Screen
 
-- [X] T135 [US2] Create ManagePromptsScreen component in `src/taskpane/components/prompts/ManagePromptsScreen.tsx`
+- [x] T135 [US2] Create ManagePromptsScreen component in `src/taskpane/components/prompts/ManagePromptsScreen.tsx`
   - List view of all prompts (alphabetical) (FR-047)
   - Click-to-edit navigation (FR-049)
   - "Add New Prompt" button (FR-048)
@@ -434,38 +435,38 @@ T073, T074, T075 (Email services) ─── Run together
   - Test: Clicking prompt calls onEditPrompt with correct ID
   - Test: Clicking "Add New Prompt" calls onAddPrompt
 
-- [X] T136 [P] [US2] Export ManagePromptsScreen from prompts component index
+- [x] T136 [P] [US2] Export ManagePromptsScreen from prompts component index
 
 ### Update App Navigation
 
-- [X] T137 [INFRA] Add 'manage-prompts' panel to App.tsx renderPanel switch
-- [X] T138 [INFRA] Lazy load ManagePromptsScreen in App.tsx
-- [X] T139 [INFRA] Handle URL parameter `?panel=manage-prompts` in App.tsx useEffect
-- [X] T140 [INFRA] Add previousPanel state for back navigation tracking
-- [X] T141 [INFRA] Create handleBack function that returns to previousPanel
-- [X] T142 [INFRA] Update handleSavePrompt to navigate to 'manage-prompts' (stay in panel per FR-052)
-- [X] T143 [INFRA] Update handleDeletePrompt to navigate to 'manage-prompts'
-- [X] T144 [INFRA] Change default panel from 'main'/'home' to 'manage-prompts'
+- [x] T137 [INFRA] Add 'manage-prompts' panel to App.tsx renderPanel switch
+- [x] T138 [INFRA] Lazy load ManagePromptsScreen in App.tsx
+- [x] T139 [INFRA] Handle URL parameter `?panel=manage-prompts` in App.tsx useEffect
+- [x] T140 [INFRA] Add previousPanel state for back navigation tracking
+- [x] T141 [INFRA] Create handleBack function that returns to previousPanel
+- [x] T142 [INFRA] Update handleSavePrompt to navigate to 'manage-prompts' (stay in panel per FR-052)
+- [x] T143 [INFRA] Update handleDeletePrompt to navigate to 'manage-prompts'
+- [x] T144 [INFRA] Change default panel from 'main'/'home' to 'manage-prompts'
 
 ### Update PromptEditor
 
-- [X] T145 [US2] Add onBack prop to PromptEditor component
-- [X] T146 [US2] Add back button (ArrowLeft24Regular icon) at top of PromptEditor form
-- [X] T147 [US2] Only show back button when onBack prop is provided
-- [X] T148 [US2] Update Cancel button to trigger onBack instead of onCancel when available
+- [x] T145 [US2] Add onBack prop to PromptEditor component
+- [x] T146 [US2] Add back button (ArrowLeft24Regular icon) at top of PromptEditor form
+- [x] T147 [US2] Only show back button when onBack prop is provided
+- [x] T148 [US2] Update Cancel button to trigger onBack instead of onCancel when available
 
 ### Cleanup
 
 - [ ] T149 [INFRA] Remove or repurpose MainScreen component (no longer primary entry point)
 - [ ] T150 [INFRA] Update command handlers if needed (may be unused with ShowTaskpane actions)
-- [X] T151 [P] [INFRA] Clean up unused imports and dead code
+- [x] T151 [P] [INFRA] Clean up unused imports and dead code
 
 ### Localization Updates
 
-- [X] T152 [L10N] Add strings to en.json: "managePrompts", "aiAssistant", "aiReply", "back"
-- [X] T153 [P] [L10N] Add strings to de.json: German translations
-- [X] T154 [P] [L10N] Add strings to fr.json: French translations
-- [X] T155 [P] [L10N] Add strings to es.json: Spanish translations
+- [x] T152 [L10N] Add strings to en.json: "managePrompts", "aiAssistant", "aiReply", "back"
+- [x] T153 [P] [L10N] Add strings to de.json: German translations
+- [x] T154 [P] [L10N] Add strings to fr.json: French translations
+- [x] T155 [P] [L10N] Add strings to es.json: Spanish translations
 
 ### Testing & Verification
 
@@ -486,8 +487,8 @@ T073, T074, T075 (Email services) ─── Run together
   - Verify clicking prompt triggers AI generation
   - Verify clicking "Add Custom Prompt" opens side panel
 - [ ] T159 [POLISH] Verify panel stays open after save (FR-052)
-- [X] T160 [POLISH] Run npm run build - verify no errors
-- [X] T161 [POLISH] Run npm run lint - verify no errors
+- [x] T160 [POLISH] Run npm run build - verify no errors
+- [x] T161 [POLISH] Run npm run lint - verify no errors
 - [ ] T162 [POLISH] Clear Outlook cache and test fresh install
 
 **Checkpoint**: All UI updates complete, matching revised specification
@@ -496,13 +497,13 @@ T073, T074, T075 (Email services) ─── Run together
 
 ## Phase 11 Summary
 
-| Category | Tasks | Count |
-|----------|-------|-------|
-| Manifest Updates | T126-T134, T134a | 10 |
-| ManagePromptsScreen | T135, T135a, T136 | 3 |
-| App Navigation | T137-T144 | 8 |
-| PromptEditor | T145-T148 | 4 |
-| Cleanup | T149-T151 | 3 |
-| Localization | T152-T155 | 4 |
-| Testing | T156-T162 | 7 |
-| **Total** | | **39** |
+| Category            | Tasks             | Count  |
+| ------------------- | ----------------- | ------ |
+| Manifest Updates    | T126-T134, T134a  | 10     |
+| ManagePromptsScreen | T135, T135a, T136 | 3      |
+| App Navigation      | T137-T144         | 8      |
+| PromptEditor        | T145-T148         | 4      |
+| Cleanup             | T149-T151         | 3      |
+| Localization        | T152-T155         | 4      |
+| Testing             | T156-T162         | 7      |
+| **Total**           |                   | **39** |

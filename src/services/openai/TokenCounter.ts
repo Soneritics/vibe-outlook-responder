@@ -38,7 +38,7 @@ export class TokenCounter {
       const tokens = encoding.encode(text);
       encoding.free(); // Free memory
       return tokens.length;
-    } catch (error) {
+    } catch (_error) {
       // Fallback to estimation if tiktoken fails
       return this.estimateTokens(text);
     }

@@ -178,7 +178,7 @@ export class ContentSummarizer {
     }
 
     // Estimate based on content characteristics
-    const hasLists = /[•\-\*]\s/.test(content);
+    const hasLists = /[•\-*]\s/.test(content);
     const hasQuotes = /^>/.test(content);
     const repetitionScore = this.calculateRepetitionScore(content);
 

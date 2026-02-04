@@ -118,9 +118,7 @@ export const ApiKeyInput: React.FC<ApiKeyInputProps> = ({
 
       {testConnectionResult && (
         <div
-          className={
-            testConnectionResult.success ? styles.successMessage : styles.errorMessage
-          }
+          className={testConnectionResult.success ? styles.successMessage : styles.errorMessage}
           role="alert"
         >
           {testConnectionResult.message}

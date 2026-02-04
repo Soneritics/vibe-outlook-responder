@@ -8,9 +8,9 @@ import { GenerationRequest } from '../../../src/models/GenerationRequest';
  */
 
 describe('OpenAI Integration', () => {
-  let client: OpenAIClient;
+  let _client: OpenAIClient;
   let tokenCounter: TokenCounter;
-  const mockApiKey = 'sk-test1234567890abcdefghijklmnopqrstuv';
+  const _mockApiKey = 'sk-test1234567890abcdefghijklmnopqrstuv';
 
   beforeEach(() => {
     tokenCounter = new TokenCounter();
@@ -46,9 +46,7 @@ describe('OpenAI Integration', () => {
         timestamp: Date.now(),
       };
 
-      const inputTokens = tokenCounter.countTokens(
-        request.emailContent + request.promptContent
-      );
+      const inputTokens = tokenCounter.countTokens(request.emailContent + request.promptContent);
       const estimatedOutputTokens = 100;
 
       const cost = tokenCounter.calculateCost(inputTokens, estimatedOutputTokens, 'gpt-4');
@@ -144,11 +142,7 @@ describe('OpenAI Integration', () => {
       const outputTokens = 500;
 
       const gpt4Cost = tokenCounter.calculateCost(inputTokens, outputTokens, 'gpt-4');
-      const gpt35Cost = tokenCounter.calculateCost(
-        inputTokens,
-        outputTokens,
-        'gpt-3.5-turbo'
-      );
+      const gpt35Cost = tokenCounter.calculateCost(inputTokens, outputTokens, 'gpt-3.5-turbo');
 
       expect(gpt4Cost).not.toBe(gpt35Cost);
     });

@@ -44,94 +44,91 @@ export const useGeneration = (): UseGenerationResult => {
   /**
    * Generate AI response
    */
-  const generate = useCallback(
-    async (promptContent: string, apiKey: string, model: string) => {
-      // Store for retry
-      lastRequestRef.current = { promptContent, apiKey, model };
+  const generate = useCallback(async (promptContent: string, apiKey: string, model: string) => {
+    // Store for retry
+    lastRequestRef.current = { promptContent, apiKey, model };
 
-      setIsGenerating(true);
-      setError(null);
-      setCurrentStep('preparing');
-      setWasSummarized(false);
-      setOriginalTokenCount(null);
-      setFinalTokenCount(null);
+    setIsGenerating(true);
+    setError(null);
+    setCurrentStep('preparing');
+    setWasSummarized(false);
+    setOriginalTokenCount(null);
+    setFinalTokenCount(null);
 
-      try {
-        // Step 1: Prepare request
-        const emailParser = new EmailParser();
-        const tokenCounter = new TokenCounter();
-        const contentSummarizer = new ContentSummarizer(tokenCounter);
-        const signatureDetector = new SignatureDetector();
-        const contentInserter = new ContentInserter();
+    try {
+      // Step 1: Prepare request
+      const emailParser = new EmailParser();
+      const tokenCounter = new TokenCounter();
+      const contentSummarizer = new ContentSummarizer(tokenCounter);
+      const signatureDetector = new SignatureDetector();
+      const contentInserter = new ContentInserter();
 
-        // Get email body
-        const emailBody = await getEmailBody();
+      // Get email body
+      const emailBody = await getEmailBody();
 
-        if (!emailBody || emailBody.trim() === '') {
-          // FR-029d: Handle no email content
-          throw new Error(
-            'No email content found. Please ensure you are composing a reply or have email content.'
-          );
-        }
-
-        // Parse email thread (FR-028)
-        const parsedThread = await emailParser.parseThread(emailBody);
-        const threadContext = emailParser.combineMessagesForContext(parsedThread.messages);
-
-        // Check token limits and summarize if needed (FR-043)
-        const modelLimit = tokenCounter.getModelLimit(model);
-        const maxContextTokens = Math.floor(modelLimit * 0.6); // Leave room for prompt and response
-
-        const summarized = contentSummarizer.summarize(threadContext, maxContextTokens, model);
-
-        // Notify if summarization occurred (FR-044)
-        if (summarized.wasSummarized) {
-          console.log(
-            `Content summarized: ${summarized.originalTokenCount} → ${summarized.finalTokenCount} tokens`
-          );
-          setWasSummarized(true);
-          setOriginalTokenCount(summarized.originalTokenCount || 0);
-          setFinalTokenCount(summarized.finalTokenCount || 0);
-        }
-
-        // Create generation request
-        const request: GenerationRequest = {
-          emailContent: summarized.content,
-          promptContent,
-          timestamp: new Date().toISOString(),
-          model: 'gpt-4' as any, // Using GPT-4 as default
-        };
-
-        // Step 2: Send to OpenAI
-        setCurrentStep('sending');
-
-        // Initialize OpenAI client
-        openAIClientRef.current = new OpenAIClient(apiKey);
-
-        // Step 3: Generate response
-        setCurrentStep('generating');
-
-        const response = await openAIClientRef.current.generateResponse(request, model);
-
-        // Step 4: Insert response
-        setCurrentStep('done');
-
-        // Detect signature position (FR-025a)
-        const signaturePosition = signatureDetector.detectSignature(emailBody);
-
-        // Insert above signature or at top (FR-025)
-        await contentInserter.insertContent(response.generatedText, signaturePosition);
-
-        // Complete
-        setIsGenerating(false);
-      } catch (err: any) {
-        // Handle errors gracefully (FR-027)
-        setError(getErrorMessage(err));
-        setIsGenerating(false);
+      if (!emailBody || emailBody.trim() === '') {
+        // FR-029d: Handle no email content
+        throw new Error(
+          'No email content found. Please ensure you are composing a reply or have email content.'
+        );
       }
-    },
-    []
-  );
+
+      // Parse email thread (FR-028)
+      const parsedThread = await emailParser.parseThread(emailBody);
+      const threadContext = emailParser.combineMessagesForContext(parsedThread.messages);
+
+      // Check token limits and summarize if needed (FR-043)
+      const modelLimit = tokenCounter.getModelLimit(model);
+      const maxContextTokens = Math.floor(modelLimit * 0.6); // Leave room for prompt and response
+
+      const summarized = contentSummarizer.summarize(threadContext, maxContextTokens, model);
+
+      // Notify if summarization occurred (FR-044)
+      if (summarized.wasSummarized) {
+        console.log(
+          `Content summarized: ${summarized.originalTokenCount} → ${summarized.finalTokenCount} tokens`
+        );
+        setWasSummarized(true);
+        setOriginalTokenCount(summarized.originalTokenCount || 0);
+        setFinalTokenCount(summarized.finalTokenCount || 0);
+      }
+
+      // Create generation request
+      const request: GenerationRequest = {
+        emailContent: summarized.content,
+        promptContent,
+        timestamp: new Date().toISOString(),
+        model: 'gpt-4' as any, // Using GPT-4 as default
+      };
+
+      // Step 2: Send to OpenAI
+      setCurrentStep('sending');
+
+      // Initialize OpenAI client
+      openAIClientRef.current = new OpenAIClient(apiKey);
+
+      // Step 3: Generate response
+      setCurrentStep('generating');
+
+      const response = await openAIClientRef.current.generateResponse(request, model);
+
+      // Step 4: Insert response
+      setCurrentStep('done');
+
+      // Detect signature position (FR-025a)
+      const signaturePosition = signatureDetector.detectSignature(emailBody);
+
+      // Insert above signature or at top (FR-025)
+      await contentInserter.insertContent(response.generatedText, signaturePosition);
+
+      // Complete
+      setIsGenerating(false);
+    } catch (err: any) {
+      // Handle errors gracefully (FR-027)
+      setError(getErrorMessage(err));
+      setIsGenerating(false);
+    }
+  }, []);
 
   /**
    * Cancel current generation

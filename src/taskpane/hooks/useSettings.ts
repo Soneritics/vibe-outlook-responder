@@ -57,7 +57,7 @@ export const useSettings = (): UseSettingsReturn => {
           ...newSettings,
           lastUpdated: new Date().toISOString(),
         };
-        
+
         await storage.saveSettings(updatedSettings);
         setSettings(updatedSettings);
       } catch (err) {

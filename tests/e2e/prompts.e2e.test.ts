@@ -3,7 +3,7 @@
  * Tests the complete workflow of creating, editing, and deleting prompts
  */
 
-import { test, expect, Page } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 // Mock Office.js before running tests
 test.beforeEach(async ({ page }) => {
@@ -48,7 +48,10 @@ test.describe('Prompt Edit and Delete Flow', () => {
 
     // Fill in the prompt details
     await page.fill('input[id="prompt-title"]', 'Test Support Prompt');
-    await page.fill('textarea[id="prompt-content"]', 'You are a helpful support agent. Please respond professionally.');
+    await page.fill(
+      'textarea[id="prompt-content"]',
+      'You are a helpful support agent. Please respond professionally.'
+    );
 
     // Save the prompt
     await page.click('button:has-text("Save")');

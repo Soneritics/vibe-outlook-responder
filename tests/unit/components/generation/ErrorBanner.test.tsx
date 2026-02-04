@@ -45,10 +45,9 @@ describe('ErrorBanner', () => {
     it('should render both buttons when both callbacks provided', () => {
       const onRetry = jest.fn();
       const onDismiss = jest.fn();
-      render(
-        <ErrorBanner message="Test error" onRetry={onRetry} onDismiss={onDismiss} />,
-        { wrapper }
-      );
+      render(<ErrorBanner message="Test error" onRetry={onRetry} onDismiss={onDismiss} />, {
+        wrapper,
+      });
 
       expect(screen.getByText('Retry')).toBeInTheDocument();
       expect(screen.getByText('Dismiss')).toBeInTheDocument();
@@ -145,10 +144,9 @@ describe('ErrorBanner', () => {
     it('should render buttons with accessible labels', () => {
       const onRetry = jest.fn();
       const onDismiss = jest.fn();
-      render(
-        <ErrorBanner message="Test error" onRetry={onRetry} onDismiss={onDismiss} />,
-        { wrapper }
-      );
+      render(<ErrorBanner message="Test error" onRetry={onRetry} onDismiss={onDismiss} />, {
+        wrapper,
+      });
 
       const retryButton = screen.getByText('Retry');
       const dismissButton = screen.getByText('Dismiss');

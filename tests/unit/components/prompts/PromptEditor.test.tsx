@@ -74,7 +74,7 @@ describe('PromptEditor', () => {
       render(<PromptEditor onSave={mockOnSave} onCancel={mockOnCancel} />);
 
       const contentInput = screen.getByLabelText(/content/i) as HTMLTextAreaElement;
-      
+
       // Check that maxLength attribute is set
       expect(contentInput.maxLength).toBe(10000);
     });
@@ -179,7 +179,12 @@ describe('PromptEditor', () => {
 
     it('should show delete button in edit mode', () => {
       render(
-        <PromptEditor prompt={existingPrompt} onSave={mockOnSave} onCancel={mockOnCancel} onDelete={mockOnDelete} />
+        <PromptEditor
+          prompt={existingPrompt}
+          onSave={mockOnSave}
+          onCancel={mockOnCancel}
+          onDelete={mockOnDelete}
+        />
       );
 
       expect(screen.getByRole('button', { name: /delete/i })).toBeInTheDocument();
@@ -214,7 +219,12 @@ describe('PromptEditor', () => {
     it('should call onDelete when delete button clicked', async () => {
       const user = userEvent.setup();
       render(
-        <PromptEditor prompt={existingPrompt} onSave={mockOnSave} onCancel={mockOnCancel} onDelete={mockOnDelete} />
+        <PromptEditor
+          prompt={existingPrompt}
+          onSave={mockOnSave}
+          onCancel={mockOnCancel}
+          onDelete={mockOnDelete}
+        />
       );
 
       const deleteButton = screen.getByRole('button', { name: /delete/i });
@@ -227,7 +237,12 @@ describe('PromptEditor', () => {
     it('should show confirmation dialog before deleting', async () => {
       const user = userEvent.setup();
       render(
-        <PromptEditor prompt={existingPrompt} onSave={mockOnSave} onCancel={mockOnCancel} onDelete={mockOnDelete} />
+        <PromptEditor
+          prompt={existingPrompt}
+          onSave={mockOnSave}
+          onCancel={mockOnCancel}
+          onDelete={mockOnDelete}
+        />
       );
 
       const deleteButton = screen.getByRole('button', { name: /delete/i });
@@ -242,7 +257,9 @@ describe('PromptEditor', () => {
   describe('Validation', () => {
     it('should show error message for duplicate title', async () => {
       const user = userEvent.setup();
-      const mockOnSaveWithError = jest.fn().mockRejectedValue(new Error('Prompt with this title already exists'));
+      const mockOnSaveWithError = jest
+        .fn()
+        .mockRejectedValue(new Error('Prompt with this title already exists'));
 
       render(<PromptEditor onSave={mockOnSaveWithError} onCancel={mockOnCancel} />);
 
@@ -262,7 +279,9 @@ describe('PromptEditor', () => {
 
     it('should clear error message when title changes', async () => {
       const user = userEvent.setup();
-      const mockOnSaveWithError = jest.fn().mockRejectedValue(new Error('Prompt with this title already exists'));
+      const mockOnSaveWithError = jest
+        .fn()
+        .mockRejectedValue(new Error('Prompt with this title already exists'));
 
       render(<PromptEditor onSave={mockOnSaveWithError} onCancel={mockOnCancel} />);
 
@@ -282,7 +301,9 @@ describe('PromptEditor', () => {
       await user.type(titleInput, ' Modified');
 
       await waitFor(() => {
-        expect(screen.queryByText(/prompt with this title already exists/i)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(/prompt with this title already exists/i)
+        ).not.toBeInTheDocument();
       });
     });
 
@@ -356,9 +377,9 @@ describe('PromptEditor', () => {
       // Continue tabbing - should reach buttons eventually
       await user.keyboard('{Tab}');
       // After content, we should be on one of the buttons
-      const saveButton = screen.getByRole('button', { name: /save/i });
-      const cancelButton = screen.getByRole('button', { name: /cancel/i });
-      
+      const _saveButton = screen.getByRole('button', { name: /save/i });
+      const _cancelButton = screen.getByRole('button', { name: /cancel/i });
+
       // Check that focus moved to a button (either save or something between)
       expect(document.activeElement?.tagName).toBe('BUTTON');
     });

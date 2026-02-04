@@ -15,11 +15,11 @@ interface UseKeyboardShortcutsOptions {
 
 /**
  * Hook for handling keyboard shortcuts in the add-in
- * 
+ *
  * Note: Office Add-ins have limited keyboard shortcut support.
  * Native shortcuts like Ctrl+Z (undo) are handled by Office.js.
  * Custom shortcuts must not conflict with Outlook's built-in shortcuts.
- * 
+ *
  * @param options - Shortcut configuration and enable state
  */
 export const useKeyboardShortcuts = ({
@@ -93,7 +93,7 @@ export function formatShortcut(
   shortcut: Pick<KeyboardShortcut, 'key' | 'ctrl' | 'alt' | 'shift'>
 ): string {
   const parts: string[] = [];
-  
+
   if (shortcut.ctrl) parts.push('Ctrl');
   if (shortcut.alt) parts.push('Alt');
   if (shortcut.shift) parts.push('Shift');

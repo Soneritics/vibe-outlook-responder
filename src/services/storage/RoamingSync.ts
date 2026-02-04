@@ -13,9 +13,11 @@ const STORAGE_PREFIX = 'outlook_addin_roaming_';
  * Check if Office.js roaming settings are available
  */
 function isOfficeAvailable(): boolean {
-  return typeof Office !== 'undefined' && 
-         Office.context !== undefined && 
-         Office.context.roamingSettings !== undefined;
+  return (
+    typeof Office !== 'undefined' &&
+    Office.context !== undefined &&
+    Office.context.roamingSettings !== undefined
+  );
 }
 
 /**

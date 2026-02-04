@@ -105,25 +105,25 @@ describe('GenerationProgress', () => {
   describe('error state', () => {
     it('should show error message', () => {
       render(
-        <GenerationProgress currentStep="generating" error="API error occurred" onCancel={mockOnCancel} />
+        <GenerationProgress
+          currentStep="generating"
+          error="API error occurred"
+          onCancel={mockOnCancel}
+        />
       );
 
       expect(screen.getByText(/api error occurred/i)).toBeInTheDocument();
     });
 
     it('should highlight error state', () => {
-      render(
-        <GenerationProgress currentStep="generating" error="Error" onCancel={mockOnCancel} />
-      );
+      render(<GenerationProgress currentStep="generating" error="Error" onCancel={mockOnCancel} />);
 
       const errorElement = screen.getByText(/error/i);
       expect(errorElement).toHaveClass('error');
     });
 
     it('should not show cancel button when error', () => {
-      render(
-        <GenerationProgress currentStep="generating" error="Error" onCancel={mockOnCancel} />
-      );
+      render(<GenerationProgress currentStep="generating" error="Error" onCancel={mockOnCancel} />);
 
       expect(screen.queryByRole('button', { name: /cancel/i })).not.toBeInTheDocument();
     });

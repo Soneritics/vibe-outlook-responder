@@ -28,10 +28,7 @@ export class OpenAIClient {
    * @param model Model to use for generation
    * @returns Generated response with metadata
    */
-  async generateResponse(
-    request: GenerationRequest,
-    model: string
-  ): Promise<GenerationResponse> {
+  async generateResponse(request: GenerationRequest, model: string): Promise<GenerationResponse> {
     const startTime = Date.now();
 
     try {

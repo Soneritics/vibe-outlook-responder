@@ -31,22 +31,26 @@ An intelligent Outlook add-in that integrates ChatGPT to help you compose profes
 ### For Developers (Sideloading)
 
 1. Clone this repository:
+
    ```bash
    git clone https://github.com/Soneritics/vibe-outlook-responder.git
    cd vibe-outlook-responder
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Build the add-in:
+
    ```bash
    npm run build
    ```
 
 4. Start the development server:
+
    ```bash
    npm run dev
    ```
@@ -93,16 +97,19 @@ An intelligent Outlook add-in that integrates ChatGPT to help you compose profes
 ### Managing Prompts
 
 **Create a Prompt**:
+
 - Main screen → AI Responder → Add Custom Prompt
 - Enter title (max 100 chars) and content (max 10,000 chars)
 - Save to add to your library
 
 **Edit a Prompt**:
+
 - Main screen → AI Responder → Select prompt name
 - Modify title or content
 - Save changes or Delete prompt
 
 **Export/Import Prompts**:
+
 - Settings → Export Prompts → Copies JSON to clipboard
 - Settings → Import Prompts → Paste JSON from clipboard
 - Duplicate titles are automatically renamed with "(imported)"
@@ -118,6 +125,7 @@ An intelligent Outlook add-in that integrates ChatGPT to help you compose profes
 ### Keyboard Shortcuts
 
 Configure custom shortcuts in Settings for:
+
 - Open Settings
 - Add New Prompt
 - Generate with Last Used Prompt
@@ -125,21 +133,25 @@ Configure custom shortcuts in Settings for:
 ### Settings & Preferences
 
 **API Key Management**:
+
 - Stored locally for security (not synced)
 - Masked display (`sk-****...****`)
 - Test connection button to verify
 
 **Model Selection**:
+
 - Choose from available OpenAI models
 - Preference syncs across devices
 - Defaults to GPT-5
 
 **Keyboard Shortcuts**:
+
 - Customize key combinations
 - View available commands
 - Enable/disable shortcuts
 
 **Reset All Data**:
+
 - Clear all prompts, settings, and API key
 - Confirmation required
 - Cannot be undone
@@ -149,6 +161,7 @@ Configure custom shortcuts in Settings for:
 ### Email Context
 
 The add-in includes the entire email thread for context:
+
 - Original message content
 - All previous replies in the thread
 - Subject line and participants
@@ -157,6 +170,7 @@ The add-in includes the entire email thread for context:
 ### Response Insertion
 
 Generated responses are inserted:
+
 - Above your existing draft content
 - Above your email signature (auto-detected)
 - Multiple generations stack in order

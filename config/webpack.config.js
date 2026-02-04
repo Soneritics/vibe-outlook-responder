@@ -9,7 +9,7 @@ const getDevCerts = () => {
   const certPath = path.join(os.homedir(), '.office-addin-dev-certs');
   const certFile = path.join(certPath, 'localhost.crt');
   const keyFile = path.join(certPath, 'localhost.key');
-  
+
   if (fs.existsSync(certFile) && fs.existsSync(keyFile)) {
     return {
       cert: fs.readFileSync(certFile),
@@ -82,10 +82,12 @@ module.exports = (env, argv) => {
     ],
     devServer: {
       port: 3000,
-      server: devCerts ? {
-        type: 'https',
-        options: devCerts,
-      } : 'https',
+      server: devCerts
+        ? {
+            type: 'https',
+            options: devCerts,
+          }
+        : 'https',
       hot: true,
       headers: {
         'Access-Control-Allow-Origin': '*',

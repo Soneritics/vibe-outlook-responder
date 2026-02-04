@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  Dropdown as FluentDropdown,
-  Option,
-  Field,
-} from '@fluentui/react-components';
+import { Dropdown as FluentDropdown, Option, Field } from '@fluentui/react-components';
 
 /**
  * Single dropdown option
@@ -91,17 +87,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
       validationMessage={error}
       validationState={error ? 'error' : undefined}
     >
-      <FluentDropdown
-        value={value}
-        onOptionSelect={handleChange}
-        placeholder={placeholder}
-      >
+      <FluentDropdown value={value} onOptionSelect={handleChange} placeholder={placeholder}>
         {options.map((option) => (
-          <Option
-            key={option.value}
-            value={option.value}
-            disabled={option.disabled}
-          >
+          <Option key={option.value} value={option.value} disabled={option.disabled}>
             {option.label}
           </Option>
         ))}

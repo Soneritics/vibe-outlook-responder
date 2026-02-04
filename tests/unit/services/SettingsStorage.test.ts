@@ -45,7 +45,7 @@ const mockLocalStorageImpl = {
     delete mockLocalStorage[key];
   }),
   clear: jest.fn(() => {
-    Object.keys(mockLocalStorage).forEach(key => delete mockLocalStorage[key]);
+    Object.keys(mockLocalStorage).forEach((key) => delete mockLocalStorage[key]);
   }),
   length: 0,
   key: jest.fn(),
@@ -62,16 +62,16 @@ describe('SettingsStorage', () => {
   beforeEach(() => {
     // Clear all mocks
     jest.clearAllMocks();
-    Object.keys(mockLocalStorage).forEach(key => delete mockLocalStorage[key]);
-    Object.keys(mockRoamingSettings).forEach(key => delete mockRoamingSettings[key]);
-    
+    Object.keys(mockLocalStorage).forEach((key) => delete mockLocalStorage[key]);
+    Object.keys(mockRoamingSettings).forEach((key) => delete mockRoamingSettings[key]);
+
     storage = new SettingsStorage();
   });
 
   describe('getSettings', () => {
     it('should return default settings when no settings exist', async () => {
       const settings = await storage.getSettings();
-      
+
       expect(settings).toEqual({
         apiKey: '',
         selectedModel: 'gpt-4o',
@@ -82,26 +82,26 @@ describe('SettingsStorage', () => {
 
     it('should return stored API key from localStorage', async () => {
       mockLocalStorage['settings_apiKey'] = 'sk-test123';
-      
+
       const settings = await storage.getSettings();
-      
+
       expect(settings.apiKey).toBe('sk-test123');
     });
 
     it('should return stored model from roaming settings', async () => {
       mockRoamingSettings['settings_selectedModel'] = JSON.stringify('gpt-4');
-      
+
       const settings = await storage.getSettings();
-      
+
       expect(settings.selectedModel).toBe('gpt-4');
     });
 
     it('should return keyboard shortcuts from roaming settings', async () => {
       const shortcuts = { openPrompts: 'Ctrl+Shift+P' };
       mockRoamingSettings['settings_keyboardShortcuts'] = JSON.stringify(shortcuts);
-      
+
       const settings = await storage.getSettings();
-      
+
       expect(settings.keyboardShortcuts).toEqual(shortcuts);
     });
   });
@@ -114,13 +114,10 @@ describe('SettingsStorage', () => {
         keyboardShortcuts: {},
         lastUpdated: new Date().toISOString(),
       };
-      
+
       await storage.saveSettings(settings);
-      
-      expect(mockLocalStorageImpl.setItem).toHaveBeenCalledWith(
-        'settings_apiKey',
-        'sk-new-key'
-      );
+
+      expect(mockLocalStorageImpl.setItem).toHaveBeenCalledWith('settings_apiKey', 'sk-new-key');
       expect(Office.context.roamingSettings.set).not.toHaveBeenCalledWith(
         'settings_apiKey',
         expect.anything()
@@ -134,9 +131,9 @@ describe('SettingsStorage', () => {
         keyboardShortcuts: {},
         lastUpdated: new Date().toISOString(),
       };
-      
+
       await storage.saveSettings(settings);
-      
+
       expect(Office.context.roamingSettings.set).toHaveBeenCalledWith(
         'settings_selectedModel',
         'gpt-4-turbo'
@@ -151,9 +148,9 @@ describe('SettingsStorage', () => {
         keyboardShortcuts: shortcuts,
         lastUpdated: new Date().toISOString(),
       };
-      
+
       await storage.saveSettings(settings);
-      
+
       expect(Office.context.roamingSettings.set).toHaveBeenCalledWith(
         'settings_keyboardShortcuts',
         shortcuts
@@ -167,9 +164,9 @@ describe('SettingsStorage', () => {
         keyboardShortcuts: {},
         lastUpdated: new Date().toISOString(),
       };
-      
+
       await storage.saveSettings(settings);
-      
+
       expect(Office.context.roamingSettings.saveAsync).toHaveBeenCalled();
     });
 
@@ -181,9 +178,9 @@ describe('SettingsStorage', () => {
         keyboardShortcuts: {},
         lastUpdated: beforeTime,
       };
-      
+
       await storage.saveSettings(settings);
-      
+
       const savedSettings = await storage.getSettings();
       expect(new Date(savedSettings.lastUpdated).getTime()).toBeGreaterThanOrEqual(
         new Date(beforeTime).getTime()
@@ -194,26 +191,28 @@ describe('SettingsStorage', () => {
   describe('clearSettings', () => {
     it('should remove API key from localStorage', async () => {
       mockLocalStorage['settings_apiKey'] = 'sk-test';
-      
+
       await storage.clearSettings();
-      
+
       expect(mockLocalStorageImpl.removeItem).toHaveBeenCalledWith('settings_apiKey');
     });
 
     it('should remove all settings from roaming settings', async () => {
       mockRoamingSettings['settings_selectedModel'] = JSON.stringify('gpt-4');
       mockRoamingSettings['settings_keyboardShortcuts'] = JSON.stringify({});
-      
+
       await storage.clearSettings();
-      
+
       expect(Office.context.roamingSettings.remove).toHaveBeenCalledWith('settings_selectedModel');
-      expect(Office.context.roamingSettings.remove).toHaveBeenCalledWith('settings_keyboardShortcuts');
+      expect(Office.context.roamingSettings.remove).toHaveBeenCalledWith(
+        'settings_keyboardShortcuts'
+      );
       expect(Office.context.roamingSettings.remove).toHaveBeenCalledWith('settings_lastUpdated');
     });
 
     it('should call saveAsync after clearing', async () => {
       await storage.clearSettings();
-      
+
       expect(Office.context.roamingSettings.saveAsync).toHaveBeenCalled();
     });
   });
@@ -221,23 +220,23 @@ describe('SettingsStorage', () => {
   describe('hasApiKey', () => {
     it('should return false when no API key is stored', async () => {
       const hasKey = await storage.hasApiKey();
-      
+
       expect(hasKey).toBe(false);
     });
 
     it('should return true when API key is stored', async () => {
       mockLocalStorage['settings_apiKey'] = 'sk-test123';
-      
+
       const hasKey = await storage.hasApiKey();
-      
+
       expect(hasKey).toBe(true);
     });
 
     it('should return false for empty API key', async () => {
       mockLocalStorage['settings_apiKey'] = '';
-      
+
       const hasKey = await storage.hasApiKey();
-      
+
       expect(hasKey).toBe(false);
     });
   });

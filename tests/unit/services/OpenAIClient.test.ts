@@ -145,9 +145,7 @@ describe('OpenAIClient', () => {
       const mockCreate = openai.OpenAI.mock.results[0].value.chat.completions.create;
       mockCreate.mockRejectedValue(authError);
 
-      await expect(client.generateResponse(request, 'gpt-4')).rejects.toThrow(
-        'Invalid API key'
-      );
+      await expect(client.generateResponse(request, 'gpt-4')).rejects.toThrow('Invalid API key');
     });
 
     it('should handle rate limit errors', async () => {

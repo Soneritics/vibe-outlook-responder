@@ -82,9 +82,7 @@ describe('ExportImport', () => {
       fireEvent.click(exportButton);
 
       await waitFor(() => {
-        expect(
-          screen.getByText(/Successfully exported 2 prompt\(s\)/)
-        ).toBeInTheDocument();
+        expect(screen.getByText(/Successfully exported 2 prompt\(s\)/)).toBeInTheDocument();
       });
     });
 
@@ -158,9 +156,7 @@ describe('ExportImport', () => {
       fireEvent.click(importButton);
 
       await waitFor(() => {
-        expect(
-          screen.getByText(/Successfully imported 1 prompt\(s\)/)
-        ).toBeInTheDocument();
+        expect(screen.getByText(/Successfully imported 1 prompt\(s\)/)).toBeInTheDocument();
       });
     });
 
