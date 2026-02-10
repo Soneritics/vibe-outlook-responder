@@ -59,11 +59,11 @@ export function detectOutlookLocale(): Locale {
 export function t(keyPath: string, locale?: Locale, fallback?: string): string {
   const translations = getTranslations(locale);
   const keys = keyPath.split('.');
-  let value: any = translations;
+  let value: unknown = translations;
 
   for (const key of keys) {
-    if (value !== undefined && typeof value === 'object' && key in value) {
-      value = value[key];
+    if (value !== null && value !== undefined && typeof value === 'object' && key in value) {
+      value = (value as Record<string, unknown>)[key];
     } else {
       return fallback ?? keyPath;
     }

@@ -11,13 +11,13 @@ import {
 import { Save20Regular, Delete20Regular } from '@fluentui/react-icons';
 import { ApiKeyInput } from './ApiKeyInput';
 import { ModelSelector } from './ModelSelector';
-import { KeyboardShortcuts } from './KeyboardShortcuts';
 import { ExportImport } from './ExportImport';
 import { useSettings } from '../../hooks/useSettings';
 import { usePrompts } from '../../hooks/usePrompts';
 import { validateApiKeyFormat } from '../../../services/validation/ApiKeyValidator';
 import { ConfirmDialog } from '../common/ConfirmDialog';
 import { Prompt } from '../../../models/Prompt';
+import { SupportedModel } from '../../../models/Settings';
 
 const useStyles = makeStyles({
   container: {
@@ -174,7 +174,7 @@ export const SettingsPanel: React.FC = () => {
       // Save settings
       await updateSettings({
         apiKey: localApiKey,
-        selectedModel: localModel as any,
+        selectedModel: localModel as SupportedModel,
       });
 
       setSaveMessage('Settings saved successfully!');
@@ -243,12 +243,6 @@ export const SettingsPanel: React.FC = () => {
         />
 
         <ModelSelector value={localModel} onChange={handleModelChange} disabled={isSaving} />
-      </div>
-
-      <Divider />
-
-      <div className={styles.section}>
-        <KeyboardShortcuts shortcuts={settings.keyboardShortcuts} />
       </div>
 
       <Divider />

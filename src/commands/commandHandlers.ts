@@ -59,8 +59,8 @@ export function openEditPrompt(event: Office.AddinCommands.Event, promptId?: str
   try {
     // Get promptId from event item if not provided
     let id = promptId;
-    if (!id && event.source && (event.source as any).id) {
-      id = (event.source as any).id;
+    if (!id && event.source && (event.source as { id?: string }).id) {
+      id = (event.source as { id?: string }).id;
     }
 
     if (!id) {
@@ -96,8 +96,8 @@ export function generateResponse(event: Office.AddinCommands.Event, promptId?: s
   try {
     // Get promptId from event source if not provided
     let id = promptId;
-    if (!id && event.source && (event.source as any).id) {
-      id = (event.source as any).id;
+    if (!id && event.source && (event.source as { id?: string }).id) {
+      id = (event.source as { id?: string }).id;
     }
 
     if (!id) {

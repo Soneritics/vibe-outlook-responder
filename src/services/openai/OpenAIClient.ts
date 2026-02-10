@@ -71,27 +71,28 @@ export class OpenAIClient {
         timestamp: new Date().toISOString(),
         wasSummarized: false,
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const err = error as { name?: string; message?: string; status?: number };
       // Handle cancellation
-      if (error.name === 'AbortError' || error.message?.includes('aborted')) {
+      if (err.name === 'AbortError' || err.message?.includes('aborted')) {
         throw new Error('Request cancelled');
       }
 
       // Handle specific API errors
-      if (error.status === 401) {
+      if (err.status === 401) {
         throw new Error('Invalid API key. Please check your settings.');
       }
 
-      if (error.status === 429) {
+      if (err.status === 429) {
         throw new Error('Rate limit exceeded. Please wait and try again.');
       }
 
-      if (error.status === 400) {
+      if (err.status === 400) {
         // Content policy violation or bad request
-        throw new Error(error.message || 'Content policy violation');
+        throw new Error(err.message || 'Content policy violation');
       }
 
-      if (error.status >= 500) {
+      if (err.status && err.status >= 500) {
         throw new Error('OpenAI API is temporarily unavailable. Please try again later.');
       }
 
@@ -116,8 +117,9 @@ export class OpenAIClient {
       });
 
       return true;
-    } catch (error: any) {
-      if (error.status === 401) {
+    } catch (error: unknown) {
+      const err = error as { status?: number };
+      if (err.status === 401) {
         throw new Error('Invalid API key');
       }
       throw error;

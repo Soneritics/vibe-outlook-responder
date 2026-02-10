@@ -86,7 +86,7 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
   const selectedModel = value || 'gpt-4o';
   const selectedModelInfo = MODEL_OPTIONS.find((m) => m.id === selectedModel);
 
-  const handleChange = (_event: any, data: any) => {
+  const handleChange = (_event: unknown, data: { optionValue?: string }) => {
     if (data.optionValue) {
       onChange(data.optionValue);
     }

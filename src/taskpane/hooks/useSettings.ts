@@ -19,7 +19,6 @@ export const useSettings = (): UseSettingsReturn => {
   const [settings, setSettings] = useState<Settings>({
     apiKey: '',
     selectedModel: 'gpt-4o',
-    keyboardShortcuts: {},
     lastUpdated: new Date().toISOString(),
   });
   const [isLoading, setIsLoading] = useState(true);

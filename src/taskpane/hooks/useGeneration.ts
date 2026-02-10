@@ -6,6 +6,7 @@ import { EmailParser } from '../../services/email/EmailParser';
 import { SignatureDetector } from '../../services/email/SignatureDetector';
 import { ContentInserter } from '../../services/email/ContentInserter';
 import { GenerationRequest } from '../../models/GenerationRequest';
+import { SupportedModel } from '../../models/Settings';
 import { GenerationStep } from '../components/generation/GenerationProgress';
 
 interface UseGenerationResult {
@@ -85,7 +86,7 @@ export const useGeneration = (): UseGenerationResult => {
 
       // Notify if summarization occurred (FR-044)
       if (summarized.wasSummarized) {
-        console.log(
+        console.warn(
           `Content summarized: ${summarized.originalTokenCount} → ${summarized.finalTokenCount} tokens`
         );
         setWasSummarized(true);
@@ -98,7 +99,7 @@ export const useGeneration = (): UseGenerationResult => {
         emailContent: summarized.content,
         promptContent,
         timestamp: new Date().toISOString(),
-        model: 'gpt-4' as any, // Using GPT-4 as default
+        model: 'gpt-4' as SupportedModel, // Using GPT-4 as default
       };
 
       // Step 2: Send to OpenAI
@@ -123,7 +124,7 @@ export const useGeneration = (): UseGenerationResult => {
 
       // Complete
       setIsGenerating(false);
-    } catch (err: any) {
+    } catch (err: unknown) {
       // Handle errors gracefully (FR-027)
       setError(getErrorMessage(err));
       setIsGenerating(false);
@@ -196,8 +197,9 @@ function getEmailBody(): Promise<string> {
 /**
  * Convert error to user-friendly message
  */
-function getErrorMessage(error: any): string {
-  const message = error.message || error.toString();
+function getErrorMessage(error: unknown): string {
+  const err = error as { message?: string; toString?: () => string };
+  const message = err.message || err.toString?.() || String(error);
 
   // API key errors (FR-027)
   if (message.includes('Invalid API key') || message.includes('401')) {

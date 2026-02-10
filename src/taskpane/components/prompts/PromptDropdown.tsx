@@ -61,14 +61,14 @@ export const PromptDropdown: React.FC<PromptDropdownProps> = ({
 }) => {
   const styles = useStyles();
 
-  const handleOptionSelect = (_event: any, data: any) => {
+  const handleOptionSelect = (_event: unknown, data: { optionValue?: string }) => {
     const value = data.optionValue;
 
     if (value === '__add_custom__' && onAddCustomPrompt) {
       onAddCustomPrompt();
     } else if (value === '__settings__' && onSettings) {
       onSettings();
-    } else if (onPromptSelect) {
+    } else if (onPromptSelect && value) {
       onPromptSelect(value);
     }
   };

@@ -1,4 +1,5 @@
-import { Settings } from '../../models/Settings';
+import { Settings, SupportedModel } from '../../models/Settings';
+import { encrypt, decrypt, isEncrypted } from './encryption';
 
 const ROAMING_PREFIX = 'outlook_addin_roaming_';
 
@@ -15,23 +16,20 @@ function isOfficeAvailable(): boolean {
 
 /**
  * Service for persisting user settings across sessions
- * - API key: Stored in localStorage (local only, not synced)
+ * - API key: Encrypted and stored in roaming settings (persists across Outlook restarts)
  * - Model preference: Stored in roaming settings (synced across devices)
- * - Keyboard shortcuts: Stored in roaming settings (synced across devices)
  * Falls back to localStorage when Office is not available.
  */
 export class SettingsStorage {
   private readonly STORAGE_KEYS = {
     API_KEY: 'settings_apiKey',
     SELECTED_MODEL: 'settings_selectedModel',
-    KEYBOARD_SHORTCUTS: 'settings_keyboardShortcuts',
     LAST_UPDATED: 'settings_lastUpdated',
   };
 
   private readonly DEFAULT_SETTINGS: Settings = {
     apiKey: '',
     selectedModel: 'gpt-4o',
-    keyboardShortcuts: {},
     lastUpdated: new Date().toISOString(),
   };
 
@@ -40,20 +38,17 @@ export class SettingsStorage {
    */
   async getSettings(): Promise<Settings> {
     try {
-      const apiKey = this.getFromLocalStorage(this.STORAGE_KEYS.API_KEY) || '';
+      const apiKey = await this.getApiKey();
       const selectedModel =
-        this.getFromRoamingSettings(this.STORAGE_KEYS.SELECTED_MODEL) ||
+        (this.getFromRoamingSettings(this.STORAGE_KEYS.SELECTED_MODEL) as SupportedModel) ||
         this.DEFAULT_SETTINGS.selectedModel;
-      const keyboardShortcuts =
-        this.getFromRoamingSettings(this.STORAGE_KEYS.KEYBOARD_SHORTCUTS) || {};
       const lastUpdated =
-        this.getFromRoamingSettings(this.STORAGE_KEYS.LAST_UPDATED) ||
+        (this.getFromRoamingSettings(this.STORAGE_KEYS.LAST_UPDATED) as string) ||
         this.DEFAULT_SETTINGS.lastUpdated;
 
       return {
         apiKey,
         selectedModel,
-        keyboardShortcuts,
         lastUpdated,
       };
     } catch (error) {
@@ -63,17 +58,57 @@ export class SettingsStorage {
   }
 
   /**
+   * Get decrypted API key from roaming settings
+   */
+  private async getApiKey(): Promise<string> {
+    try {
+      const encryptedKey = this.getFromRoamingSettings(this.STORAGE_KEYS.API_KEY);
+      if (!encryptedKey) {
+        // Try migrating from old localStorage storage
+        const oldKey = this.getFromLocalStorage(this.STORAGE_KEYS.API_KEY);
+        if (oldKey) {
+          // Migrate to encrypted roaming storage
+          await this.saveApiKey(oldKey);
+          this.removeFromLocalStorage(this.STORAGE_KEYS.API_KEY);
+          return oldKey;
+        }
+        return '';
+      }
+      
+      // Check if value is encrypted (for backwards compatibility)
+      if (isEncrypted(encryptedKey as string)) {
+        return await decrypt(encryptedKey as string);
+      }
+      return encryptedKey as string;
+    } catch (error) {
+      console.error('Error retrieving API key:', error);
+      return '';
+    }
+  }
+
+  /**
+   * Save encrypted API key to roaming settings
+   */
+  private async saveApiKey(apiKey: string): Promise<void> {
+    if (!apiKey) {
+      this.removeFromRoamingSettings(this.STORAGE_KEYS.API_KEY);
+      return;
+    }
+    const encryptedKey = await encrypt(apiKey);
+    this.saveToRoamingSettings(this.STORAGE_KEYS.API_KEY, encryptedKey);
+  }
+
+  /**
    * Saves settings to appropriate storage locations
    * @param settings - Settings object to persist
    */
   async saveSettings(settings: Settings): Promise<void> {
     try {
-      // Save API key to localStorage only (local, not synced for security)
-      this.saveToLocalStorage(this.STORAGE_KEYS.API_KEY, settings.apiKey);
+      // Save API key encrypted to roaming storage
+      await this.saveApiKey(settings.apiKey);
 
       // Save other settings to roaming storage (synced across devices)
       this.saveToRoamingSettings(this.STORAGE_KEYS.SELECTED_MODEL, settings.selectedModel);
-      this.saveToRoamingSettings(this.STORAGE_KEYS.KEYBOARD_SHORTCUTS, settings.keyboardShortcuts);
 
       // Update timestamp
       const timestamp = new Date().toISOString();
@@ -92,13 +127,13 @@ export class SettingsStorage {
    */
   async clearSettings(): Promise<void> {
     try {
-      // Clear localStorage
-      this.removeFromLocalStorage(this.STORAGE_KEYS.API_KEY);
-
       // Clear roaming settings
+      this.removeFromRoamingSettings(this.STORAGE_KEYS.API_KEY);
       this.removeFromRoamingSettings(this.STORAGE_KEYS.SELECTED_MODEL);
-      this.removeFromRoamingSettings(this.STORAGE_KEYS.KEYBOARD_SHORTCUTS);
       this.removeFromRoamingSettings(this.STORAGE_KEYS.LAST_UPDATED);
+
+      // Clear old localStorage (migration cleanup)
+      this.removeFromLocalStorage(this.STORAGE_KEYS.API_KEY);
 
       // Persist changes
       await this.saveRoamingSettingsAsync();
@@ -127,15 +162,6 @@ export class SettingsStorage {
     }
   }
 
-  private saveToLocalStorage(key: string, value: string): void {
-    try {
-      localStorage.setItem(key, value);
-    } catch (error) {
-      console.error(`Error writing to localStorage (${key}):`, error);
-      throw error;
-    }
-  }
-
   private removeFromLocalStorage(key: string): void {
     try {
       localStorage.removeItem(key);
@@ -144,7 +170,7 @@ export class SettingsStorage {
     }
   }
 
-  private getFromRoamingSettings(key: string): any {
+  private getFromRoamingSettings(key: string): unknown {
     if (isOfficeAvailable()) {
       try {
         return Office.context.roamingSettings.get(key);
@@ -162,7 +188,7 @@ export class SettingsStorage {
     }
   }
 
-  private saveToRoamingSettings(key: string, value: any): void {
+  private saveToRoamingSettings(key: string, value: unknown): void {
     if (isOfficeAvailable()) {
       try {
         Office.context.roamingSettings.set(key, value);

@@ -83,7 +83,6 @@ describe('SettingsStorage', () => {
       expect(settings).toEqual({
         apiKey: '',
         selectedModel: 'gpt-4o',
-        keyboardShortcuts: {},
         lastUpdated: expect.any(String),
       });
     });
@@ -103,30 +102,25 @@ describe('SettingsStorage', () => {
 
       expect(settings.selectedModel).toBe('gpt-4');
     });
-
-    it('should return keyboard shortcuts from roaming settings', async () => {
-      const shortcuts = { openPrompts: 'Ctrl+Shift+P' };
-      mockRoamingSettings['settings_keyboardShortcuts'] = JSON.stringify(shortcuts);
-
-      const settings = await storage.getSettings();
-
-      expect(settings.keyboardShortcuts).toEqual(shortcuts);
-    });
   });
 
   describe('saveSettings', () => {
-    it('should save API key to localStorage only', async () => {
+    it('should save encrypted API key to roaming settings', async () => {
       const settings: Settings = {
         apiKey: 'sk-new-key',
         selectedModel: 'gpt-4o',
-        keyboardShortcuts: {},
         lastUpdated: new Date().toISOString(),
       };
 
       await storage.saveSettings(settings);
 
-      expect(mockLocalStorageImpl.setItem).toHaveBeenCalledWith('settings_apiKey', 'sk-new-key');
-      expect(Office.context.roamingSettings.set).not.toHaveBeenCalledWith(
+      // API key should be saved to roaming settings (encrypted)
+      expect(Office.context.roamingSettings.set).toHaveBeenCalledWith(
+        'settings_apiKey',
+        expect.stringMatching(/^enc:/)
+      );
+      // API key should NOT be saved to localStorage
+      expect(mockLocalStorageImpl.setItem).not.toHaveBeenCalledWith(
         'settings_apiKey',
         expect.anything()
       );
@@ -136,7 +130,6 @@ describe('SettingsStorage', () => {
       const settings: Settings = {
         apiKey: 'sk-test',
         selectedModel: 'gpt-4-turbo',
-        keyboardShortcuts: {},
         lastUpdated: new Date().toISOString(),
       };
 
@@ -148,28 +141,10 @@ describe('SettingsStorage', () => {
       );
     });
 
-    it('should save keyboard shortcuts to roaming settings', async () => {
-      const shortcuts = { openPrompts: 'Ctrl+Shift+P', generateResponse: 'Ctrl+Enter' };
-      const settings: Settings = {
-        apiKey: 'sk-test',
-        selectedModel: 'gpt-4o',
-        keyboardShortcuts: shortcuts,
-        lastUpdated: new Date().toISOString(),
-      };
-
-      await storage.saveSettings(settings);
-
-      expect(Office.context.roamingSettings.set).toHaveBeenCalledWith(
-        'settings_keyboardShortcuts',
-        shortcuts
-      );
-    });
-
     it('should call saveAsync to persist roaming settings', async () => {
       const settings: Settings = {
         apiKey: 'sk-test',
         selectedModel: 'gpt-4o',
-        keyboardShortcuts: {},
         lastUpdated: new Date().toISOString(),
       };
 
@@ -183,7 +158,6 @@ describe('SettingsStorage', () => {
       const settings: Settings = {
         apiKey: 'sk-test',
         selectedModel: 'gpt-4o',
-        keyboardShortcuts: {},
         lastUpdated: beforeTime,
       };
 
@@ -207,14 +181,10 @@ describe('SettingsStorage', () => {
 
     it('should remove all settings from roaming settings', async () => {
       mockRoamingSettings['settings_selectedModel'] = JSON.stringify('gpt-4');
-      mockRoamingSettings['settings_keyboardShortcuts'] = JSON.stringify({});
 
       await storage.clearSettings();
 
       expect(Office.context.roamingSettings.remove).toHaveBeenCalledWith('settings_selectedModel');
-      expect(Office.context.roamingSettings.remove).toHaveBeenCalledWith(
-        'settings_keyboardShortcuts'
-      );
       expect(Office.context.roamingSettings.remove).toHaveBeenCalledWith('settings_lastUpdated');
     });
 

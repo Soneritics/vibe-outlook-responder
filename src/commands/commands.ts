@@ -2,5 +2,5 @@
 import './commandHandlers';
 
 void Office.onReady(() => {
-  console.log('Commands initialized');
+  console.warn('Commands initialized');
 });

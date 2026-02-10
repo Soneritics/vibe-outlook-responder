@@ -101,12 +101,16 @@ export class PromptStorage {
       throw new Error('Prompt not found');
     }
 
-    const prompt = prompts[index]!; // Non-null assertion since we checked index !== -1
+    const prompt = prompts[index];
+    if (!prompt) {
+      throw new Error('Prompt not found');
+    }
 
     // If title is being updated, check for conflicts with other prompts
     if (updates.title !== undefined && updates.title.toLowerCase() !== prompt.title.toLowerCase()) {
+      const newTitle = updates.title;
       const titleExists = prompts.some(
-        (p) => p.id !== id && p.title.toLowerCase() === updates.title!.toLowerCase()
+        (p) => p.id !== id && p.title.toLowerCase() === newTitle.toLowerCase()
       );
 
       if (titleExists) {

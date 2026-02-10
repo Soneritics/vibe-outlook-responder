@@ -77,10 +77,6 @@ export interface TranslationStrings {
       gpt4turbo: string;
       gpt35turbo: string;
     };
-    keyboardShortcuts: {
-      title: string;
-      openPromptDropdown: string;
-    };
     exportImport: {
       title: string;
       export: string;

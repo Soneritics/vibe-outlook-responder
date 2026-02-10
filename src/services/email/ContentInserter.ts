@@ -17,8 +17,13 @@ export class ContentInserter {
    */
   async insertContent(content: string, signaturePosition: number): Promise<void> {
     return new Promise((resolve, reject) => {
+      const item = Office.context.mailbox.item;
+      if (!item) {
+        reject(new Error('No active mail item'));
+        return;
+      }
       // Get current body content
-      Office.context.mailbox.item!.body.getAsync(Office.CoercionType.Html, async (result) => {
+      item.body.getAsync(Office.CoercionType.Html, async (result) => {
         if (result.status === Office.AsyncResultStatus.Failed) {
           reject(new Error(result.error?.message || 'Failed to get email body'));
           return;
@@ -41,7 +46,7 @@ export class ContentInserter {
         }
 
         // Set new content
-        Office.context.mailbox.item!.body.setAsync(
+        item.body.setAsync(
           finalContent,
           { coercionType: Office.CoercionType.Html },
           (setResult) => {
@@ -76,7 +81,12 @@ export class ContentInserter {
     }
 
     return new Promise((resolve, reject) => {
-      Office.context.mailbox.item!.body.getAsync(Office.CoercionType.Html, async (result) => {
+      const item = Office.context.mailbox.item;
+      if (!item) {
+        reject(new Error('No active mail item'));
+        return;
+      }
+      item.body.getAsync(Office.CoercionType.Html, async (result) => {
         if (result.status === Office.AsyncResultStatus.Failed) {
           reject(new Error(result.error?.message || 'Failed to get email body'));
           return;
@@ -94,7 +104,7 @@ export class ContentInserter {
 
         const finalContent = `${before}${this.formatContentForInsertion(content)}${after}`;
 
-        Office.context.mailbox.item!.body.setAsync(
+        item.body.setAsync(
           finalContent,
           { coercionType: Office.CoercionType.Html },
           (setResult) => {
@@ -123,7 +133,12 @@ export class ContentInserter {
    */
   async prependContent(content: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      Office.context.mailbox.item!.body.getAsync(Office.CoercionType.Html, async (result) => {
+      const item = Office.context.mailbox.item;
+      if (!item) {
+        reject(new Error('No active mail item'));
+        return;
+      }
+      item.body.getAsync(Office.CoercionType.Html, async (result) => {
         if (result.status === Office.AsyncResultStatus.Failed) {
           reject(new Error(result.error?.message || 'Failed to get email body'));
           return;
@@ -132,7 +147,7 @@ export class ContentInserter {
         const existingContent = result.value || '';
         const finalContent = `${this.formatContentForInsertion(content)}\n\n${existingContent}`;
 
-        Office.context.mailbox.item!.body.setAsync(
+        item.body.setAsync(
           finalContent,
           { coercionType: Office.CoercionType.Html },
           (setResult) => {
@@ -161,7 +176,12 @@ export class ContentInserter {
    */
   async appendContent(content: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      Office.context.mailbox.item!.body.getAsync(Office.CoercionType.Html, async (result) => {
+      const item = Office.context.mailbox.item;
+      if (!item) {
+        reject(new Error('No active mail item'));
+        return;
+      }
+      item.body.getAsync(Office.CoercionType.Html, async (result) => {
         if (result.status === Office.AsyncResultStatus.Failed) {
           reject(new Error(result.error?.message || 'Failed to get email body'));
           return;
@@ -170,7 +190,7 @@ export class ContentInserter {
         const existingContent = result.value || '';
         const finalContent = `${existingContent}\n\n${this.formatContentForInsertion(content)}`;
 
-        Office.context.mailbox.item!.body.setAsync(
+        item.body.setAsync(
           finalContent,
           { coercionType: Office.CoercionType.Html },
           (setResult) => {

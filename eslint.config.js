@@ -48,7 +48,17 @@ export default [
     },
   },
   {
-    files: ['**/*.js', '**/*.mjs', 'config/**/*.ts', 'tests/**/*.ts'],
+    // Relaxed rules for test files
+    files: ['tests/**/*.ts', 'tests/**/*.tsx'],
+    rules: {
+      'max-lines': 'off',
+      'max-lines-per-function': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+    },
+  },
+  {
+    files: ['**/*.js', '**/*.mjs', 'config/**/*.ts'],
     ...tseslint.configs.disableTypeChecked,
   },
   {

@@ -1,11 +1,16 @@
 /**
+ * Supported ChatGPT models for AI generation
+ */
+export type SupportedModel = 'gpt-4o' | 'gpt-4-turbo' | 'gpt-4' | 'gpt-3.5-turbo';
+
+/**
  * User configuration settings for the add-in.
- * API key is stored locally for security; other settings sync via Roaming Settings.
+ * API key is stored encrypted in Roaming Settings; other settings also sync via Roaming Settings.
  */
 export interface Settings {
   /**
    * OpenAI API key (format: sk-*)
-   * Stored in localStorage (local only, not synced)
+   * Stored encrypted in Roaming Settings
    */
   apiKey: string;
 
@@ -15,19 +20,7 @@ export interface Settings {
    * Default: 'gpt-4o'
    * Synced via Roaming Settings
    */
-  selectedModel: 'gpt-4o' | 'gpt-4-turbo' | 'gpt-4' | 'gpt-3.5-turbo';
-
-  /**
-   * Configurable keyboard shortcuts for quick actions
-   * Synced via Roaming Settings
-   */
-  keyboardShortcuts: {
-    /**
-     * Shortcut to open prompt dropdown in compose mode
-     * Format: "Ctrl+Shift+P" or "Cmd+Shift+P"
-     */
-    openPromptDropdown?: string;
-  };
+  selectedModel: SupportedModel;
 
   /**
    * ISO 8601 timestamp when settings were last updated

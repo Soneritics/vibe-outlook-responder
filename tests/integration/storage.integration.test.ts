@@ -69,10 +69,6 @@ describe('Settings Persistence Integration', () => {
       const testSettings: Settings = {
         apiKey: 'sk-test1234567890abcdefghijklmnopqrstuvwxyz',
         selectedModel: 'gpt-4-turbo',
-        keyboardShortcuts: {
-          openPrompts: 'Ctrl+Shift+P',
-          generateResponse: 'Ctrl+Enter',
-        },
         lastUpdated: new Date().toISOString(),
       };
 
@@ -85,28 +81,34 @@ describe('Settings Persistence Integration', () => {
       // Verify all fields persisted correctly
       expect(loadedSettings.apiKey).toBe(testSettings.apiKey);
       expect(loadedSettings.selectedModel).toBe(testSettings.selectedModel);
-      expect(loadedSettings.keyboardShortcuts).toEqual(testSettings.keyboardShortcuts);
       expect(loadedSettings.lastUpdated).toBeDefined();
     });
 
-    it('should handle API key in localStorage separately from roaming data', async () => {
+    it('should handle API key encrypted in roaming settings', async () => {
       const settings: Settings = {
         apiKey: 'sk-secret-key',
         selectedModel: 'gpt-4o',
-        keyboardShortcuts: {},
         lastUpdated: new Date().toISOString(),
       };
 
       await storage.saveSettings(settings);
 
-      // Verify API key is in localStorage
-      expect(mockLocalStorage['settings_apiKey']).toBe('sk-secret-key');
+      // Verify API key is NOT in localStorage (now stored encrypted in roaming)
+      expect(mockLocalStorage['settings_apiKey']).toBeUndefined();
 
-      // Verify API key is NOT in roaming settings
-      expect(mockRoamingSettings['settings_apiKey']).toBeUndefined();
+      // Verify API key IS in roaming settings (encrypted)
+      expect(mockRoamingSettings['settings_apiKey']).toBeDefined();
+
+      // Verify the stored value is encrypted (starts with enc: prefix)
+      const storedKey = JSON.parse(mockRoamingSettings['settings_apiKey']);
+      expect(storedKey.startsWith('enc:')).toBe(true);
 
       // Verify model IS in roaming settings
       expect(mockRoamingSettings['settings_selectedModel']).toBeDefined();
+
+      // Verify decryption works
+      const loaded = await storage.getSettings();
+      expect(loaded.apiKey).toBe('sk-secret-key');
     });
 
     it('should maintain data integrity after multiple updates', async () => {
@@ -114,7 +116,6 @@ describe('Settings Persistence Integration', () => {
       const settings1: Settings = {
         apiKey: 'sk-key1',
         selectedModel: 'gpt-4o',
-        keyboardShortcuts: {},
         lastUpdated: new Date().toISOString(),
       };
       await storage.saveSettings(settings1);
@@ -123,7 +124,6 @@ describe('Settings Persistence Integration', () => {
       const settings2: Settings = {
         apiKey: 'sk-key2',
         selectedModel: 'gpt-4-turbo',
-        keyboardShortcuts: { openPrompts: 'Ctrl+P' },
         lastUpdated: new Date().toISOString(),
       };
       await storage.saveSettings(settings2);
@@ -132,7 +132,6 @@ describe('Settings Persistence Integration', () => {
       const loaded = await storage.getSettings();
       expect(loaded.apiKey).toBe('sk-key2');
       expect(loaded.selectedModel).toBe('gpt-4-turbo');
-      expect(loaded.keyboardShortcuts).toEqual({ openPrompts: 'Ctrl+P' });
     });
   });
 
@@ -143,7 +142,6 @@ describe('Settings Persistence Integration', () => {
       await device1Storage.saveSettings({
         apiKey: 'sk-device1-key',
         selectedModel: 'gpt-4-turbo',
-        keyboardShortcuts: {},
         lastUpdated: new Date().toISOString(),
       });
 
@@ -157,34 +155,10 @@ describe('Settings Persistence Integration', () => {
       // Model should sync (from roaming)
       expect(device2Settings.selectedModel).toBe('gpt-4-turbo');
 
-      // API key should NOT sync (local only)
-      expect(device2Settings.apiKey).toBe('');
+      // API key should now sync (encrypted in roaming settings)
+      expect(device2Settings.apiKey).toBe('sk-device1-key');
     });
 
-    it('should sync keyboard shortcuts across devices', async () => {
-      const shortcuts = {
-        openPrompts: 'Ctrl+Shift+P',
-        generateResponse: 'Ctrl+Enter',
-        openSettings: 'Ctrl+,',
-      };
-
-      // Device 1
-      const device1Storage = new SettingsStorage();
-      await device1Storage.saveSettings({
-        apiKey: 'sk-local',
-        selectedModel: 'gpt-4o',
-        keyboardShortcuts: shortcuts,
-        lastUpdated: new Date().toISOString(),
-      });
-
-      // Device 2
-      Object.keys(mockLocalStorage).forEach((key) => delete mockLocalStorage[key]);
-      const device2Storage = new SettingsStorage();
-      const device2Settings = await device2Storage.getSettings();
-
-      // Shortcuts should sync
-      expect(device2Settings.keyboardShortcuts).toEqual(shortcuts);
-    });
   });
 
   describe('Reset functionality', () => {
@@ -193,7 +167,6 @@ describe('Settings Persistence Integration', () => {
       await storage.saveSettings({
         apiKey: 'sk-test-key',
         selectedModel: 'gpt-4-turbo',
-        keyboardShortcuts: { openPrompts: 'Ctrl+P' },
         lastUpdated: new Date().toISOString(),
       });
 
@@ -204,7 +177,6 @@ describe('Settings Persistence Integration', () => {
       const settings = await storage.getSettings();
       expect(settings.apiKey).toBe('');
       expect(settings.selectedModel).toBe('gpt-4o'); // Default
-      expect(settings.keyboardShortcuts).toEqual({});
     });
 
     it('should allow saving new settings after reset', async () => {
@@ -212,7 +184,6 @@ describe('Settings Persistence Integration', () => {
       await storage.saveSettings({
         apiKey: 'sk-first',
         selectedModel: 'gpt-4',
-        keyboardShortcuts: {},
         lastUpdated: new Date().toISOString(),
       });
 
@@ -221,7 +192,6 @@ describe('Settings Persistence Integration', () => {
       await storage.saveSettings({
         apiKey: 'sk-second',
         selectedModel: 'gpt-4o',
-        keyboardShortcuts: {},
         lastUpdated: new Date().toISOString(),
       });
 
@@ -243,7 +213,6 @@ describe('Settings Persistence Integration', () => {
       const settings: Settings = {
         apiKey: 'sk-test',
         selectedModel: 'gpt-4o',
-        keyboardShortcuts: {},
         lastUpdated: new Date().toISOString(),
       };
 
@@ -267,7 +236,6 @@ describe('Settings Persistence Integration', () => {
       await storage.saveSettings({
         apiKey: 'sk-test',
         selectedModel: 'gpt-4o',
-        keyboardShortcuts: {},
         lastUpdated: time1,
       });
 
@@ -277,7 +245,6 @@ describe('Settings Persistence Integration', () => {
       await storage.saveSettings({
         apiKey: 'sk-test',
         selectedModel: 'gpt-4-turbo',
-        keyboardShortcuts: {},
         lastUpdated: time2,
       });
 

@@ -70,10 +70,6 @@
       "gpt4turbo": "GPT-4 Turbo",
       "gpt35turbo": "GPT-3.5 Turbo"
     },
-    "keyboardShortcuts": {
-      "title": "Atajos de teclado",
-      "openPromptDropdown": "Abrir menú de prompts"
-    },
     "exportImport": {
       "title": "Exportar/Importar prompts",
       "export": "Exportar al portapapeles",
