@@ -74,7 +74,7 @@ export class SettingsStorage {
         }
         return '';
       }
-      
+
       // Check if value is encrypted (for backwards compatibility)
       if (isEncrypted(encryptedKey as string)) {
         return await decrypt(encryptedKey as string);

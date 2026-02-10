@@ -158,7 +158,6 @@ describe('Settings Persistence Integration', () => {
       // API key should now sync (encrypted in roaming settings)
       expect(device2Settings.apiKey).toBe('sk-device1-key');
     });
-
   });
 
   describe('Reset functionality', () => {

@@ -26,10 +26,7 @@ function isCryptoAvailable(): boolean {
  */
 function getUserIdentifier(): string {
   try {
-    if (
-      typeof Office !== 'undefined' &&
-      Office.context?.mailbox?.userProfile?.emailAddress
-    ) {
+    if (typeof Office !== 'undefined' && Office.context?.mailbox?.userProfile?.emailAddress) {
       return Office.context.mailbox.userProfile.emailAddress;
     }
   } catch {

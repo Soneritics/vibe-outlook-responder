@@ -1,7 +1,14 @@
 /**
  * Supported ChatGPT models for AI generation
  */
-export type SupportedModel = 'gpt-5.2' | 'gpt-5-mini' | 'gpt-5-nano' | 'gpt-4o' | 'gpt-4-turbo' | 'gpt-4' | 'gpt-3.5-turbo';
+export type SupportedModel =
+  | 'gpt-5.2'
+  | 'gpt-5-mini'
+  | 'gpt-5-nano'
+  | 'gpt-4o'
+  | 'gpt-4-turbo'
+  | 'gpt-4'
+  | 'gpt-3.5-turbo';
 
 /**
  * User configuration settings for the add-in.
