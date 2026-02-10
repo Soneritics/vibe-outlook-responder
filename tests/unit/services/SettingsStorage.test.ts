@@ -82,7 +82,7 @@ describe('SettingsStorage', () => {
 
       expect(settings).toEqual({
         apiKey: '',
-        selectedModel: 'gpt-4o',
+        selectedModel: 'gpt-5.2',
         lastUpdated: expect.any(String),
       });
     });
@@ -108,7 +108,7 @@ describe('SettingsStorage', () => {
     it('should save encrypted API key to roaming settings', async () => {
       const settings: Settings = {
         apiKey: 'sk-new-key',
-        selectedModel: 'gpt-4o',
+        selectedModel: 'gpt-5.2',
         lastUpdated: new Date().toISOString(),
       };
 
@@ -144,7 +144,7 @@ describe('SettingsStorage', () => {
     it('should call saveAsync to persist roaming settings', async () => {
       const settings: Settings = {
         apiKey: 'sk-test',
-        selectedModel: 'gpt-4o',
+        selectedModel: 'gpt-5.2',
         lastUpdated: new Date().toISOString(),
       };
 
@@ -157,7 +157,7 @@ describe('SettingsStorage', () => {
       const beforeTime = new Date().toISOString();
       const settings: Settings = {
         apiKey: 'sk-test',
-        selectedModel: 'gpt-4o',
+        selectedModel: 'gpt-5.2',
         lastUpdated: beforeTime,
       };
 

@@ -122,6 +122,11 @@ describe('TokenCounter', () => {
       expect(limit).toBe(128000);
     });
 
+    it('should return correct limit for GPT-5.2', () => {
+      const limit = counter.getModelLimit('gpt-5.2');
+      expect(limit).toBe(256000);
+    });
+
     it('should return correct limit for GPT-3.5-turbo', () => {
       const limit = counter.getModelLimit('gpt-3.5-turbo');
       expect(limit).toBe(16385);

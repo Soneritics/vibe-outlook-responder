@@ -87,7 +87,7 @@ describe('Settings Persistence Integration', () => {
     it('should handle API key encrypted in roaming settings', async () => {
       const settings: Settings = {
         apiKey: 'sk-secret-key',
-        selectedModel: 'gpt-4o',
+        selectedModel: 'gpt-5.2',
         lastUpdated: new Date().toISOString(),
       };
 
@@ -115,7 +115,7 @@ describe('Settings Persistence Integration', () => {
       // Initial save
       const settings1: Settings = {
         apiKey: 'sk-key1',
-        selectedModel: 'gpt-4o',
+        selectedModel: 'gpt-5.2',
         lastUpdated: new Date().toISOString(),
       };
       await storage.saveSettings(settings1);
@@ -176,7 +176,7 @@ describe('Settings Persistence Integration', () => {
       // Verify everything is cleared
       const settings = await storage.getSettings();
       expect(settings.apiKey).toBe('');
-      expect(settings.selectedModel).toBe('gpt-4o'); // Default
+      expect(settings.selectedModel).toBe('gpt-5.2'); // Default
     });
 
     it('should allow saving new settings after reset', async () => {
@@ -191,13 +191,13 @@ describe('Settings Persistence Integration', () => {
 
       await storage.saveSettings({
         apiKey: 'sk-second',
-        selectedModel: 'gpt-4o',
+        selectedModel: 'gpt-5.2',
         lastUpdated: new Date().toISOString(),
       });
 
       const settings = await storage.getSettings();
       expect(settings.apiKey).toBe('sk-second');
-      expect(settings.selectedModel).toBe('gpt-4o');
+      expect(settings.selectedModel).toBe('gpt-5.2');
     });
   });
 
@@ -212,7 +212,7 @@ describe('Settings Persistence Integration', () => {
 
       const settings: Settings = {
         apiKey: 'sk-test',
-        selectedModel: 'gpt-4o',
+        selectedModel: 'gpt-5.2',
         lastUpdated: new Date().toISOString(),
       };
 
@@ -226,7 +226,7 @@ describe('Settings Persistence Integration', () => {
       const settings = await storage.getSettings();
 
       // Should fall back to defaults
-      expect(settings.selectedModel).toBe('gpt-4o');
+      expect(settings.selectedModel).toBe('gpt-5.2');
     });
   });
 
@@ -235,7 +235,7 @@ describe('Settings Persistence Integration', () => {
       const time1 = new Date('2024-01-01T00:00:00Z').toISOString();
       await storage.saveSettings({
         apiKey: 'sk-test',
-        selectedModel: 'gpt-4o',
+        selectedModel: 'gpt-5.2',
         lastUpdated: time1,
       });
 

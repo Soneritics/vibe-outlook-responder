@@ -194,7 +194,7 @@ export const SettingsPanel: React.FC = () => {
         await deletePrompt(prompt.id);
       }
       setLocalApiKey('');
-      setLocalModel('gpt-4o');
+      setLocalModel('gpt-5.2');
       setApiKeyError('');
       setTestResult(undefined);
       setSaveMessage('All settings and prompts have been reset.');

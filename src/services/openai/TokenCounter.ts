@@ -7,6 +7,9 @@ import { encoding_for_model, get_encoding, TiktokenModel } from 'tiktoken';
 export class TokenCounter {
   // Model token limits
   private readonly MODEL_LIMITS: Record<string, number> = {
+    'gpt-5.2': 256000,
+    'gpt-5-mini': 128000,
+    'gpt-5-nano': 64000,
     'gpt-4': 8192,
     'gpt-4o': 128000,
     'gpt-4-turbo': 128000,
@@ -15,6 +18,9 @@ export class TokenCounter {
 
   // Pricing per 1K tokens (input/output)
   private readonly MODEL_PRICING: Record<string, { input: number; output: number }> = {
+    'gpt-5.2': { input: 0.01, output: 0.03 },
+    'gpt-5-mini': { input: 0.005, output: 0.015 },
+    'gpt-5-nano': { input: 0.002, output: 0.006 },
     'gpt-4': { input: 0.03, output: 0.06 },
     'gpt-4o': { input: 0.005, output: 0.015 },
     'gpt-4-turbo': { input: 0.01, output: 0.03 },

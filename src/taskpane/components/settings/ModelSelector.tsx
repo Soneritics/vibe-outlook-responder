@@ -48,9 +48,27 @@ interface ModelOption {
 
 const MODEL_OPTIONS: ModelOption[] = [
   {
+    id: 'gpt-5.2',
+    name: 'GPT-5.2 (Default)',
+    description: 'Most advanced model with superior reasoning',
+    contextWindow: '256K tokens',
+  },
+  {
+    id: 'gpt-5-mini',
+    name: 'GPT-5 Mini',
+    description: 'Balanced performance and speed',
+    contextWindow: '128K tokens',
+  },
+  {
+    id: 'gpt-5-nano',
+    name: 'GPT-5 Nano',
+    description: 'Ultra-fast responses for simple tasks',
+    contextWindow: '64K tokens',
+  },
+  {
     id: 'gpt-4o',
-    name: 'GPT-4o (Default)',
-    description: 'Latest and most capable model with enhanced reasoning',
+    name: 'GPT-4o',
+    description: 'Previous flagship with enhanced reasoning',
     contextWindow: '128K tokens',
   },
   {
@@ -83,7 +101,7 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
 }) => {
   const styles = useStyles();
 
-  const selectedModel = value || 'gpt-4o';
+  const selectedModel = value || 'gpt-5.2';
   const selectedModelInfo = MODEL_OPTIONS.find((m) => m.id === selectedModel);
 
   const handleChange = (_event: unknown, data: { optionValue?: string }) => {

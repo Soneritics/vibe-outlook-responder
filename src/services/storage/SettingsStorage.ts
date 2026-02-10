@@ -29,7 +29,7 @@ export class SettingsStorage {
 
   private readonly DEFAULT_SETTINGS: Settings = {
     apiKey: '',
-    selectedModel: 'gpt-4o',
+    selectedModel: 'gpt-5.2',
     lastUpdated: new Date().toISOString(),
   };
 
