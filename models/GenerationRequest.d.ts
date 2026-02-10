@@ -1,3 +1,4 @@
+import { SupportedModel } from './Settings';
 /**
  * Represents a request to generate an AI-powered email response.
  * This is a transient object used for orchestrating the generation flow.
@@ -21,6 +22,6 @@ export interface GenerationRequest {
     /**
      * Selected ChatGPT model for this request
      */
-    model: 'gpt-5' | 'gpt-4' | 'gpt-4-turbo' | 'gpt-3.5-turbo';
+    model: SupportedModel;
 }
 //# sourceMappingURL=GenerationRequest.d.ts.map
